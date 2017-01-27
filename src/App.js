@@ -1,4 +1,4 @@
-/* Welcome file which starts rendering the jewellery app */
+/* Welcome file which starts rendering the app */
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';

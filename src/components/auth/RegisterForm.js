@@ -1,27 +1,33 @@
 /* Registration form */
 import React, { Component } from 'react';
+import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardSection, BackgroundImage, Input, Button, Spinner } from '../common';
 import {
+  fullNameChanged,
   emailChanged,
   passwordChanged,
   addrStreetChanged,
   addrAptChanged,
-  addrRestChanged,
+  stateChanged,
   cityChanged,
   zipChanged,
   phoneNumChanged,
   createUserAccount } from '../../actions';
 import {
   SPINNER_SIZE,
+  LABEL_FULLNAME,
+  PLACEHOLDER_FULLNAME,
   LABEL_EMAIL,
-  EMAIL_PLACEHOLDER,
+  PLACEHOLDER_EMAIL,
   LABEL_PASSWORD,
-  PASSWORD_PLACEHOLDER,
+  PLACEHOLDER_PASSWORD,
   LABEL_ADDRESS_LINE1,
   PLACEHOLDER_STREET,
   LABEL_ADDRESS_LINE2,
   PLACEHOLDER_APT,
+  LABEL_STATE,
+  PLACEHOLDER_STATE,
   LABEL_CITY,
   PLACEHOLDER_CITY,
   LABEL_ZIP,
@@ -32,6 +38,10 @@ import {
 } from '../../actions/constants';
 
 class RegisterForm extends Component {
+
+  onFullNameChange(text) {
+    this.props.fullNameChanged(text);
+  }
 
   onEmailChange(text) {
     this.props.emailChanged(text);
@@ -49,8 +59,8 @@ class RegisterForm extends Component {
     this.props.addrAptChanged(text);
   }
 
-  onAddrRestChange(text) {
-    this.props.addrRestChanged(text);
+  onStateChange(text) {
+    this.props.stateChanged(text);
   }
 
   onCityChange(text) {
@@ -77,12 +87,14 @@ class RegisterForm extends Component {
   }
 
   onButtonPress() {
-    const { email, password, addrStreet, addrApt, addrRest, city, zip, phoneNum } = this.props;
-    this.props.createUserAccount({ email,
+    const { fullName, email, password, addrStreet,
+       addrApt, state, city, zip, phoneNum } = this.props;
+    this.props.createUserAccount({ fullName,
+      email,
       password,
       addrStreet,
       addrApt,
-      addrRest,
+      state,
       city,
       zip,
       phoneNum });
@@ -94,8 +106,17 @@ class RegisterForm extends Component {
         <Card>
           <CardSection>
             <Input
+              label={LABEL_FULLNAME}
+              placeholder={PLACEHOLDER_FULLNAME}
+              onChangeText={this.onFullNameChange.bind(this)}
+              value={this.props.fullName}
+            />
+          </CardSection>
+
+          <CardSection>
+            <Input
               label={LABEL_EMAIL}
-              placeholder={EMAIL_PLACEHOLDER}
+              placeholder={PLACEHOLDER_EMAIL}
               onChangeText={this.onEmailChange.bind(this)}
               value={this.props.email}
             />
@@ -105,7 +126,7 @@ class RegisterForm extends Component {
             <Input
               secureTextEntry
               label={LABEL_PASSWORD}
-              placeholder={PASSWORD_PLACEHOLDER}
+              placeholder={PLACEHOLDER_PASSWORD}
               onChangeText={this.onPasswordChange.bind(this)}
               value={this.props.password}
             />
@@ -127,9 +148,14 @@ class RegisterForm extends Component {
               onChangeText={this.onAddrAptChange.bind(this)}
               value={this.props.addrApt}
             />
+          </CardSection>
+
+          <CardSection>
             <Input
-              onChangeText={this.onAddrRestChange.bind(this)}
-              value={this.props.addrRest}
+              label={LABEL_STATE}
+              placeholder={PLACEHOLDER_STATE}
+              onChangeText={this.onStateChange.bind(this)}
+              value={this.props.state}
             />
           </CardSection>
 
@@ -156,6 +182,9 @@ class RegisterForm extends Component {
               value={this.props.phoneNum}
             />
           </CardSection>
+          <Text style={styles.errorTextStyle}>
+            {this.props.error}
+          </Text>
 
           <CardSection>
             {this.onSignUpButton()}
@@ -166,25 +195,35 @@ class RegisterForm extends Component {
   }
 }
 
+const styles = {
+  errorTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
+  }
+};
+
 const mapStateToProps = ({ auth }) => {
-  const { email,
+  const { fullName,
+    email,
     password,
     error,
     loading,
     addrStreet,
     addrApt,
-    addrRest,
+    state,
     city,
     zip,
     phoneNum
    } = auth;
-  return { email,
+  return { fullName,
+    email,
     password,
     error,
     loading,
     addrStreet,
     addrApt,
-    addrRest,
+    state,
     city,
     zip,
     phoneNum
@@ -192,11 +231,12 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, {
+  fullNameChanged,
   emailChanged,
   passwordChanged,
   addrStreetChanged,
   addrAptChanged,
-  addrRestChanged,
+  stateChanged,
   cityChanged,
   zipChanged,
   phoneNumChanged,

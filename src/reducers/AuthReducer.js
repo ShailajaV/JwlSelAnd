@@ -1,5 +1,6 @@
 /* This file contains authentication related reducers */
 import {
+  FULLNAME_CHANGED,
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
   LOGIN_USER_SUCCESS,
@@ -7,15 +8,15 @@ import {
   LOGIN_USER,
   ADDRSTREET_CHANGED,
   ADDRAPT_CHANGED,
-  ADDRREST_CHANGED,
+  STATE_CHANGED,
   CITY_CHANGED,
   ZIP_CHANGED,
   PHONENUM_CHANGED,
-  USER_SIGN_UP
+  LOGOUT_USER
  } from '../actions/types';
- import { AUTH_FAILED } from '../actions/constants';
 
 const INITIAL_STATE = {
+  fullName: '',
   email: '',
   password: '',
   user: null,
@@ -23,7 +24,7 @@ const INITIAL_STATE = {
   loading: false,
   addrStreet: '',
   addrApt: '',
-  addrRest: '',
+  state: '',
   city: '',
   zip: '',
   phoneNum: ''
@@ -31,6 +32,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case FULLNAME_CHANGED:
+      return { ...state, fullName: action.payload };
     case EMAIL_CHANGED:
       return { ...state, email: action.payload };
     case PASSWORD_CHANGED:
@@ -40,21 +43,21 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER_SUCCESS:
       return { ...state, ...INITIAL_STATE, user: action.paylod };
     case LOGIN_USER_FAIL:
-      return { ...state, error: AUTH_FAILED, password: '', loading: false };
+      return { ...state, error: action.payload, password: '', loading: false };
     case ADDRSTREET_CHANGED:
       return { ...state, addrStreet: action.payload };
     case ADDRAPT_CHANGED:
       return { ...state, addrApt: action.payload };
-    case ADDRREST_CHANGED:
-      return { ...state, addrRest: action.payload };
+    case STATE_CHANGED:
+      return { ...state, state: action.payload };
     case CITY_CHANGED:
       return { ...state, city: action.payload };
     case ZIP_CHANGED:
       return { ...state, zip: action.payload };
     case PHONENUM_CHANGED:
       return { ...state, phoneNum: action.payload };
-    case USER_SIGN_UP:
-      return { ...state, ...INITIAL_STATE, user: action.paylod };
+    case LOGOUT_USER:
+      return { ...state, ...INITIAL_STATE };
     default:
       return state;
   }

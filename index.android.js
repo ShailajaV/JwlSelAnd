@@ -1,5 +1,5 @@
 /**
- * Jewellery Seller React Native App
+ * Seller React Native App
  */
 
 import {
