@@ -1,8 +1,10 @@
 /* This file contains authentication related reducers */
 import {
+  USER_DETAILS_CHANGED,
   FULLNAME_CHANGED,
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
+  COMPANYNAME_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
@@ -19,6 +21,7 @@ const INITIAL_STATE = {
   fullName: '',
   email: '',
   password: '',
+  companyName: '',
   user: null,
   error: '',
   loading: false,
@@ -32,6 +35,8 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case USER_DETAILS_CHANGED:
+      return { ...state, [action.payload.prop]: action.payload.value };
     case FULLNAME_CHANGED:
       return { ...state, fullName: action.payload };
     case EMAIL_CHANGED:
@@ -44,6 +49,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...INITIAL_STATE, user: action.paylod };
     case LOGIN_USER_FAIL:
       return { ...state, error: action.payload, password: '', loading: false };
+    case COMPANYNAME_CHANGED:
+      return { ...state, companyName: action.payload };
     case ADDRSTREET_CHANGED:
       return { ...state, addrStreet: action.payload };
     case ADDRAPT_CHANGED:

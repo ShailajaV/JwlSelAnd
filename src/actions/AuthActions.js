@@ -3,19 +3,11 @@ import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 //import Communications from 'react-native-communications';
 import {
-  FULLNAME_CHANGED,
-  EMAIL_CHANGED,
-  PASSWORD_CHANGED,
+  USER_DETAILS_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
-  LOGOUT_USER,
-  ADDRSTREET_CHANGED,
-  ADDRAPT_CHANGED,
-  STATE_CHANGED,
-  CITY_CHANGED,
-  ZIP_CHANGED,
-  PHONENUM_CHANGED
+  LOGOUT_USER
 } from './types';
 import {
   ERR_AUTH_FAILED,
@@ -53,66 +45,10 @@ const logInPage = (dispatch) => {
   dispatch({ type: LOGOUT_USER });
 };
 
-export const fullNameChanged = (text) => {
+export const userDetailsChanged = ({ prop, value }) => {
   return {
-    type: FULLNAME_CHANGED,
-    payload: text
-  };
-};
-
-export const emailChanged = (text) => {
-  return {
-    type: EMAIL_CHANGED,
-    payload: text
-  };
-};
-
-export const passwordChanged = (text) => {
-  return {
-    type: PASSWORD_CHANGED,
-    payload: text
-  };
-};
-
-export const addrStreetChanged = (text) => {
-  return {
-    type: ADDRSTREET_CHANGED,
-    payload: text
-  };
-};
-
-export const addrAptChanged = (text) => {
-  return {
-    type: ADDRAPT_CHANGED,
-    payload: text
-  };
-};
-
-export const stateChanged = (text) => {
-  return {
-    type: STATE_CHANGED,
-    payload: text
-  };
-};
-
-export const cityChanged = (text) => {
-  return {
-    type: CITY_CHANGED,
-    payload: text
-  };
-};
-
-export const zipChanged = (text) => {
-  return {
-    type: ZIP_CHANGED,
-    payload: text
-  };
-};
-
-export const phoneNumChanged = (text) => {
-  return {
-    type: PHONENUM_CHANGED,
-    payload: text
+    type: USER_DETAILS_CHANGED,
+    payload: { prop, value }
   };
 };
 
@@ -155,6 +91,7 @@ const loginUserSuccess = (dispatch, user) => {
 export const createUserAccount = ({ fullName,
   email,
   password,
+  companyName,
   addrStreet,
   addrApt,
   state,
@@ -169,11 +106,11 @@ export const createUserAccount = ({ fullName,
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         const { currentUser } = firebase.auth();
+        const address = `${addrStreet},${addrApt},${city},${state},${zip}`;
         firebase.database().ref(`/users/${currentUser.uid}/`)
-          .push({ fullName, addrStreet, addrApt, state, city, zip, phoneNum })
-          .then((finalUser) => {
+          .push({ fullName, companyName, address, phoneNum })
+          .then(() => {
             loginUserSuccess(dispatch, user);
-            console.log('userdata ', finalUser);
           })
           .catch(() => {
             firebase.database().ref(`/users/${currentUser.uid}/`)

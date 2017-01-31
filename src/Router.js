@@ -4,7 +4,7 @@ import { Scene, Router } from 'react-native-router-flux';
 import PreLoginForm from './components/auth/PreLoginForm';
 import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
-import SellerProfileForm from './components/seller/SellerProfileForm';
+import SellerProfile from './components/seller/SellerProfile';
 import {
   KEY_AUTH, HEADER_SIGN_IN, HEADER_LOG_IN, HEADER_SIGN_UP,
   KEY_SIGN_IN, KEY_SIGN_UP, KEY_LOGIN, KEY_MAIN, HEADER_ACT_SETTINGS,
@@ -22,7 +22,7 @@ const RouterComponent = () => {
       <Scene key={KEY_MAIN}>
         <Scene
           key={KEY_SELLER_PROFILE}
-          component={SellerProfileForm}
+          component={SellerProfile}
           title={HEADER_ACT_SETTINGS} initial
         />
       </Scene>
