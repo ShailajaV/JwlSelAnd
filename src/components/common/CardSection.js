@@ -16,8 +16,9 @@ const CardSection = (props) => {
       //backgroundColor: '#fff',
       justifyContent: 'flex-start',
       flexDirection: 'row',
-      borderColor: '#ddd',
-      position: 'relative'
+      //borderColor: '#ddd',
+      position: 'relative',
+      opacity: 0.7
     }
 };
 

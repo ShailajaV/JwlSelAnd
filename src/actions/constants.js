@@ -4,10 +4,14 @@
 export const KEY_SIGN_IN = 'signIn';
 export const KEY_SIGN_UP = 'signUp';
 export const KEY_LOGIN = 'logIn';
+export const KEY_FORGOT_PASSWORD = 'forgotPassword';
 export const HEADER_SIGN_IN = 'Welcome to Jewellery project';
 export const HEADER_LOG_IN = 'Sign in to Jewellery project';
 export const HEADER_SIGN_UP = 'Register in to Jewellery project';
+export const HEADER_FORGOT_PASS = 'Forgot Password';
 export const KEY_AUTH = 'auth';
+export const FORGOTPASSWORD = 'forgotPassword';
+export const SEND = 'Send';
 export const SIGN_IN = 'Sign In';
 export const SIGN_UP = 'Register';
 export const LABEL_FULLNAME = 'Full Name';
@@ -43,3 +47,6 @@ export const PLACEHOLDER_COMPANY_NAME = 'Zales Daimonds';
 export const LABEL_SELLER_ADDRESS = 'Address';
 export const PLACEHOLDER_SELLER_ADDRESS =
 '   South Bay Galleria, 1815 \n Hawthrone Blvd, Redondo Beach, \n CA 90278';
+export const FORGOT_PASSWORD = 'Forgot Password ?';
+export const EMAIL_MSG = 'Enter the email,we will send the link to reset the password';
+export const SEND_EMAIL = 'Sending Email';

@@ -5,6 +5,8 @@ import PreLoginForm from './components/auth/PreLoginForm';
 import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
 import SellerProfileForm from './components/seller/SellerProfileForm';
+import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
+
 import {
   KEY_AUTH, HEADER_SIGN_IN, HEADER_LOG_IN, HEADER_SIGN_UP,
   KEY_SIGN_IN, KEY_SIGN_UP, KEY_LOGIN, KEY_MAIN, HEADER_ACT_SETTINGS,
@@ -17,6 +19,7 @@ const RouterComponent = () => {
       <Scene key={KEY_AUTH}>
         <Scene key={KEY_SIGN_IN} component={PreLoginForm} title={HEADER_SIGN_IN} initial />
         <Scene key={KEY_LOGIN} component={LoginForm} title={HEADER_LOG_IN} />
+      <Scene key={KEY_FORGOT_PASSWORD} component={ForgotPasswordForm} title={HEADER_FORGOT_PASS} />
         <Scene key={KEY_SIGN_UP} component={RegisterForm} title={HEADER_SIGN_UP} />
       </Scene>
       <Scene key={KEY_MAIN}>

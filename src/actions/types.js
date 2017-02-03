@@ -12,3 +12,5 @@ export const STATE_CHANGED = 'state_changed';
 export const CITY_CHANGED = 'city_changed';
 export const ZIP_CHANGED = 'zip_changed';
 export const PHONENUM_CHANGED = 'phoneNum_changed';
+export const USER_SIGN_UP = 'signUp_user';
+export const FORGOT_PASSWORD = 'forgot_password';
