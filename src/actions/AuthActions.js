@@ -81,7 +81,7 @@ const loginUserSuccess = (dispatch, user) => {
     payload: user
   });
 
-  Actions.main();
+  Actions.seller();
 };
 
 /* Register new account

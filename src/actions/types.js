@@ -9,3 +9,5 @@ export const LOGOUT_USER = 'logout_user';
 // Seller profile info constants
 export const SELLER_PROFILE_CHANGED = 'seller_profile_changed';
 export const SELLER_FETCH_SUCCESS = 'seller_fetch_success';
+export const SELLER_SAVE_SUCCESS = 'seller_save_success';
+export const SELLER_SAVE_FAIL = 'seller_save_fail';

@@ -35,8 +35,15 @@ export const EMAIL_SUBJECT = 'Welcome to Jewllery world!';
 export const EMAIL_BODY = 'Hi,  ';
 
 // Seller profile related constants
-export const KEY_MAIN = 'main';
+export const KEY_SELLER = 'seller';
 export const HEADER_ACT_SETTINGS = 'Account Settings';
 export const KEY_SELLER_PROFILE = 'sellerProfile';
 export const LABEL_SELLER_NAME = 'Name of the Seller';
 export const LABEL_SELLER_ADDRESS = 'Address';
+
+// Product related constants
+export const KEY_PRODUCT = 'product';
+export const KEY_PRODUCT_DETAILS = 'product_details';
+export const HEADER_PRODUCT_DETAILS = 'Upload Product Details';
+export const SAVE = 'Save';
+export const NEXT = 'Next';
