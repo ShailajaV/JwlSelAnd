@@ -35,7 +35,12 @@ const styles = {
   labelStyle: {
     fontSize: 18,
     paddingLeft: 20,
-    flex: 1
+    flex: 2,
+    fontFamily: 'Cochin',
+    lineHeight: 23,
+    height: 40
+
+
   },
   containerStyle: {
     height: 40,

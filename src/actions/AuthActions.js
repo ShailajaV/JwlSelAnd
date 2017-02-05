@@ -40,6 +40,11 @@ export const signUp = () => {
     Actions.signUp();
   };
 };
+export const forgotPassword = () => {
+  return () => {
+    Actions.forgotPassword();
+  };
+};
 
 const logInPage = (dispatch) => {
   dispatch({ type: LOGOUT_USER });

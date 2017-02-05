@@ -6,10 +6,12 @@ import LoginForm from './components/auth/LoginForm';
 import RegisterForm from './components/auth/RegisterForm';
 import SellerProfile from './components/seller/SellerProfile';
 import ProductForm from './components/product/ProductForm';
+import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 import {
   KEY_AUTH, HEADER_SIGN_IN, HEADER_LOG_IN, HEADER_SIGN_UP,
-  KEY_SIGN_IN, KEY_SIGN_UP, KEY_LOGIN, KEY_SELLER, HEADER_ACT_SETTINGS,
-  KEY_SELLER_PROFILE, KEY_PRODUCT, KEY_PRODUCT_DETAILS, HEADER_PRODUCT_DETAILS
+  KEY_SIGN_IN, KEY_SIGN_UP, KEY_LOGIN, KEY_FORGOT_PASSWORD, HEADER_FORGOT_PASS,
+  KEY_SELLER, HEADER_ACT_SETTINGS, KEY_SELLER_PROFILE, KEY_PRODUCT, KEY_PRODUCT_DETAILS,
+  HEADER_PRODUCT_DETAILS
 } from './actions/constants';
 
 const RouterComponent = () => {
@@ -18,6 +20,10 @@ const RouterComponent = () => {
       <Scene key={KEY_AUTH}>
         <Scene key={KEY_SIGN_IN} component={PreLoginForm} title={HEADER_SIGN_IN} initial />
         <Scene key={KEY_LOGIN} component={LoginForm} title={HEADER_LOG_IN} />
+        <Scene
+          key={KEY_FORGOT_PASSWORD}
+          component={ForgotPasswordForm} title={HEADER_FORGOT_PASS}
+        />
         <Scene key={KEY_SIGN_UP} component={RegisterForm} title={HEADER_SIGN_UP} />
       </Scene>
 

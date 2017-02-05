@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import { connect } from 'react-redux';
-import { userDetailsChanged, loginUser } from '../../actions';
+import { userDetailsChanged, loginUser, forgotPassword } from '../../actions';
 import { Card, CardSection, Input, Button, Spinner, BackgroundImage } from '../common';
 import {
   LABEL_EMAIL,
@@ -10,15 +10,32 @@ import {
   LABEL_PASSWORD,
   PLACEHOLDER_PASSWORD,
   SIGN_IN,
-  SPINNER_SIZE
+  SPINNER_SIZE,
+  FORGOT_PASSWORD
 } from '../../actions/constants';
 
 class LoginForm extends Component {
+
+  onForgotPassword(text) {
+    this.props.forgotPassword(text);
+  }
 
   onButtonPress() {
     const { email, password } = this.props;
     this.props.loginUser({ email, password });
   }
+  onPress() {
+    const { email } = this.props;
+    this.props.forgotPassword({ email });
+  }
+  renderForgotPassword() {
+    return (
+      <Button onPress={this.onPress.bind(this)}>
+      {FORGOT_PASSWORD}
+      </Button>
+    );
+  }
+
 
   renderButton() {
     if (this.props.loading) {
@@ -42,6 +59,7 @@ class LoginForm extends Component {
               value={this.props.email}
               onChangeText={value =>
                 this.props.userDetailsChanged({ prop: 'email', value })}
+              style={styles.labelStyle}
             />
           </CardSection>
 
@@ -61,7 +79,8 @@ class LoginForm extends Component {
 
           <CardSection>
             {this.renderButton()}
-          </CardSection>
+            {this.renderForgotPassword()}
+         </CardSection>
         </Card>
       </BackgroundImage>
     );
@@ -73,6 +92,20 @@ const styles = {
     fontSize: 20,
     alignSelf: 'center',
     color: 'red'
+  },
+  containerStyle: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  forgotPasswordStyle: {
+    flex: 1,
+    color: 'blue',
+    fontSize: 20,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    fontFamily: 'Cochin'
   }
 };
 
@@ -82,5 +115,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps,
-  { userDetailsChanged, loginUser
+  { userDetailsChanged, loginUser, forgotPassword
   })(LoginForm);
