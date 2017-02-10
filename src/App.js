@@ -10,11 +10,11 @@ import Router from './Router';
 class App extends Component {
   componentWillMount() {
     const config = {
-      apiKey: 'AIzaSyDFmxMQ6Fp55hh6RQiaUuIHsUYDlTKySZc',
-      authDomain: 'jewellery-ece6f.firebaseapp.com',
-      databaseURL: 'https://jewellery-ece6f.firebaseio.com',
-      storageBucket: 'jewellery-ece6f.appspot.com',
-      messagingSenderId: '601320078334'
+    apiKey: 'AIzaSyDFmxMQ6Fp55hh6RQiaUuIHsUYDlTKySZc',
+    authDomain: 'jewellery-ece6f.firebaseapp.com',
+    databaseURL: 'https://jewellery-ece6f.firebaseio.com',
+    storageBucket: 'jewellery-ece6f.appspot.com',
+    messagingSenderId: '601320078334'
     };
   firebase.initializeApp(config);
   }

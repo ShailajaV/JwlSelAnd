@@ -1,4 +1,4 @@
-/* This file includes all auth action creaters */
+/* This file includes all auth action creators */
 import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 //import Communications from 'react-native-communications';
@@ -73,6 +73,7 @@ export const loginUser = ({ email, password }) => {
   };
 };
 
+// User login fail
 const loginUserFail = (dispatch, text) => {
   dispatch({
     type: LOGIN_USER_FAIL,
@@ -80,6 +81,7 @@ const loginUserFail = (dispatch, text) => {
   });
 };
 
+// User login success
 const loginUserSuccess = (dispatch, user) => {
   dispatch({
     type: LOGIN_USER_SUCCESS,
@@ -104,16 +106,15 @@ export const createUserAccount = ({ fullName,
   zip,
   phoneNum
 }) => {
-  console.log('fullName ', fullName, 'addrStreet', addrStreet, 'addrApt', addrApt, 'state', state,
-  'city', city, 'zip', zip, 'phoneNum', phoneNum);
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         const { currentUser } = firebase.auth();
+        const imageSetFlag = 0;
         const address = `${addrStreet},${addrApt},${city},${state},${zip}`;
         firebase.database().ref(`/users/${currentUser.uid}/`)
-          .push({ fullName, companyName, address, phoneNum })
+          .push({ fullName, companyName, address, phoneNum, imageSetFlag })
           .then(() => {
             loginUserSuccess(dispatch, user);
           })
@@ -149,6 +150,7 @@ export const logOut = () => {
   };
 };
 
+// User sign in error messages
 const handleSignInErrorMessages = (dispatch, errorCode) => {
   let errorMsg;
   switch (errorCode) {
@@ -170,6 +172,7 @@ const handleSignInErrorMessages = (dispatch, errorCode) => {
     loginUserFail(dispatch, errorMsg);
 };
 
+// User sign up error messages
 const handleSignUpErrorMessages = (dispatch, errorCode) => {
   let errorMsg;
   switch (errorCode) {

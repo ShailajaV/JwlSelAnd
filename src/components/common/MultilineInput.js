@@ -1,8 +1,8 @@
-/* Customized text input component */
+/* Customized multi line text input component */
 import React from 'react';
 import { TextInput, View, Text } from 'react-native';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, editable }) => {
+const MultilineInput = ({ label, value, onChangeText, placeholder, secureTextEntry, editable }) => {
 const { inputStyle, labelStyle, containerStyle } = styles;
 
   return (
@@ -17,7 +17,9 @@ const { inputStyle, labelStyle, containerStyle } = styles;
         value={value}
         onChangeText={onChangeText}
         underlineColorAndroid='transparent'
-        maxLength={25}
+        maxLength={255}
+        multiline={true}
+        numberOfLines={4}
       />
     </View>
   );
@@ -29,7 +31,7 @@ const styles = {
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
-    lineHeight: 23,
+    lineHeight: 60,
     flex: 2,
     backgroundColor: '#fff'
   },
@@ -44,10 +46,10 @@ const styles = {
 
   },
   containerStyle: {
-    height: 40,
+    height: 60,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
   }
 };
-export { Input };
+export { MultilineInput };

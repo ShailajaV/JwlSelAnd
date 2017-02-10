@@ -3,60 +3,56 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { View, Image, Text, TouchableOpacity,
    Platform, PixelRatio } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, Button, BackgroundImage } from '../common';
+import { Card, CardSection, Input, MultilineInput, Button, BackgroundImage } from '../common';
 import { LABEL_SELLER_NAME, LABEL_COMPANY_NAME,
   LABEL_SELLER_ADDRESS, SAVE, NEXT } from '../../actions/constants';
-import { sellerProfileChanged, saveSellerProfile, uploadImage,
-  landProductForm } from '../../actions';
+import { sellerProfileChanged, saveSellerProfile, getSellerProfileImage } from '../../actions';
 
 class SellerProfileForm extends Component {
   state = { editable: false,
-            uploadURL: null };
+            uploadURL: null,
+            deleteFlag: 0 };
   componentWillMount() {
     _.each(this.props.seller, (value, prop) => {
       this.props.sellerProfileChanged({ prop, value });
     });
+    this.props.getSellerProfileImage();
   }
 
   onImageDelete() {
     this.setState({
-      uploadURL: null
+      uploadURL: null,
+      deleteFlag: 1
     });
   }
 
   onSaveButtonPress() {
-    /*uploadImage(this.state.uploadURL)
-      .then(url => this.setState({ uploadURL: url }))
-      .catch(error => console.log(error));*/
     const { fullName, companyName, address } = this.props;
-    const { uri } = this.state.uploadURL;
-    const image = uri;
-    console.log('uri ', uri, 'image ', image, '{image} ', { image },
-    'fullName ', fullName, '{fullName} ', { fullName }, this.props.seller.uid);
-    this.props.saveSellerProfile({ image,
+    this.props.saveSellerProfile({ uploadURL: this.state.uploadURL,
+      deleteFlag: this.state.deleteFlag,
       fullName,
       companyName,
       address,
-      uid: this.props.seller.uid });
+      uid: this.props.seller.uid
+    });
   }
 
   onNextButtonPress() {
-    this.props.landProductForm();
+    Actions.product();
   }
 
   selectPhotoTapped() {
-        ImagePicker.showImagePicker({}, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled photo picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      } else {
+    ImagePicker.showImagePicker({}, (response) => {
+    if (response.didCancel) {
+      console.log('User cancelled photo picker');
+    } else if (response.error) {
+      console.log('ImagePicker Error: ', response.error);
+    } else if (response.customButton) {
+      console.log('User tapped custom button: ', response.customButton);
+    } else {
         let source;
         if (Platform.OS === 'android') {
           source = { uri: response.uri };
@@ -65,46 +61,51 @@ class SellerProfileForm extends Component {
         }
 
         this.setState({
-          uploadURL: source
+          uploadURL: source,
+          deleteFlag: 0
         });
       }
     });
   }
 
   render() {
+    let srcImg = '';
+    if (this.state.uploadURL !== null) {
+      srcImg = this.state.uploadURL;
+    } else if (this.props.image === 'undefined' || this.props.image === '' ||
+                this.props.image === null || this.state.deleteFlag === 1) {
+      srcImg = require('../common/images/noimage.png');
+    } else {
+      srcImg = { uri: this.props.image };
+    }
+
     return (
       <BackgroundImage>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-            <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-              { this.state.uploadURL === null ?
-                  <Image style={styles.upload} source={require('../common/images/noimage.png')}>
-                    <Text> Upload your picture </Text>
-                  </Image>
-                :
-                <Image style={styles.upload} source={this.state.uploadURL} />
-              }
-          </View>
-          </TouchableOpacity>
-          <View sytle={styles.container2}>
-            <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
-              <Image
-                source={require('../common/images/deleteimage.jpeg')}
-                style={styles.imageStyle}
-                resizeMode={Image.resizeMode.sretch}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <Image
-                source={require('../common/images/editimage.png')}
-                style={styles.imageStyle}
-                resizeMode={Image.resizeMode.sretch}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
         <Card>
-          <CardSection style={styles.containerStyle}>
+          <CardSection>
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
+                <Image style={styles.upload} source={srcImg} />
+              </View>
+            </TouchableOpacity>
+            <View sytle={styles.containerStyle}>
+              <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
+                <Image
+                  source={require('../common/images/deleteimage.jpeg')}
+                  style={styles.imageStyle}
+                  resizeMode={Image.resizeMode.sretch}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                <Image
+                  source={require('../common/images/editimage.png')}
+                  style={styles.imageStyle}
+                  resizeMode={Image.resizeMode.sretch}
+                />
+              </TouchableOpacity>
+            </View>
+          </CardSection>
+          <CardSection style={{ justifyContent: 'flex-end' }}>
             <TouchableOpacity onPress={() => this.setState({ editable: !this.state.editable })}>
               <Image
                 source={require('../common/images/editimage.png')}
@@ -135,7 +136,7 @@ class SellerProfileForm extends Component {
           </CardSection>
 
           <CardSection>
-            <Input
+            <MultilineInput
               editable={this.state.editable}
               label={LABEL_SELLER_ADDRESS}
               value={this.props.address}
@@ -163,12 +164,6 @@ class SellerProfileForm extends Component {
 }
 
 const styles = {
-  pictStyle: {
-    width: 70,
-    height: 50,
-    resizeMode: 'contain',
-    alignSelf: 'flex-start'
-  },
   imageStyle: {
     width: 50,
     height: 50,
@@ -176,26 +171,17 @@ const styles = {
     alignSelf: 'flex-end'
   },
   containerStyle: {
-    padding: 35,
-    justifyContent: 'flex-end',
-    flexDirection: 'row',
-    borderColor: '#ddd',
+    padding: 5,
+    justifyContent: 'flex-start',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    position: 'relative',
+    opacity: 0.7
   },
   errorTextStyle: {
     fontSize: 20,
     alignSelf: 'center',
     color: 'red'
-  },
-  container: {
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'flex-start',
-      padding: 5
-  },
-  container2: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'flex-start'
   },
   uploadContainer: {
     borderColor: '#9B9B9B',
@@ -211,10 +197,12 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-  const { image, fullName, companyName, address, error } = state.sellerForm;
-  return { image, fullName, companyName, address, error };
+  const { fullName, companyName, address, image, error } = state.sellerForm;
+  return { fullName, companyName, address, image, error };
 };
 
 
-export default connect(mapStateToProps,
-  { sellerProfileChanged, uploadImage, saveSellerProfile, landProductForm })(SellerProfileForm);
+export default connect(mapStateToProps, {
+  sellerProfileChanged,
+  getSellerProfileImage,
+  saveSellerProfile })(SellerProfileForm);

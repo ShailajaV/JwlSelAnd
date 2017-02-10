@@ -44,6 +44,7 @@ export const HEADER_ACT_SETTINGS = 'Account Settings';
 export const KEY_SELLER_PROFILE = 'sellerProfile';
 export const LABEL_SELLER_NAME = 'Name of the Seller';
 export const LABEL_SELLER_ADDRESS = 'Address';
+export const SELLER_ACCOUNT_SETTINGS = 'seller_account_settings';
 
 // Product related constants
 export const KEY_PRODUCT = 'product';
@@ -54,3 +55,10 @@ export const NEXT = 'Next';
 export const FORGOT_PASSWORD = 'Forgot Password ?';
 export const EMAIL_MSG = 'Enter the email,we will send the link to reset the password';
 export const SEND_EMAIL = 'Sending Email';
+
+// Product related constants
+export const LABEL_PRODUCT_NAME = 'Name of the Piece';
+export const LABEL_RENT_DAYS = 'Days of Rent';
+export const LABEL_RENT_EXPECTED = 'Rent Expected';
+export const ADD_MORE = 'Add more';
+export const SUBMIT = 'Submit';

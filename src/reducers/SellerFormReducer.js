@@ -1,5 +1,6 @@
 /* This file contains Seller profile info related reducers */
-import { SELLER_PROFILE_CHANGED, SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL } from '../actions/types';
+import { SELLER_PROFILE_CHANGED, SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL, GETPROFILE_IMAGE_SUCCESS,
+GETPROFILE_IMAGE_FAIL } from '../actions/types';
 
 const INITIAL_STATE = {
   fullName: '',
@@ -14,8 +15,12 @@ export default (state = INITIAL_STATE, action) => {
     case SELLER_PROFILE_CHANGED:
       return { ...state, [action.payload.prop]: action.payload.value };
     case SELLER_SAVE_SUCCESS:
-      return { ...state, ...INITIAL_STATE, user: action.paylod };
+      return { ...state, ...INITIAL_STATE };
     case SELLER_SAVE_FAIL:
+      return { ...state, error: action.payload };
+    case GETPROFILE_IMAGE_SUCCESS:
+      return { ...state, image: action.payload };
+    case GETPROFILE_IMAGE_FAIL:
       return { ...state, error: action.payload };
     default:
       return state;
