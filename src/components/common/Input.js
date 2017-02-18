@@ -17,7 +17,7 @@ const { inputStyle, labelStyle, containerStyle } = styles;
         value={value}
         onChangeText={onChangeText}
         underlineColorAndroid='transparent'
-        maxLength={25}
+        maxLength={35}
       />
     </View>
   );
@@ -40,8 +40,6 @@ const styles = {
     fontFamily: 'Cochin',
     lineHeight: 23,
     height: 40
-
-
   },
   containerStyle: {
     height: 40,

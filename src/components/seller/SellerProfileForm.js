@@ -6,7 +6,8 @@ import { View, Image, Text, TouchableOpacity,
 import { Actions } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, MultilineInput, Button, BackgroundImage } from '../common';
+import { Card, CardSection, Input, MultilineInput, Button,
+  BackgroundImage } from '../common';
 import { LABEL_SELLER_NAME, LABEL_COMPANY_NAME,
   LABEL_SELLER_ADDRESS, SAVE, NEXT } from '../../actions/constants';
 import { sellerProfileChanged, saveSellerProfile, getSellerProfileImage } from '../../actions';
@@ -31,7 +32,11 @@ class SellerProfileForm extends Component {
 
   onSaveButtonPress() {
     const { fullName, companyName, address } = this.props;
-    this.props.saveSellerProfile({ uploadURL: this.state.uploadURL,
+    const imageURL = this.state.uploadURL;
+    this.setState({
+      uploadURL: null
+    });
+    this.props.saveSellerProfile({ imageURL,
       deleteFlag: this.state.deleteFlag,
       fullName,
       companyName,
@@ -41,7 +46,7 @@ class SellerProfileForm extends Component {
   }
 
   onNextButtonPress() {
-    Actions.product();
+    Actions.productDetails();
   }
 
   selectPhotoTapped() {
@@ -53,19 +58,18 @@ class SellerProfileForm extends Component {
     } else if (response.customButton) {
       console.log('User tapped custom button: ', response.customButton);
     } else {
-        let source;
-        if (Platform.OS === 'android') {
-          source = { uri: response.uri };
-        } else {
-          source = { uri: response.uri.replace('file://', '') };
-        }
-
-        this.setState({
+      let source;
+      if (Platform.OS === 'android') {
+        source = { uri: response.uri };
+      } else {
+        source = { uri: response.uri.replace('file://', '') };
+      }
+      this.setState({
           uploadURL: source,
           deleteFlag: 0
         });
-      }
-    });
+    }
+  });
   }
 
   render() {

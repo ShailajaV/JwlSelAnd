@@ -17,6 +17,10 @@ import {
 
 class LoginForm extends Component {
 
+  /*onForgotPassword(text) {
+    this.props.forgotPassword(text);
+  }*/
+
   onButtonPress() {
     const { email, password } = this.props;
     this.props.loginUser({ email, password });

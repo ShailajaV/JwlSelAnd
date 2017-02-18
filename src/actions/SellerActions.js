@@ -26,7 +26,7 @@ export const sellerProfileChanged = ({ prop, value }) => {
 export const sellerProfileInfo = () => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/`)
+    firebase.database().ref(`/sellers/${currentUser.uid}/`)
     .on('value', snapshot => {
       dispatch({ type: SELLER_FETCH_SUCCESS, payload: snapshot.val() });
     });
@@ -38,25 +38,25 @@ export const sellerProfileInfo = () => {
 * @return : ProductForm
 */
 export const saveSellerProfile = ({
-  uploadURL, deleteFlag, fullName, companyName, address, uid, }) => {
+  imageURL, deleteFlag, fullName, companyName, address, uid }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    firebase.database().ref(`/users/${currentUser.uid}/${uid}`)
+    firebase.database().ref(`/sellers/${currentUser.uid}/${uid}`)
     .set({ fullName, companyName, address })
     .then(() => {
       const imageRef = `/images/${currentUser.uid}/profilepicture`;
       if (deleteFlag === 1) {
         dispatch(deleteProfileImage(imageRef, SELLER_ACCOUNT_SETTINGS));
-      } else if (uploadURL !== null) {
-          const { uri } = uploadURL;
-          dispatch(
-            saveProfileImage(uri, imageRef, SELLER_ACCOUNT_SETTINGS));
+      } else if (imageURL !== '') {
+          const { uri } = imageURL;
+          dispatch(saveProfileImage(uri, imageRef, SELLER_ACCOUNT_SETTINGS));
       } else {
         dispatch({ type: SELLER_SAVE_SUCCESS });
-        Actions.product();
+        Actions.productDetails();
       }
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log('error is ', error);
       dispatch({
         type: SELLER_SAVE_FAIL,
         payload: ERRMSG_SELLER_PROFILE_FAILED

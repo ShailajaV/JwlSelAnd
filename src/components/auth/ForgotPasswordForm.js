@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-//import { forgotPassword } from '../../actions';
 import { Card, CardSection, Button, BackgroundImage } from '../common';
-import { emailChanged } from '../../actions';
+import { userDetailsChanged, passwordReset } from '../../actions';
 
 import {
   EMAIL_MSG,
@@ -13,45 +12,39 @@ import {
 
 
 class ForgotPasswordForm extends Component {
-  onEmailChange(text) {
-    this.props.emailChanged(text);
-  }
-
 
   onButtonPress() {
     const { email } = this.props;
-    this.props.forgotPassword({ email });
+    this.props.passwordReset({ email });
   }
 
-  renderButton() {
+  render() {
     return (
-      <Button onPress={this.onButtonPress.bind(this)}>
-        {SEND}
-      </Button>
+      <BackgroundImage>
+        <Card>
+          <CardSection>
+            <Text style={styles.textStyle}>
+              {EMAIL_MSG}
+            </Text>
+          </CardSection>
+          <CardSection>
+            <TextInput
+              style={styles.inputStyle}
+              placeholder={PLACEHOLDER_EMAIL}
+              value={this.props.email}
+              onChangeText={value =>
+                this.props.userDetailsChanged({ prop: 'email', value })}
+            />
+          </CardSection>
+          <CardSection>
+            <Button onPress={this.onButtonPress.bind(this)}>
+              {SEND}
+            </Button>
+          </CardSection>
+        </Card>
+      </BackgroundImage>
     );
   }
-  render() {
-      return (
-        <BackgroundImage>
-          <Card>
-            <CardSection>
-  <Text style={styles.textStyle}>
-    {EMAIL_MSG}
-  </Text>
-
-  </CardSection>
-  <CardSection>
-  <TextInput style={styles.inputStyle} placeholder={PLACEHOLDER_EMAIL} value={this.props.email} />
-  </CardSection>
-  <CardSection>
-  {this.renderButton()}
-  </CardSection>
-  </Card>
-  </BackgroundImage>
-);
-}
-
-
 }
 
 const styles = {
@@ -78,5 +71,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps,
-  { emailChanged
+  { userDetailsChanged, passwordReset
   })(ForgotPasswordForm);

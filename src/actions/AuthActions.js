@@ -7,10 +7,12 @@ import {
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGIN_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAIL
 } from './types';
 import {
-  ERR_AUTH_FAILED,
+  ERRMSG_AUTH_FAILED,
   ERRCODE_EMAIL_INUSE,
   ERRMSG_EMAIL_INUSE,
   ERRCODE_INVALID_EMAIL,
@@ -23,10 +25,14 @@ import {
   ERRMSG_USER_NOTFOUND,
   ERRCODE_WRONG_PASSWORD,
   ERRMSG_WRONG_PASSWORD,
-  ERRMSG_SIGNUP_FAILED
+  ERRMSG_SIGNUP_FAILED,
+  ERRMSG_PASSWORD_RESET_FAILED
 } from './errorMsgConstants';
-//import { EMAIL_SUBJECT, EMAIL_BODY } from './constants';
 
+/* Sign in page
+* @parameter
+* @return : login form
+*/
 export const signIn = () => {
   return (dispatch) => {
     logInPage(dispatch);
@@ -34,22 +40,45 @@ export const signIn = () => {
   };
 };
 
+/* Sign up page
+* @parameter
+* @return : register form
+*/
 export const signUp = () => {
   return (dispatch) => {
     logInPage(dispatch);
     Actions.signUp();
   };
 };
-export const forgotPassword = () => {
-  return () => {
-    Actions.forgotPassword();
+
+/* Password reset
+* @parameter: email
+* @return : OTPForm
+*/
+export const passwordReset = ({ email }) => {
+  return (dispatch) => {
+    firebase.auth().sendPasswordResetEmail(email)
+    .then(() => {
+      dispatch({
+        type: PASSWORD_RESET_SUCCESS
+      });
+      Actions.logIn();
+    })
+    .catch((error) => {
+      handleForgotPasswordErrorMessages(dispatch, error.code);
+    });
   };
 };
 
+// move to login or register page
 const logInPage = (dispatch) => {
   dispatch({ type: LOGOUT_USER });
 };
 
+/* Assign all auth values to corresponding keys
+* @parameter: prop, value
+* @return : prop, value
+*/
 export const userDetailsChanged = ({ prop, value }) => {
   return {
     type: USER_DETAILS_CHANGED,
@@ -91,6 +120,14 @@ const loginUserSuccess = (dispatch, user) => {
   Actions.seller();
 };
 
+// Password reset fail
+const passwordResetFail = (dispatch, text) => {
+  dispatch({
+    type: PASSWORD_RESET_FAIL,
+    payload: text
+  });
+};
+
 /* Register new account
 * @parameter: AllUserDetails
 * @return : SellerProfileForm
@@ -111,16 +148,14 @@ export const createUserAccount = ({ fullName,
     firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         const { currentUser } = firebase.auth();
-        const imageSetFlag = 0;
         const address = `${addrStreet},${addrApt},${city},${state},${zip}`;
-        firebase.database().ref(`/users/${currentUser.uid}/`)
-          .push({ fullName, companyName, address, phoneNum, imageSetFlag })
+        firebase.database().ref(`/sellers/${currentUser.uid}/`)
+          .push({ fullName, companyName, address, phoneNum })
           .then(() => {
             loginUserSuccess(dispatch, user);
           })
           .catch(() => {
-            firebase.database().ref(`/users/${currentUser.uid}/`)
-            .remove()
+            firebase.auth().currentUser.delete()
             .then(() => {
               loginUserFail(dispatch, ERRMSG_SIGNUP_FAILED);
             })
@@ -167,7 +202,7 @@ const handleSignInErrorMessages = (dispatch, errorCode) => {
       errorMsg = ERRMSG_WRONG_PASSWORD;
       break;
     default:
-      errorMsg = ERR_AUTH_FAILED;
+      errorMsg = ERRMSG_AUTH_FAILED;
     }
     loginUserFail(dispatch, errorMsg);
 };
@@ -186,7 +221,23 @@ const handleSignUpErrorMessages = (dispatch, errorCode) => {
       errorMsg = ERRMSG_WEAK_PASSWORD;
       break;
     default:
-      errorMsg = ERR_AUTH_FAILED;
+      errorMsg = ERRMSG_AUTH_FAILED;
     }
     loginUserFail(dispatch, errorMsg);
+};
+
+// Forgot password error messages
+const handleForgotPasswordErrorMessages = (dispatch, errorCode) => {
+  let errorMsg;
+  switch (errorCode) {
+    case ERRCODE_INVALID_EMAIL:
+      errorMsg = ERRMSG_INVALID_EMAIL;
+      break;
+    case ERRCODE_USER_NOTFOUND:
+      errorMsg = ERRMSG_USER_NOTFOUND;
+      break;
+    default:
+      errorMsg = ERRMSG_PASSWORD_RESET_FAILED;
+    }
+    passwordResetFail(dispatch, errorMsg);
 };

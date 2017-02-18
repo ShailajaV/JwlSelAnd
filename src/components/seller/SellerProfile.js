@@ -44,7 +44,7 @@ class SellerProfile extends Component {
 }
 
 const mapStateToProps = state => {
-  const sellers = _.map(state.seller, (val, uid) => {
+  const sellers = _.map(state.sellers, (val, uid) => {
     return { ...val, uid };
   });
   return { sellers };

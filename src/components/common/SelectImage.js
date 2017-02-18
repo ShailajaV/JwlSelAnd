@@ -1,9 +1,9 @@
 /* Select image from */
 import { Platform } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
+//import $ from 'jquery';
 
-const SelectImage = () => {
-  return (
+export function selectPic(callback) {
     ImagePicker.showImagePicker({}, (response) => {
     if (response.didCancel) {
       console.log('User cancelled photo picker');
@@ -12,16 +12,14 @@ const SelectImage = () => {
     } else if (response.customButton) {
       console.log('User tapped custom button: ', response.customButton);
     } else {
-        let source;
-        if (Platform.OS === 'android') {
-          source = { uri: response.uri };
-        } else {
-          source = { uri: response.uri.replace('file://', '') };
-        }
-        return source;
+      let source;
+      if (Platform.OS === 'android') {
+        source = { uri: response.uri };
+      } else {
+        source = { uri: response.uri.replace('file://', '') };
       }
-    })
-  );
-};
-
-export { SelectImage };
+      return source;
+    }
+  });
+  callback.apply(null, []);
+}

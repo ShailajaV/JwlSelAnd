@@ -14,7 +14,9 @@ import {
   CITY_CHANGED,
   ZIP_CHANGED,
   PHONENUM_CHANGED,
-  LOGOUT_USER
+  LOGOUT_USER,
+  PASSWORD_RESET_SUCCESS,
+  PASSWORD_RESET_FAIL
  } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -65,6 +67,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, phoneNum: action.payload };
     case LOGOUT_USER:
       return { ...state, ...INITIAL_STATE };
+    case PASSWORD_RESET_SUCCESS:
+      return { INITIAL_STATE };
+    case PASSWORD_RESET_FAIL:
+      return { ...state, error: action.payload };
     default:
       return state;
   }

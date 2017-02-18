@@ -15,7 +15,7 @@ export default (state = INITIAL_STATE, action) => {
     case SELLER_PROFILE_CHANGED:
       return { ...state, [action.payload.prop]: action.payload.value };
     case SELLER_SAVE_SUCCESS:
-      return { ...state, ...INITIAL_STATE };
+      return { ...state };
     case SELLER_SAVE_FAIL:
       return { ...state, error: action.payload };
     case GETPROFILE_IMAGE_SUCCESS:

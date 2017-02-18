@@ -2,13 +2,16 @@
 import firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
-import { SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL } from '../types';
+import { SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL,
+  PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_SUCCESS,
+  PRODUCT_DELETE_FAIL } from '../types';
 import { ERRMSG_PROFILE_IMAGE_FAILED, ERR_STORAGE_UNAUTH, ERRMSG_STRG_UNAUTH, ERR_STRG_UNAUTHORIZED,
   ERRMSG_STRG_UNAUTHORIZED, ERR_STRG_LIMIT_EXCEED, ERRMSG_STRG_LIMIT_EXCEED,
   ERR_STRG_INV_CHECKSUM, ERRMSG_STRG_INV_CHECKSUM, ERR_STRG_CANCELLED, ERRMSG_STRG_CANCELLED,
   ERR_STRG_INV_ARG, ERRMSG_STRG_INV_ARG, ERR_STRG_CANT_SLICE_BLOB, ERRMSG_STRG_CANT_SLICE_BLOB,
   ERR_STRG_FILESIZE, ERRMSG_STRG_FILESIZE } from '../errorMsgConstants';
-import { SELLER_ACCOUNT_SETTINGS } from '../constants';
+import { SELLER_ACCOUNT_SETTINGS, PRODUCT_DETAILS_ADDMORE,
+  PRODUCT_DETAILS_SUBMIT, PRODUCT_DETAILS_DELETE } from '../constants';
 
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
@@ -20,28 +23,31 @@ window.Blob = Blob;
 * @return : ProductForm
 */
 export const saveProfileImage = (uri, imageRef, callingScreen,
-  mime = 'application/octet-stream') => {
+                                mime = 'application/octet-stream') => {
   return (dispatch) => {
-      let uploadBlob = null;
-      const imageReference = firebase.storage().ref(imageRef);
+    let uploadBlob = null;
+    const imageReference = firebase.storage().ref(imageRef);
 
-      fs.readFile(uri, 'base64')
-      .then((data) => {
-        return Blob.build(data, { type: `${mime};BASE64` });
-      })
-      .then((blob) => {
-        uploadBlob = blob;
-        return imageReference.put(blob, { contentType: mime });
-      })
-      .then(() => {
-        uploadBlob.close();
-        saveUserProfileSuccess(dispatch, callingScreen);
-         Actions.product();
-        return imageReference.getDownloadURL();
-      })
-      .catch((error) => {
-        handleImgErrorMessages(dispatch, error.code, callingScreen);
-      });
+    fs.readFile(uri, 'base64')
+    .then((data) => {
+      return Blob.build(data, { type: `${mime};BASE64` });
+    })
+    .then((blob) => {
+      uploadBlob = blob;
+      return imageReference.put(blob, { contentType: mime });
+    })
+    .then(() => {
+      uploadBlob.close();
+      return imageReference.getDownloadURL();
+    })
+    .then((url) => {
+      handleSuccess(dispatch, callingScreen);
+      return url;
+    })
+    .catch((error) => {
+      console.log('heycatcherror ', error);
+      handleImgErrorMessages(dispatch, error.code, callingScreen);
+    });
   };
 };
 
@@ -51,11 +57,10 @@ export const saveProfileImage = (uri, imageRef, callingScreen,
 */
 export const deleteProfileImage = (imageRef, callingScreen) => {
   return (dispatch) => {
-    firebase.storage().ref(imageRef)
+    firebase.storage().ref().child(imageRef)
     .delete()
     .then(() => {
-      saveUserProfileSuccess(dispatch, callingScreen);
-       Actions.product();
+      handleSuccess(dispatch, callingScreen);
     })
     .catch((error) => {
       handleImgErrorMessages(dispatch, error.code, callingScreen);
@@ -97,12 +102,20 @@ const handleImgErrorMessages = (dispatch, errorCode, callingScreen) => {
     handleFail(dispatch, errorMsg, callingScreen);
 };
 
-// Save user profile fail
+// handle fail
 const handleFail = (dispatch, text, callingScreen) => {
   let dispatchType = '';
   switch (callingScreen) {
     case SELLER_ACCOUNT_SETTINGS:
       dispatchType = SELLER_SAVE_FAIL;
+      break;
+    case PRODUCT_DETAILS_ADDMORE:
+    case PRODUCT_DETAILS_SUBMIT:
+      dispatchType = PRODUCT_SAVE_FAIL;
+      break;
+    case PRODUCT_DETAILS_DELETE:
+      dispatchType = PRODUCT_DELETE_FAIL;
+      Actions.productsList({ type: 'reset' });
       break;
     default:
       dispatchType = '';
@@ -113,12 +126,25 @@ const handleFail = (dispatch, text, callingScreen) => {
   });
 };
 
-//Save user profile success
-const saveUserProfileSuccess = (dispatch, callingScreen) => {
+// handle success
+const handleSuccess = (dispatch, callingScreen) => {
   let dispatchType = '';
   switch (callingScreen) {
     case SELLER_ACCOUNT_SETTINGS:
       dispatchType = SELLER_SAVE_SUCCESS;
+      Actions.productDetails();
+      break;
+    case PRODUCT_DETAILS_ADDMORE:
+      dispatchType = PRODUCT_SAVE_SUCCESS;
+      Actions.productDetails();
+      break;
+    case PRODUCT_DETAILS_SUBMIT:
+      dispatchType = PRODUCT_SAVE_SUCCESS;
+      Actions.productsList({ type: 'reset' });
+      break;
+    case PRODUCT_DETAILS_DELETE:
+      dispatchType = PRODUCT_DELETE_SUCCESS;
+      Actions.productsList({ type: 'reset' });
       break;
     default:
       dispatchType = '';
