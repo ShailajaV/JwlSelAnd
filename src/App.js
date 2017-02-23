@@ -67,19 +67,15 @@ class App extends Component {
 
     return (
       <BackgroundImage>
+        <View>
+          <Text onPress={() => this.toggle()}> = </Text>
+        </View>
         <SideMenu
           menu={menu}
           isOpen={this.state.isOpen}
           onChange={(isOpen) => this.updateMenuState(isOpen)}
         >
-          <Button style={styles.button} onPress={() => this.toggle()}>
-            <Image
-              source={require('./components/common/images/editimage.png')}
-              style={styles.imageStyle}
-              resizeMode={Image.resizeMode.sretch}
-            />
-          </Button>
-          <Provider store={store}>
+        <Provider store={store}>
             <Router />
           </Provider>
         </SideMenu>
