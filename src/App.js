@@ -21,9 +21,20 @@ class App extends Component {
   render() {
     const store = configureStore();
     return (
-      <Provider store={store}>
-        <Router />
-      </Provider>
+      <BackgroundImage>
+        <View>
+          <Text onPress={() => this.toggle()}> = </Text>
+        </View>
+        <SideMenu
+          menu={menu}
+          isOpen={this.state.isOpen}
+          onChange={(isOpen) => this.updateMenuState(isOpen)}
+        >
+        <Provider store={store}>
+            <Router />
+          </Provider>
+        </SideMenu>
+      </BackgroundImage>
     );
   }
 }
