@@ -1,27 +1,40 @@
 /* Customized text input component */
-import React from 'react';
+import React, { Component } from 'react';
 import { TextInput, View, Text } from 'react-native';
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, editable }) => {
-const { inputStyle, labelStyle, containerStyle } = styles;
+class Input extends Component {
+  onChangeValue() {
+    this.props.onChange(this.props);
+  }
 
-  return (
-    <View style={containerStyle}>
-      <Text style={labelStyle}>{label}</Text>
-      <TextInput
-        editable={editable}
-        secureTextEntry={secureTextEntry}
-        placeholder={placeholder}
-        autoCorrect={false}
-        style={inputStyle}
-        value={value}
-        onChangeText={onChangeText}
-        underlineColorAndroid='transparent'
-        maxLength={35}
-      />
-    </View>
-  );
-};
+  handleBlur() {
+    this.props.validate(this.props);
+  }
+  render() {
+    const { inputStyle, labelStyle, containerStyle, errorTextStyle } = styles;
+    return (
+      <View style={containerStyle} >
+        <Text style={labelStyle}>{this.props.label}</Text>
+        <TextInput
+          editable={this.props.editable}
+          secureTextEntry={this.props.secureTextEntry}
+          placeholder={this.props.placeholder}
+          autoCorrect={false}
+          style={inputStyle}
+          value={this.props.value}
+          onChangeText={this.props.onChangeText}
+          underlineColorAndroid='transparent'
+          maxLength={35}
+          onBlur={(value) => this.handleBlur(value)}
+          onChange={(value) => this.onChangeValue(value)}
+        />
+        <Text style={errorTextStyle}>
+          {this.props.errorMessage}
+        </Text>
+      </View>
+    );
+  }
+}
 
 const styles = {
   inputStyle: {
@@ -46,6 +59,12 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
-  }
+  },
+  errorTextStyle: {
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'red'
+  },
 };
+
 export { Input };
