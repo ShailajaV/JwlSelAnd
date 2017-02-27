@@ -3,12 +3,12 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 // Make a Component
-const Header = (props) => {
+const Header = ({ onPress }) => {
   const { textstyle, viewStyle } = styles;
 
   return (
   <View style={viewStyle}>
-    <Text style={textstyle}>{props.headerText}</Text>
+   <Text onPress={onPress} style={textstyle}>Menu</Text>
   </View>
   );
 };
@@ -16,8 +16,8 @@ const Header = (props) => {
 const styles = {
   viewStyle: {
     backgroundColor: '#F8F8F8',
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     height: 60,
     paddingTop: 15
   },
