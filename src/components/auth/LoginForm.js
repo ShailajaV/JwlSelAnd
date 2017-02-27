@@ -51,10 +51,10 @@ class LoginForm extends Component {
     let errors = {};
     if (typeof email !== 'undefined') errors = validateEmail(email, this.state.errors);
     else if (values.label === 'Email') errors = validateEmail(values.value, this.state.errors);
-    /*if (typeof password !== 'undefined') errors = validatePassword(password, this.state.errors);
+    if (typeof password !== 'undefined') errors = validatePassword(password, this.state.errors);
     else if (values.label === 'Password') {
       errors = validatePassword(values.value, this.state.errors);
-    }*/
+    }
     this.setState({ errors });
     return errors;
   }
