@@ -1,14 +1,20 @@
 /* Customized header component */
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 
 // Make a Component
 const Header = ({ onPress }) => {
-  const { textstyle, viewStyle } = styles;
+  const { imageStyle, viewStyle } = styles;
 
   return (
   <View style={viewStyle}>
-   <Text onPress={onPress} style={textstyle}>Menu</Text>
+  <TouchableOpacity onPress={onPress}>
+    <Image
+      source={require('../common/images/ham.png')}
+      style={imageStyle}
+      resizeMode={Image.resizeMode.sretch}
+    />
+  </TouchableOpacity>
   </View>
   );
 };
@@ -23,6 +29,12 @@ const styles = {
   },
   textstyle: {
     fontSize: 20
+  },
+  imageStyle: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+    alignSelf: 'flex-end'
   }
 };
 // Make the component available to other parts of the App
