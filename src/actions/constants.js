@@ -10,7 +10,6 @@ export const HEADER_LOG_IN = 'Sign in to Jewellery project';
 export const HEADER_SIGN_UP = 'Register in to Jewellery project';
 export const HEADER_FORGOT_PASSWORD = 'Forgot Password';
 export const KEY_AUTH = 'auth';
-//export const FORGOTPASSWORD = 'forgotPassword';
 export const SEND = 'Send';
 export const SIGN_IN = 'Sign In';
 export const SIGN_UP = 'Register';
@@ -40,6 +39,31 @@ export const EMAIL_BODY = 'Hi,  ';
 export const FORGOT_PASSWORD = 'Forgot Password ?';
 export const EMAIL_MSG = 'Enter the email,we will send the link to reset the password';
 export const SEND_EMAIL = 'Sending Email';
+export const EMAIL = 'email';
+export const PASSWORD = 'password';
+export const UNDEFINED = 'undefined';
+export const EMPTY_EMAIL = 'Please enter email.';
+export const INVALID_EMAIL_PATTERN = 'Invalid email pattern.';
+export const SPACE = '';
+export const EMPTY_PASSWORD = 'Please enter password.';
+export const INVALID_PASSWORD_PATTERN = 'Password should contain at least 1 alphabet and 1 number.';
+export const FULLNAME = 'fullName';
+export const COMPANYNAME = 'companyName';
+export const ADDRESS_STREET = 'addrStreet';
+export const ADDRESS_APT = 'addrApt';
+export const STATE = 'state';
+export const CITY = 'city';
+export const ZIP = 'zip';
+export const PHONE_NUMBER = 'phoneNumber';
+export const EMPTY_FULLNAME = 'Please enter full name.';
+export const EMPTY_COMPANY_NAME = 'Please enter company name.';
+export const EMPTY_ADDR_STREET = 'Please enter street address.';
+export const EMPTY_ADDR_APT = 'Please enter apartment or suit number.';
+export const EMPTY_PHONE_NUMBER = 'Please enter phone number.';
+export const INVALID_PHONE_NUMBER = 'Phone number should contain only numbers.';
+export const LENGTH_PHONE_NUMBER = 'Phone number should contain 10 digits.';
+export const INVALID_ZIP = 'Zip should contain only numbers.';
+export const PLEASE_ENTER = 'Please enter ';
 
 // Seller profile related constants
 export const KEY_SELLER = 'seller';
@@ -50,6 +74,7 @@ export const LABEL_SELLER_ADDRESS = 'Address';
 export const SELLER_ACCOUNT_SETTINGS = 'seller_account_settings';
 export const SAVE = 'Save';
 export const NEXT = 'Next';
+export const ADDRESS = 'address';
 
 // Product related constants
 export const KEY_PRODUCT_DETAILS = 'productDetails';
@@ -62,6 +87,16 @@ export const ADD_MORE = 'Add more';
 export const SUBMIT = 'Submit';
 export const PRODUCT_DETAILS_ADDMORE = 'product_details_addmore';
 export const PRODUCT_DETAILS_SUBMIT = 'product_details_submit';
+export const PRODUCT_NAME = 'productName';
+export const DAYS_OF_RENT = 'daysOfRent';
+export const RENT_EXPECTED = 'rentExpected';
+export const EMPTY_IMAGE = 'Please upload image.';
+export const EMPTY_DAYS_OF_RENT = 'Please enter days of rent.';
+export const INVALID_DAYS_OF_RENT = 'Days of rent should contain only numbers.';
+export const EMPTY_RENT_EXPECTED = 'Please enter expected rent.';
+export const INVALID_RENT_EXPECTED =
+'Expected rent should be greater than zero and contain 2 digits after decimal or no decimal';
+export const EMPTY_PRODUCT_NAME = 'Please enter product name.';
 
 export const KEY_PRODUCT_LIST = 'productsList';
 export const HEADER_PRODUCT_LIST = 'Rented Jewellery';
@@ -73,7 +108,3 @@ export const HEADER_PRODUCT_EDIT = 'Edit Product';
 export const EDIT = 'Edit';
 export const PRODUCT_DETAILS_EDIT = 'product_details_edit';
 export const PRODUCT_DETAILS_DELETE = 'product_details_delete';
-
-// validation related constants
-export const EMAIL = 'email';
-export const PASSWORD = 'password';

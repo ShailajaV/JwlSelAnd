@@ -192,7 +192,7 @@ export const productUpdate = ({ productName, daysOfRent,
   rentExpected, url, uploadURL, uid }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
-    if (uploadURL !== '') {
+    if (uploadURL !== null && uploadURL !== '') {
       const { uri } = uploadURL;
       dispatch(saveProductDetails(dispatch, uri, productName, daysOfRent,
             rentExpected, uid, PRODUCT_DETAILS_EDIT));

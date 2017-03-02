@@ -40,6 +40,7 @@ export const sellerProfileInfo = () => {
 export const saveSellerProfile = ({
   imageURL, deleteFlag, fullName, companyName, address, uid }) => {
   const { currentUser } = firebase.auth();
+  console.log('imageURL ', imageURL);
   return (dispatch) => {
     firebase.database().ref(`/sellers/${currentUser.uid}/${uid}`)
     .set({ fullName, companyName, address })
@@ -47,7 +48,7 @@ export const saveSellerProfile = ({
       const imageRef = `/images/${currentUser.uid}/profilepicture`;
       if (deleteFlag === 1) {
         dispatch(deleteProfileImage(imageRef, SELLER_ACCOUNT_SETTINGS));
-      } else if (imageURL !== '') {
+      } else if (imageURL !== null && imageURL !== '') {
           const { uri } = imageURL;
           dispatch(saveProfileImage(uri, imageRef, SELLER_ACCOUNT_SETTINGS));
       } else {

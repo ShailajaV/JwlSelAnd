@@ -4,22 +4,21 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { userDetailsChanged, loginUser, forgotPassword } from '../../actions';
-import { Card, CardSection, Button, Spinner, BackgroundImage } from '../common';
+import { Card, CardSection, Button, Input, Spinner, BackgroundImage } from '../common';
 import { LABEL_EMAIL, PLACEHOLDER_EMAIL, LABEL_PASSWORD, PLACEHOLDER_PASSWORD, SIGN_IN,
-  SPINNER_SIZE, FORGOT_PASSWORD
+  SPINNER_SIZE, FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED
 } from '../../actions/constants';
-import { Input } from '../common/Input';
 import { validateEmail, validatePassword } from '../common/Utils';
 
 class LoginForm extends Component {
   constructor(props) {
-   super(props);
-   this.validations = this.validations.bind(this);
- }
+    super(props);
+    this.validations = this.validations.bind(this);
+  }
 
- state = {
-   errors: {}
- }
+  state = {
+    errors: {}
+  }
 
   onButtonPress() {
     const errors = this.validations(this.props);
@@ -34,27 +33,27 @@ class LoginForm extends Component {
     Actions.forgotPassword();
   }
 
-  handleChange(values) {
-    if (typeof this.state.errors[values.uniqueName] !== 'undefined') {
+  handleChange(fieldName, fieldValue) {
+    if (typeof this.state.errors[fieldName] !== UNDEFINED) {
       const errors = Object.assign({}, this.state.errors);
-      delete errors[values.uniqueName];
+      delete errors[fieldName];
       this.setState({
-        [values.uniqueName]: values.value,
+        [fieldName]: fieldValue,
         errors });
     } else {
-      this.setState({ [values.uniqueName]: values.value });
+      this.setState({ [fieldName]: fieldValue });
     }
   }
 
   validations(values) {
     const { email, password } = values;
     let errors = {};
-    if (typeof email !== 'undefined') errors = validateEmail(email, this.state.errors);
-    else if (values.label === 'Email') errors = validateEmail(values.value, this.state.errors);
-    if (typeof password !== 'undefined') errors = validatePassword(password, this.state.errors);
-    else if (values.label === 'Password') {
+    if (typeof email !== UNDEFINED) errors = validateEmail(email, this.state.errors);
+    else if (values.uniqueName === EMAIL) errors = validateEmail(values.value, this.state.errors);
+    /*if (typeof password !== UNDEFINED) errors = validatePassword(password, this.state.errors);
+    else if (values.uniqueName === PASSWORD) {
       errors = validatePassword(values.value, this.state.errors);
-    }
+    }*/
     this.setState({ errors });
     return errors;
   }
@@ -83,17 +82,17 @@ class LoginForm extends Component {
       <BackgroundImage>
         <Card>
           <CardSection>
-            <Input
-              label={LABEL_EMAIL}
-              placeholder={PLACEHOLDER_EMAIL}
-              value={this.props.email}
-              errorMessage={this.state.errors.email}
-              uniqueName='email'
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'email', value })}
-            />
+              <Input
+                label={LABEL_EMAIL}
+                placeholder={PLACEHOLDER_EMAIL}
+                value={this.props.email}
+                errorMessage={this.state.errors.email}
+                uniqueName={EMAIL}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'email', value })}
+              />
           </CardSection>
 
           <CardSection>
@@ -103,7 +102,7 @@ class LoginForm extends Component {
               placeholder={PLACEHOLDER_PASSWORD}
               value={this.props.password}
               errorMessage={this.state.errors.password}
-              uniqueName='password'
+              uniqueName={PASSWORD}
               validate={this.validations}
               onChange={this.handleChange.bind(this)}
               onChangeText={value =>

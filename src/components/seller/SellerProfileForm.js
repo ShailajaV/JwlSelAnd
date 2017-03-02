@@ -9,13 +9,21 @@ import { connect } from 'react-redux';
 import { Card, CardSection, Input, MultilineInput, Button,
   BackgroundImage } from '../common';
 import { LABEL_SELLER_NAME, LABEL_COMPANY_NAME,
-  LABEL_SELLER_ADDRESS, SAVE, NEXT } from '../../actions/constants';
+  LABEL_SELLER_ADDRESS, SAVE, NEXT, FULLNAME, COMPANYNAME, ADDRESS,
+  UNDEFINED } from '../../actions/constants';
 import { sellerProfileChanged, saveSellerProfile, getSellerProfileImage } from '../../actions';
+import { validateEmptyFields } from '../common/Utils';
 
 class SellerProfileForm extends Component {
+  constructor(props) {
+    super(props);
+    this.validations = this.validations.bind(this);
+  }
+
   state = { editable: false,
             uploadURL: null,
-            deleteFlag: 0 };
+            deleteFlag: 0,
+            errors: {} };
   componentWillMount() {
     _.each(this.props.seller, (value, prop) => {
       this.props.sellerProfileChanged({ prop, value });
@@ -31,22 +39,62 @@ class SellerProfileForm extends Component {
   }
 
   onSaveButtonPress() {
-    const { fullName, companyName, address } = this.props;
-    const imageURL = this.state.uploadURL;
-    this.setState({
-      uploadURL: null
-    });
-    this.props.saveSellerProfile({ imageURL,
-      deleteFlag: this.state.deleteFlag,
-      fullName,
-      companyName,
-      address,
-      uid: this.props.seller.uid
-    });
+    const errors = this.validations(this.props);
+    if (Object.keys(errors).length === 0) {
+      const { fullName, companyName, address } = this.props;
+      const imageURL = this.state.uploadURL;
+      this.setState({
+        uploadURL: null
+      });
+      this.props.saveSellerProfile({ imageURL,
+        deleteFlag: this.state.deleteFlag,
+        fullName,
+        companyName,
+        address,
+        uid: this.props.seller.uid
+      });
+    }
   }
 
   onNextButtonPress() {
+    this.setState({ errors: {} });
     Actions.productDetails();
+  }
+
+  validations(values) {
+    const { fullName, companyName, address } = values;
+    let errors = {};
+    if (typeof fullName !== UNDEFINED) {
+      errors = validateEmptyFields(FULLNAME, fullName, this.state.errors);
+    } else if (values.uniqueName === FULLNAME) {
+      errors = validateEmptyFields(values.uniqueName, values.value, this.state.errors);
+    }
+
+    if (typeof companyName !== UNDEFINED) {
+      errors = validateEmptyFields(COMPANYNAME, companyName, this.state.errors);
+    } else if (values.uniqueName === COMPANYNAME) {
+      errors = validateEmptyFields(values.uniqueName, values.value, this.state.errors);
+    }
+
+    if (typeof address !== UNDEFINED) {
+      errors = validateEmptyFields(ADDRESS, address, this.state.errors);
+    } else if (values.uniqueName === ADDRESS) {
+      errors = validateEmptyFields(values.uniqueName, values.value, this.state.errors);
+    }
+    this.setState({ errors });
+    return errors;
+  }
+
+  handleChange(fieldName, fieldValue) {
+    if (typeof this.state.errors[fieldName] !== UNDEFINED) {
+      const errors = Object.assign({}, this.state.errors);
+      delete errors[fieldName];
+      this.setState({
+        [fieldName]: fieldValue,
+        errors });
+    } else {
+      this.setState({ [fieldName]: fieldValue });
+    }
   }
 
   selectPhotoTapped() {
@@ -124,6 +172,10 @@ class SellerProfileForm extends Component {
               editable={this.state.editable}
               label={LABEL_SELLER_NAME}
               value={this.props.fullName}
+              errorMessage={this.state.errors.fullName}
+              uniqueName={FULLNAME}
+              validate={this.validations}
+              onChange={this.handleChange.bind(this)}
               onChangeText={value =>
                 this.props.sellerProfileChanged({ prop: 'fullName', value })}
             />
@@ -134,6 +186,10 @@ class SellerProfileForm extends Component {
               editable={this.state.editable}
               label={LABEL_COMPANY_NAME}
               value={this.props.companyName}
+              errorMessage={this.state.errors.companyName}
+              uniqueName={COMPANYNAME}
+              validate={this.validations}
+              onChange={this.handleChange.bind(this)}
               onChangeText={value =>
                 this.props.sellerProfileChanged({ prop: 'companyName', value })}
             />
@@ -144,6 +200,10 @@ class SellerProfileForm extends Component {
               editable={this.state.editable}
               label={LABEL_SELLER_ADDRESS}
               value={this.props.address}
+              errorMessage={this.state.errors.address}
+              uniqueName={ADDRESS}
+              validate={this.validations}
+              onChange={this.handleChange.bind(this)}
               onChangeText={value =>
                 this.props.sellerProfileChanged({ prop: 'address', value })}
             />

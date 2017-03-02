@@ -8,7 +8,8 @@ import { USER_DETAILS_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER,
 import { ERRMSG_AUTH_FAILED, ERRCODE_EMAIL_INUSE, ERRMSG_EMAIL_INUSE, ERRCODE_INVALID_EMAIL,
   ERRMSG_INVALID_EMAIL, ERRCODE_WEAK_PASSWORD, ERRMSG_WEAK_PASSWORD, ERRCODE_USER_DISABLED,
   ERRMSG_USER_DISABLED, ERRCODE_USER_NOTFOUND, ERRMSG_USER_NOTFOUND, ERRCODE_WRONG_PASSWORD,
-  ERRMSG_WRONG_PASSWORD, ERRMSG_SIGNUP_FAILED, ERRMSG_PASSWORD_RESET_FAILED
+  ERRMSG_WRONG_PASSWORD, ERRMSG_SIGNUP_FAILED, ERRMSG_PASSWORD_RESET_FAILED, ERRCODE_NETWORK_ERROR,
+  ERRMSG_NETWEORK_ERROR
 } from './errorMsgConstants';
 
 /* Sign in page
@@ -79,6 +80,7 @@ export const loginUser = ({ email, password }) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => loginUserSuccess(dispatch, user))
       .catch((error) => {
+        console.log('error is ', error);
         handleSignInErrorMessages(dispatch, error.code);
     });
   };
@@ -182,6 +184,9 @@ const handleSignInErrorMessages = (dispatch, errorCode) => {
       break;
     case ERRCODE_WRONG_PASSWORD:
       errorMsg = ERRMSG_WRONG_PASSWORD;
+      break;
+    case ERRCODE_NETWORK_ERROR:
+      errorMsg = ERRMSG_NETWEORK_ERROR;
       break;
     default:
       errorMsg = ERRMSG_AUTH_FAILED;

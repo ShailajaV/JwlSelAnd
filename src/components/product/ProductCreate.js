@@ -10,12 +10,15 @@ import { productDetailsChanged, productCreate } from '../../actions';
 class ProductCreate extends Component {
 
   onAddMore() {
+    const errors = this.child.validations(this.props);
+    if (Object.keys(errors).length === 0) {
     const { productName, daysOfRent, rentExpected, uploadURL } = this.props;
     this.props.productCreate({ uploadURL,
       productName,
       daysOfRent,
       rentExpected,
       onSubmit: false });
+    }
   }
 
   onProductsList() {
@@ -23,24 +26,31 @@ class ProductCreate extends Component {
   }
 
   onSubmit() {
-    const { productName, daysOfRent, rentExpected, uploadURL } = this.props;
-    this.props.productCreate({ uploadURL,
-      productName,
-      daysOfRent,
-      rentExpected,
-      onSubmit: true });
+    const errors = this.child.validations(this.props);
+    if (Object.keys(errors).length === 0) {
+      const { productName, daysOfRent, rentExpected, uploadURL } = this.props;
+      this.props.productCreate({ uploadURL,
+        productName,
+        daysOfRent,
+        rentExpected,
+        onSubmit: true });
+    }
   }
+
   render() {
     return (
       <BackgroundImage>
         <Card>
-        <ProductForm {...this.props} />
+        <ProductForm onRef={ref => (this.child = ref)} />
           <CardSection>
             <Button onPress={this.onAddMore.bind(this)}>
               {ADD_MORE}
             </Button>
             <Button onPress={this.onSubmit.bind(this)}>
               {SUBMIT}
+            </Button>
+            <Button onPress={this.onProductsList.bind(this)}>
+              NEXT
             </Button>
           </CardSection>
         </Card>

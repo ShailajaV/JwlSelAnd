@@ -16,6 +16,8 @@ class ProductEdit extends Component {
   }
 
   onEdit() {
+    const errors = this.child.validations(this.props);
+    if (Object.keys(errors).length === 0) {
     const { productName, daysOfRent, rentExpected, url, uploadURL } = this.props;
     this.props.productUpdate({ productName,
       daysOfRent,
@@ -23,13 +25,14 @@ class ProductEdit extends Component {
       url,
       uploadURL,
       uid: this.props.product.uid });
+    }
   }
 
   render() {
     return (
       <BackgroundImage>
         <Card>
-        <ProductForm />
+        <ProductForm onRef={ref => (this.child = ref)} />
           <CardSection>
             <Button onPress={this.onEdit.bind(this)}>
               {EDIT}

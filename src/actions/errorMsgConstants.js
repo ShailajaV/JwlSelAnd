@@ -14,6 +14,8 @@ export const ERRCODE_USER_NOTFOUND = 'auth/user-not-found';
 export const ERRMSG_USER_NOTFOUND = 'There is no user corresponding to the given email.';
 export const ERRCODE_WRONG_PASSWORD = 'auth/wrong-password';
 export const ERRMSG_WRONG_PASSWORD = 'Password is invalid.';
+export const ERRCODE_NETWORK_ERROR = 'auth/network-request-failed';
+export const ERRMSG_NETWEORK_ERROR = 'Network error. Please try again after sometime.';
 export const ERRMSG_SIGNUP_FAILED = 'creation failed.!!!';
 
 export const ERRMSG_PASSWORD_RESET_FAILED = 'Failed to reset the password. Please try again.';

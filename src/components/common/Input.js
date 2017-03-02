@@ -3,8 +3,14 @@ import React, { Component } from 'react';
 import { TextInput, View, Text } from 'react-native';
 
 class Input extends Component {
+  componentWillMount() {
+    //this.refs.theToolTip.showMenu();
+    return {
+      input: 'chirag',
+    };
+  }
   onChangeValue() {
-    this.props.onChange(this.props);
+    this.props.onChange(this.props.uniqueName, this.props.value);
   }
 
   handleBlur() {
@@ -12,6 +18,7 @@ class Input extends Component {
   }
   render() {
     const { inputStyle, labelStyle, containerStyle, errorTextStyle } = styles;
+
     return (
       <View style={containerStyle} >
         <Text style={labelStyle}>{this.props.label}</Text>
@@ -24,7 +31,6 @@ class Input extends Component {
           value={this.props.value}
           onChangeText={this.props.onChangeText}
           underlineColorAndroid='transparent'
-          maxLength={35}
           onBlur={(value) => this.handleBlur(value)}
           onChange={(value) => this.onChangeValue(value)}
         />
@@ -64,7 +70,7 @@ const styles = {
     fontSize: 20,
     alignSelf: 'center',
     color: 'red'
-  },
+  }
 };
 
 export { Input };
