@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { View, Image, Text, TouchableOpacity,
-   Platform, PixelRatio } from 'react-native';
+   Platform, PixelRatio, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
@@ -61,8 +61,13 @@ class SellerProfileForm extends Component {
     Actions.productDetails();
   }
 
+  makeEditable() {
+    if (!this.state.editable) this.setState({ editable: !this.state.editable });
+  }
+
   validations(values) {
     const { fullName, companyName, address } = values;
+
     let errors = {};
     if (typeof fullName !== UNDEFINED) {
       errors = validateEmptyFields(FULLNAME, fullName, this.state.errors);
@@ -133,95 +138,122 @@ class SellerProfileForm extends Component {
 
     return (
       <BackgroundImage>
-        <Card>
-          <CardSection>
-            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-                <Image style={styles.upload} source={srcImg} />
-              </View>
-            </TouchableOpacity>
-            <View sytle={styles.containerStyle}>
-              <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
-                <Image
-                  source={require('../common/images/deleteimage.jpeg')}
-                  style={styles.imageStyle}
-                  resizeMode={Image.resizeMode.sretch}
-                />
-              </TouchableOpacity>
+        <ScrollView>
+          <Card>
+            <CardSection>
               <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
+                  <Image style={styles.upload} source={srcImg} />
+                </View>
+              </TouchableOpacity>
+              <View sytle={styles.containerStyle}>
+                <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
+                  <Image
+                    source={require('../common/images/deleteimage.jpeg')}
+                    style={styles.imageStyle}
+                    resizeMode={Image.resizeMode.sretch}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                  <Image
+                    source={require('../common/images/editimage.png')}
+                    style={styles.imageStyle}
+                    resizeMode={Image.resizeMode.sretch}
+                  />
+                </TouchableOpacity>
+              </View>
+            </CardSection>
+            <CardSection style={{ justifyContent: 'flex-end' }}>
+              <TouchableOpacity onPress={this.makeEditable.bind(this)}>
                 <Image
                   source={require('../common/images/editimage.png')}
                   style={styles.imageStyle}
                   resizeMode={Image.resizeMode.sretch}
                 />
               </TouchableOpacity>
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.email}
+              </Text>
             </View>
-          </CardSection>
-          <CardSection style={{ justifyContent: 'flex-end' }}>
-            <TouchableOpacity onPress={() => this.setState({ editable: !this.state.editable })}>
-              <Image
-                source={require('../common/images/editimage.png')}
-                style={styles.imageStyle}
-                resizeMode={Image.resizeMode.sretch}
+
+            <CardSection>
+              <Input
+                editable={this.state.editable}
+                label={LABEL_SELLER_NAME}
+                value={this.props.fullName}
+                uniqueName={FULLNAME}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.sellerProfileChanged({ prop: 'fullName', value })}
               />
-            </TouchableOpacity>
-          </CardSection>
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.fullName}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              editable={this.state.editable}
-              label={LABEL_SELLER_NAME}
-              value={this.props.fullName}
-              errorMessage={this.state.errors.fullName}
-              uniqueName={FULLNAME}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.sellerProfileChanged({ prop: 'fullName', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                editable={this.state.editable}
+                label={LABEL_COMPANY_NAME}
+                value={this.props.companyName}
+                uniqueName={COMPANYNAME}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.sellerProfileChanged({ prop: 'companyName', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.companyName}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              editable={this.state.editable}
-              label={LABEL_COMPANY_NAME}
-              value={this.props.companyName}
-              errorMessage={this.state.errors.companyName}
-              uniqueName={COMPANYNAME}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.sellerProfileChanged({ prop: 'companyName', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <MultilineInput
+                editable={this.state.editable}
+                label={LABEL_SELLER_ADDRESS}
+                value={this.props.address}
+                uniqueName={ADDRESS}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.sellerProfileChanged({ prop: 'address', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.address}
+              </Text>
+            </View>
 
-          <CardSection>
-            <MultilineInput
-              editable={this.state.editable}
-              label={LABEL_SELLER_ADDRESS}
-              value={this.props.address}
-              errorMessage={this.state.errors.address}
-              uniqueName={ADDRESS}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.sellerProfileChanged({ prop: 'address', value })}
-            />
-          </CardSection>
+            <Text style={styles.errorTextStyle}>
+              {this.props.error}
+            </Text>
 
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
-
-          <CardSection>
-            <Button onPress={this.onSaveButtonPress.bind(this)}>
-              {SAVE}
-            </Button>
-            <Button onPress={this.onNextButtonPress.bind(this)}>
-              {NEXT}
-            </Button>
-         </CardSection>
-        </Card>
+            <CardSection>
+              <Button onPress={this.onSaveButtonPress.bind(this)}>
+                {SAVE}
+              </Button>
+              <Button onPress={this.onNextButtonPress.bind(this)}>
+                {NEXT}
+              </Button>
+           </CardSection>
+          </Card>
+        </ScrollView>
       </BackgroundImage>
     );
   }

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import firebase from 'firebase';
 import SideMenu from 'react-native-side-menu';
 import { View } from 'react-native';
-import { Actions } from 'react-native-router-flux'; 
+import { Actions } from 'react-native-router-flux';
 import { BackgroundImage, Header } from './components/common';
 import { Menu } from './components/common/Menu';
 import Router from './Router';
@@ -64,7 +64,6 @@ class App extends Component {
     const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
     return (
       <BackgroundImage>
-
         <SideMenu
           menu={menu}
           isOpen={this.state.isOpen}
@@ -73,10 +72,9 @@ class App extends Component {
         <View>
         <Header headerText='Toggle' onPress={() => this.toggle()} />
         </View>
-      <Provider store={store}>
-            <Router />
-          </Provider>
-
+        <Provider store={store}>
+         <Router />
+        </Provider>
         </SideMenu>
       </BackgroundImage>
     );

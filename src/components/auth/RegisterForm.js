@@ -1,6 +1,6 @@
 /* Registration form */
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardSection, BackgroundImage, Input, Button, Spinner } from '../common';
 import {
@@ -137,152 +137,211 @@ class RegisterForm extends Component {
   render() {
     return (
       <BackgroundImage>
-        <Card>
-          <CardSection>
-            <Input
-              label={LABEL_FULLNAME}
-              placeholder={PLACEHOLDER_FULLNAME}
-              value={this.props.fullName}
-              errorMessage={this.state.errors.fullName}
-              uniqueName={FULLNAME}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'fullName', value })}
-            />
-          </CardSection>
+        <ScrollView>
+          <Card>
+            <CardSection>
+              <Input
+                label={LABEL_FULLNAME}
+                placeholder={PLACEHOLDER_FULLNAME}
+                value={this.props.fullName}
+                uniqueName={FULLNAME}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'fullName', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.fullName}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              label={LABEL_EMAIL}
-              placeholder={PLACEHOLDER_EMAIL}
-              value={this.props.email}
-              errorMessage={this.state.errors.email}
-              uniqueName={EMAIL}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'email', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                label={LABEL_EMAIL}
+                placeholder={PLACEHOLDER_EMAIL}
+                value={this.props.email}
+                uniqueName={EMAIL}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'email', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.email}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              secureTextEntry
-              label={LABEL_PASSWORD}
-              placeholder={PLACEHOLDER_PASSWORD}
-              value={this.props.password}
-              errorMessage={this.state.errors.password}
-              uniqueName={PASSWORD}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'password', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                secureTextEntry
+                label={LABEL_PASSWORD}
+                placeholder={PLACEHOLDER_PASSWORD}
+                value={this.props.password}
+                uniqueName={PASSWORD}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'password', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.password}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              label={LABEL_COMPANY_NAME}
-              placeholder={PLACEHOLDER_COMPANY_NAME}
-              value={this.props.companyName}
-              errorMessage={this.state.errors.companyName}
-              uniqueName={COMPANYNAME}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'companyName', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                label={LABEL_COMPANY_NAME}
+                placeholder={PLACEHOLDER_COMPANY_NAME}
+                value={this.props.companyName}
+                uniqueName={COMPANYNAME}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'companyName', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.companyName}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              label={LABEL_ADDRESS_LINE1}
-              placeholder={PLACEHOLDER_STREET}
-              value={this.props.addrStreet}
-              errorMessage={this.state.errors.addrStreet}
-              uniqueName={ADDRESS_STREET}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'addrStreet', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                label={LABEL_ADDRESS_LINE1}
+                placeholder={PLACEHOLDER_STREET}
+                value={this.props.addrStreet}
+                uniqueName={ADDRESS_STREET}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'addrStreet', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.addrStreet}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              label={LABEL_ADDRESS_LINE2}
-              placeholder={PLACEHOLDER_APT}
-              value={this.props.addrApt}
-              errorMessage={this.state.errors.addrApt}
-              uniqueName={ADDRESS_APT}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'addrApt', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                label={LABEL_ADDRESS_LINE2}
+                placeholder={PLACEHOLDER_APT}
+                value={this.props.addrApt}
+                uniqueName={ADDRESS_APT}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'addrApt', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.addrApt}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              label={LABEL_STATE}
-              placeholder={PLACEHOLDER_STATE}
-              value={this.props.state}
-              errorMessage={this.state.errors.state}
-              uniqueName={STATE}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'state', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                label={LABEL_STATE}
+                placeholder={PLACEHOLDER_STATE}
+                value={this.props.state}
+                uniqueName={STATE}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'state', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.state}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              label={LABEL_CITY}
-              placeholder={PLACEHOLDER_CITY}
-              value={this.props.city}
-              errorMessage={this.state.errors.city}
-              uniqueName={CITY}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'city', value })}
-            />
-            <Input
-              label={LABEL_ZIP}
-              placeholder={PLACEHOLDER_ZIP}
-              value={this.props.zip}
-              errorMessage={this.state.errors.zip}
-              uniqueName={ZIP}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'zip', value })}
-            />
-          </CardSection>
+            <CardSection>
+              <Input
+                label={LABEL_CITY}
+                placeholder={PLACEHOLDER_CITY}
+                value={this.props.city}
+                uniqueName={CITY}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'city', value })}
+              />
+              <Input
+                label={LABEL_ZIP}
+                placeholder={PLACEHOLDER_ZIP}
+                value={this.props.zip}
+                uniqueName={ZIP}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'zip', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.city}
+              </Text>
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.zip}
+              </Text>
+            </View>
 
-          <CardSection>
-            <Input
-              label={LABEL_PHONENUMBER}
-              placeholder={PLACEHOLDER_PHONENUMBER}
-              value={this.props.phoneNum}
-              errorMessage={this.state.errors.phoneNumber}
-              uniqueName={PHONE_NUMBER}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'phoneNum', value })}
-            />
-          </CardSection>
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
+            <CardSection>
+              <Input
+                label={LABEL_PHONENUMBER}
+                placeholder={PLACEHOLDER_PHONENUMBER}
+                value={this.props.phoneNum}
+                uniqueName={PHONE_NUMBER}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'phoneNum', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.phoneNumber}
+              </Text>
+            </View>
+            
+            <Text style={styles.errorTextStyle}>
+              {this.props.error}
+            </Text>
 
-          <CardSection>
-            {this.onSignUpButton()}
-          </CardSection>
-        </Card>
+            <CardSection>
+              {this.onSignUpButton()}
+            </CardSection>
+          </Card>
+        </ScrollView>
       </BackgroundImage>
     );
   }

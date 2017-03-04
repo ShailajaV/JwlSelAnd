@@ -1,6 +1,6 @@
 /* This file contains products list */
 import React, { Component } from 'react';
-import { View, Text, PixelRatio, Image, TouchableOpacity } from 'react-native';
+import { View, Text, PixelRatio, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection } from '../common';
@@ -20,6 +20,7 @@ class ProductListItem extends Component {
   render() {
     const { productName, daysOfRent, rentExpected, url } = this.props.product;
     return (
+      <ScrollView>
         <Card>
           <CardSection>
             <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
@@ -50,6 +51,7 @@ class ProductListItem extends Component {
             </View>
           </CardSection>
         </Card>
+      </ScrollView>
     );
   }
 }

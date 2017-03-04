@@ -1,6 +1,7 @@
 /* Product information */
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Image, PixelRatio, Platform } from 'react-native';
+import { Text, View, TouchableOpacity, Image, PixelRatio, Platform,
+  ScrollView } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 import { CardSection, Input } from '../common';
@@ -102,73 +103,96 @@ class ProductForm extends Component {
         srcImg = require('../common/images/noimage.png');
       }
     }
-    let urlErrorMsg = null;
-    if (srcImg === require('../common/images/noimage.png')) {
-      urlErrorMsg = <Text>{this.state.errors.url}</Text>;
-    } else {
-      urlErrorMsg = null;
-    }
 
     return (
       <View>
-        <CardSection>
-          <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-            <Text style={styles.labelStyle}>{UPLOAD_COLLECTIONS}</Text>
-          </TouchableOpacity>
-          {urlErrorMsg}
-          <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-            <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-              <Image style={styles.upload} source={srcImg} />
-            </View>
-          </TouchableOpacity>
-        </CardSection>
+        <ScrollView>
+          <CardSection>
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <Text style={styles.labelStyle}>{UPLOAD_COLLECTIONS}</Text>
+            </TouchableOpacity>
 
-        <CardSection>
-          <Input
-            editable
-            label={LABEL_PRODUCT_NAME}
-            value={this.props.productName}
-            errorMessage={this.state.errors.productName}
-            uniqueName={PRODUCT_NAME}
-            validate={this.validations.bind(this)}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.productDetailsChanged({ prop: 'productName', value })}
-          />
-        </CardSection>
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
+                <Image style={styles.upload} source={srcImg} />
+              </View>
+            </TouchableOpacity>
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.url}
+            </Text>
+          </View>
 
-        <CardSection>
-          <Input
-            editable
-            label={LABEL_DAYS_OF_RENT}
-            value={this.props.daysOfRent}
-            errorMessage={this.state.errors.daysOfRent}
-            uniqueName={DAYS_OF_RENT}
-            validate={this.validations.bind(this)}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.productDetailsChanged({ prop: 'daysOfRent', value })}
-          />
-        </CardSection>
+          <CardSection>
+            <Input
+              editable
+              label={LABEL_PRODUCT_NAME}
+              value={this.props.productName}
+              errorMessage={this.state.errors.productName}
+              uniqueName={PRODUCT_NAME}
+              validate={this.validations.bind(this)}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.productDetailsChanged({ prop: 'productName', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.productName}
+            </Text>
+          </View>
 
-        <CardSection>
-          <Input
-            editable
-            label={LABEL_RENT_EXPECTED}
-            value={this.props.rentExpected}
-            errorMessage={this.state.errors.rentExpected}
-            uniqueName={RENT_EXPECTED}
-            validate={this.validations.bind(this)}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.productDetailsChanged({ prop: 'rentExpected', value })}
-          />
-        </CardSection>
+          <CardSection>
+            <Input
+              editable
+              label={LABEL_DAYS_OF_RENT}
+              value={this.props.daysOfRent}
+              errorMessage={this.state.errors.daysOfRent}
+              uniqueName={DAYS_OF_RENT}
+              validate={this.validations.bind(this)}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.productDetailsChanged({ prop: 'daysOfRent', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.daysOfRent}
+            </Text>
+          </View>
 
-        <Text style={styles.errorTextStyle}>
-          {this.props.error}
-        </Text>
+          <CardSection>
+            <Input
+              editable
+              label={LABEL_RENT_EXPECTED}
+              value={this.props.rentExpected}
+              errorMessage={this.state.errors.rentExpected}
+              uniqueName={RENT_EXPECTED}
+              validate={this.validations.bind(this)}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.productDetailsChanged({ prop: 'rentExpected', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.rentExpected}
+            </Text>
+          </View>
 
+          <Text style={styles.errorTextStyle}>
+            {this.props.error}
+          </Text>
+        </ScrollView>
       </View>
     );
   }

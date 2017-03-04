@@ -1,29 +1,40 @@
 /* Customized multi line text input component */
-import React from 'react';
+import React, { Component } from 'react';
 import { TextInput, View, Text } from 'react-native';
 
-const MultilineInput = ({ label, value, onChangeText, placeholder, secureTextEntry, editable }) => {
-const { inputStyle, labelStyle, containerStyle } = styles;
+class MultilineInput extends Component {
+  onChangeValue() {
+    this.props.onChange(this.props.uniqueName, this.props.value);
+  }
 
-  return (
-    <View style={containerStyle}>
-      <Text style={labelStyle}>{label}</Text>
-      <TextInput
-        editable={editable}
-        secureTextEntry={secureTextEntry}
-        placeholder={placeholder}
-        autoCorrect={false}
-        style={inputStyle}
-        value={value}
-        onChangeText={onChangeText}
-        underlineColorAndroid='transparent'
-        maxLength={255}
-        multiline={true}
-        numberOfLines={4}
-      />
-    </View>
-  );
-};
+  handleBlur() {
+    this.props.validate(this.props);
+  }
+  render() {
+    const { inputStyle, labelStyle, containerStyle } = styles;
+
+    return (
+      <View style={containerStyle}>
+        <Text style={labelStyle}>{this.props.label}</Text>
+        <TextInput
+          editable={this.props.editable}
+          secureTextEntry={this.props.secureTextEntry}
+          placeholder={this.props.placeholder}
+          autoCorrect={false}
+          style={inputStyle}
+          value={this.props.value}
+          onChangeText={this.props.onChangeText}
+          underlineColorAndroid='transparent'
+          maxLength={255}
+          multiline
+          numberOfLines={4}
+          onBlur={(value) => this.handleBlur(value)}
+          onChange={(value) => this.onChangeValue(value)}
+        />
+      </View>
+    );
+  }
+}
 
 const styles = {
   inputStyle: {
@@ -42,8 +53,6 @@ const styles = {
     fontFamily: 'Cochin',
     lineHeight: 23,
     height: 40
-
-
   },
   containerStyle: {
     height: 60,

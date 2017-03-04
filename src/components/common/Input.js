@@ -3,12 +3,6 @@ import React, { Component } from 'react';
 import { TextInput, View, Text } from 'react-native';
 
 class Input extends Component {
-  componentWillMount() {
-    //this.refs.theToolTip.showMenu();
-    return {
-      input: 'chirag',
-    };
-  }
   onChangeValue() {
     this.props.onChange(this.props.uniqueName, this.props.value);
   }
@@ -17,7 +11,7 @@ class Input extends Component {
     this.props.validate(this.props);
   }
   render() {
-    const { inputStyle, labelStyle, containerStyle, errorTextStyle } = styles;
+    const { inputStyle, labelStyle, containerStyle } = styles;
 
     return (
       <View style={containerStyle} >
@@ -34,9 +28,6 @@ class Input extends Component {
           onBlur={(value) => this.handleBlur(value)}
           onChange={(value) => this.onChangeValue(value)}
         />
-        <Text style={errorTextStyle}>
-          {this.props.errorMessage}
-        </Text>
       </View>
     );
   }
@@ -65,11 +56,6 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
-  },
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red'
   }
 };
 

@@ -1,6 +1,6 @@
 /* login Form */
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { userDetailsChanged, loginUser, forgotPassword } from '../../actions';
@@ -83,10 +83,10 @@ class LoginForm extends Component {
         <Card>
           <CardSection>
               <Input
+                ref='email'
                 label={LABEL_EMAIL}
                 placeholder={PLACEHOLDER_EMAIL}
                 value={this.props.email}
-                errorMessage={this.state.errors.email}
                 uniqueName={EMAIL}
                 validate={this.validations}
                 onChange={this.handleChange.bind(this)}
@@ -94,6 +94,13 @@ class LoginForm extends Component {
                   this.props.userDetailsChanged({ prop: 'email', value })}
               />
           </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.email}
+            </Text>
+          </View>
 
           <CardSection>
             <Input
@@ -101,7 +108,6 @@ class LoginForm extends Component {
               label={LABEL_PASSWORD}
               placeholder={PLACEHOLDER_PASSWORD}
               value={this.props.password}
-              errorMessage={this.state.errors.password}
               uniqueName={PASSWORD}
               validate={this.validations}
               onChange={this.handleChange.bind(this)}
@@ -109,6 +115,14 @@ class LoginForm extends Component {
                 this.props.userDetailsChanged({ prop: 'password', value })}
             />
           </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+          <Text style={styles.errorTextStyle}>
+            {this.state.errors.password}
+          </Text>
+          </View>
+          
           <Text style={styles.errorTextStyle}>
             {this.props.error}
           </Text>

@@ -44,7 +44,6 @@ export const PASSWORD = 'password';
 export const UNDEFINED = 'undefined';
 export const EMPTY_EMAIL = 'Please enter email.';
 export const INVALID_EMAIL_PATTERN = 'Invalid email pattern.';
-export const SPACE = '';
 export const EMPTY_PASSWORD = 'Please enter password.';
 export const INVALID_PASSWORD_PATTERN = 'Password should contain at least 1 alphabet and 1 number.';
 export const FULLNAME = 'fullName';

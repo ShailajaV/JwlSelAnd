@@ -12,7 +12,7 @@ import ProductEdit from './components/product/ProductEdit';
 import {
   KEY_AUTH, KEY_SIGN_IN, KEY_SIGN_UP, KEY_LOGIN, KEY_FORGOT_PASSWORD,
   KEY_SELLER, KEY_SELLER_PROFILE, KEY_PRODUCT_DETAILS, KEY_PRODUCT_LIST,
-  KEY_PRODUCT_EDIT 
+  KEY_PRODUCT_EDIT
 } from './actions/constants';
 
 const RouterComponent = () => {

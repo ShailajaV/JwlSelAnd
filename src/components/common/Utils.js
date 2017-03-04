@@ -1,5 +1,5 @@
 /* Common js */
-import { EMPTY_EMAIL, INVALID_EMAIL_PATTERN, SPACE, EMPTY_PASSWORD,
+import { EMPTY_EMAIL, INVALID_EMAIL_PATTERN, EMPTY_PASSWORD,
   INVALID_PASSWORD_PATTERN, EMPTY_FULLNAME, EMPTY_COMPANY_NAME, EMPTY_ADDR_STREET,
   EMPTY_ADDR_APT, INVALID_PHONE_NUMBER, INVALID_ZIP, EMPTY_PHONE_NUMBER, FULLNAME, COMPANYNAME,
   ADDRESS_STREET, ADDRESS_APT, STATE, CITY, PLEASE_ENTER, ADDRESS, PRODUCT_NAME,
@@ -9,7 +9,7 @@ import { EMPTY_EMAIL, INVALID_EMAIL_PATTERN, SPACE, EMPTY_PASSWORD,
 let errors = {};
 export const validateEmail = (email, stateErrors) => {
   errors = stateErrors;
-  if (email === SPACE) errors.email = EMPTY_EMAIL;
+  if (!email.replace(/\s/g, '').length) errors.email = EMPTY_EMAIL;
   else if (!validateEmailPattern(email)) {
     errors.email = INVALID_EMAIL_PATTERN;
   }
@@ -18,7 +18,7 @@ export const validateEmail = (email, stateErrors) => {
 
 export const validatePassword = (password, stateErrors) => {
   errors = stateErrors;
-  if (password === SPACE) errors.password = EMPTY_PASSWORD;
+  if (!password.replace(/\s/g, '').length) errors.password = EMPTY_PASSWORD;
   else if (!validatePasswordPattern(password)) {
     errors.password = INVALID_PASSWORD_PATTERN;
   }
@@ -38,14 +38,14 @@ const validatePasswordPattern = (value) => {
 
 export const validateEmptyFields = (fieldName, fieldValue, stateErrors) => {
   errors = stateErrors;
-  if (fieldValue === SPACE) {
+  if (!fieldValue.replace(/\s/g, '').length) {
     if (fieldName === FULLNAME) errors.fullName = EMPTY_FULLNAME;
     if (fieldName === COMPANYNAME) errors.companyName = EMPTY_COMPANY_NAME;
     if (fieldName === ADDRESS_STREET) errors.addrStreet = EMPTY_ADDR_STREET;
     if (fieldName === ADDRESS_APT) errors.addrApt = EMPTY_ADDR_APT;
-    if (fieldName === STATE) errors.state = PLEASE_ENTER`${fieldName}`;
-    if (fieldName === CITY) errors.city = PLEASE_ENTER`${fieldName}`;
-    if (fieldName === ADDRESS) errors.address = PLEASE_ENTER`${fieldName}`;
+    if (fieldName === STATE) errors.state = `${PLEASE_ENTER}${fieldName}`;
+    if (fieldName === CITY) errors.city = `${PLEASE_ENTER}${fieldName}`;
+    if (fieldName === ADDRESS) errors.address = `${PLEASE_ENTER}${fieldName}`;
     if (fieldName === PRODUCT_NAME) errors.productName = EMPTY_PRODUCT_NAME;
   }
   return errors;
@@ -53,7 +53,7 @@ export const validateEmptyFields = (fieldName, fieldValue, stateErrors) => {
 
 export const validateZip = (fieldName, fieldValue, stateErrors) => {
   errors = stateErrors;
-  if (fieldValue === SPACE) errors.zip = PLEASE_ENTER`${fieldName}`;
+  if (!fieldValue.replace(/\s/g, '').length) errors.zip = `${PLEASE_ENTER}${fieldName}`;
   else if (!validateOnlyNumbers(fieldValue)) {
     errors.zip = INVALID_ZIP;
   }
@@ -62,7 +62,7 @@ export const validateZip = (fieldName, fieldValue, stateErrors) => {
 
 export const validatePhoneNumber = (value, stateErrors) => {
   errors = stateErrors;
-  if (value === SPACE) errors.phoneNumber = EMPTY_PHONE_NUMBER;
+  if (!value.replace(/\s/g, '').length) errors.phoneNumber = EMPTY_PHONE_NUMBER;
   else if (!validateOnlyNumbers(value)) {
     errors.phoneNumber = INVALID_PHONE_NUMBER;
   } else if (value.length !== 10) {
@@ -85,7 +85,7 @@ export const validateURLField = (uploadURL, url, stateErrors) => {
 
 export const validateDaysOfRent = (value, stateErrors) => {
   errors = stateErrors;
-  if (value === SPACE) errors.daysOfRent = EMPTY_DAYS_OF_RENT;
+  if (!value.replace(/\s/g, '').length) errors.daysOfRent = EMPTY_DAYS_OF_RENT;
   else if (!validateOnlyNumbers(value)) {
     errors.daysOfRent = INVALID_DAYS_OF_RENT;
   }
@@ -94,7 +94,7 @@ export const validateDaysOfRent = (value, stateErrors) => {
 
 export const validateRentExpected = (value, stateErrors) => {
   errors = stateErrors;
-  if (value === SPACE) errors.rentExpected = EMPTY_RENT_EXPECTED;
+  if (!value.replace(/\s/g, '').length) errors.rentExpected = EMPTY_RENT_EXPECTED;
   else if (value <= 0 || !validateDecimalDigits(value)) {
     errors.rentExpected = INVALID_RENT_EXPECTED;
   }
