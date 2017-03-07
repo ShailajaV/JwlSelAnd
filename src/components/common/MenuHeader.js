@@ -3,7 +3,7 @@ import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
 
 // Make a Component
-const Header = ({ onPress }) => {
+const MenuHeader = ({ onPress }) => {
   const { imageStyle, viewStyle } = styles;
 
   return (
@@ -38,4 +38,4 @@ const styles = {
   }
 };
 // Make the component available to other parts of the App
-export { Header };
+export { MenuHeader };

@@ -15,6 +15,7 @@ const styles = {
     //borderWidth: 1,
     borderRadius: 2,
     borderColor: '#ddd',
+    backgroundColor: '#1abc9c',
     borderBottomWidth: 0,
     marginLeft: 5,
     marginRight: 5,

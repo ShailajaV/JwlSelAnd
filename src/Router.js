@@ -17,22 +17,54 @@ import {
 
 const RouterComponent = () => {
   return (
-    <Router showNavigationBar={false}>
+    <Router showNavigationBar={false} >
       <Scene key={KEY_AUTH}>
-        <Scene key={KEY_SIGN_IN} component={PreLoginForm} hideNavBar initial />
-        <Scene key={KEY_LOGIN} component={LoginForm} hideNavBar />
-        <Scene key={KEY_SIGN_UP} component={RegisterForm} hideNavBar />
+        <Scene
+    key={KEY_SIGN_IN} sceneStyle={{
+    backgroundColor: '#1abc9c', }}
+     component={PreLoginForm} hideNavBar initial
+        />
+        <Scene
+        key={KEY_LOGIN} sceneStyle={{
+        backgroundColor: '#1abc9c', }}
+        component={LoginForm} hideNavBar
+        />
+        <Scene
+        key={KEY_SIGN_UP} sceneStyle={{
+        backgroundColor: '#1abc9c', }}
+        component={RegisterForm} hideNavBar
+        />
         <Scene
           key={KEY_FORGOT_PASSWORD}
+          sceneStyle={{
+          backgroundColor: '#1abc9c', }}
           component={ForgotPasswordForm}
         />
       </Scene>
 
       <Scene key={KEY_SELLER}>
-        <Scene key={KEY_SELLER_PROFILE} component={SellerProfile} hideNavBar />
-        <Scene key={KEY_PRODUCT_DETAILS} component={ProductCreate} hideNavBar />
-        <Scene key={KEY_PRODUCT_LIST} component={ProductList} hideNavBar />
-        <Scene key={KEY_PRODUCT_EDIT} component={ProductEdit} hideNavBar />
+        <Scene
+        key={KEY_SELLER_PROFILE} sceneStyle={{
+        backgroundColor: '#1abc9c', }}
+        component={SellerProfile} hideNavBar
+        />
+        <Scene
+        key={KEY_PRODUCT_DETAILS} sceneStyle={{
+        backgroundColor: '#1abc9c', }}
+        component={ProductCreate}
+        hideNavBar
+        />
+        <Scene
+         key={KEY_PRODUCT_LIST} sceneStyle={{
+        backgroundColor: '#1abc9c', }}
+        component={ProductList}
+        hideNavBar
+        />
+        <Scene
+        key={KEY_PRODUCT_EDIT} sceneStyle={{
+       backgroundColor: '#1abc9c', }}
+       component={ProductEdit} hideNavBar
+        />
       </Scene>
     </Router>
   );

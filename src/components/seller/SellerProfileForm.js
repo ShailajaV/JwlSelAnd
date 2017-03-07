@@ -137,7 +137,7 @@ class SellerProfileForm extends Component {
     }
 
     return (
-      <BackgroundImage>
+
         <ScrollView>
           <Card>
             <CardSection>
@@ -254,7 +254,7 @@ class SellerProfileForm extends Component {
            </CardSection>
           </Card>
         </ScrollView>
-      </BackgroundImage>
+      
     );
   }
 }

@@ -3,7 +3,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
-import { BackgroundImage } from '../common';
 import { getProductDetails } from '../../actions';
 import ProductListItem from './ProductListItem';
 
@@ -32,13 +31,13 @@ class ProductsList extends Component {
 
   render() {
     return (
-      <BackgroundImage>
+
       <ListView
         enableEmptySections
         dataSource={this.dataSource}
         renderRow={this.renderRow}
       />
-      </BackgroundImage>
+
     );
   }
 }

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { BackgroundImage, Card, CardSection, Button } from '../common';
+import { Card, CardSection, Button } from '../common';
 import ProductForm from './ProductForm';
 import { ADD_MORE, SUBMIT } from '../../actions/constants';
 import { productDetailsChanged, productCreate } from '../../actions';
@@ -39,7 +39,7 @@ class ProductCreate extends Component {
 
   render() {
     return (
-      <BackgroundImage>
+
         <Card>
         <ProductForm onRef={ref => (this.child = ref)} />
           <CardSection>
@@ -54,7 +54,7 @@ class ProductCreate extends Component {
             </Button>
           </CardSection>
         </Card>
-      </BackgroundImage>
+
     );
   }
 }

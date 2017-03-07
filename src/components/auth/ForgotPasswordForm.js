@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Button, BackgroundImage } from '../common';
+import { Card, CardSection, Button } from '../common';
 import { userDetailsChanged, passwordReset } from '../../actions';
 
 import {
@@ -20,8 +20,8 @@ class ForgotPasswordForm extends Component {
 
   render() {
     return (
-      <BackgroundImage>
-        <Card>
+
+        <Card style={{ backgroundColor: '#1abc9c' }}>
           <CardSection>
             <Text style={styles.textStyle}>
               {EMAIL_MSG}
@@ -42,7 +42,7 @@ class ForgotPasswordForm extends Component {
             </Button>
           </CardSection>
         </Card>
-      </BackgroundImage>
+
     );
   }
 }
