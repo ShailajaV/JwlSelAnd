@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, BackgroundImage, Input, Button, Spinner } from '../common';
+import { Card, CardSection, Input, Button, Spinner } from '../common';
 import {
   userDetailsChanged,
   createUserAccount } from '../../actions';
@@ -136,9 +136,9 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <BackgroundImage>
+
         <ScrollView>
-          <Card>
+          <Card style={{ backgroundColor: '#1abc9c' }}>
             <CardSection>
               <Input
                 label={LABEL_FULLNAME}
@@ -332,7 +332,7 @@ class RegisterForm extends Component {
                 {this.state.errors.phoneNumber}
               </Text>
             </View>
-            
+
             <Text style={styles.errorTextStyle}>
               {this.props.error}
             </Text>
@@ -342,7 +342,7 @@ class RegisterForm extends Component {
             </CardSection>
           </Card>
         </ScrollView>
-      </BackgroundImage>
+
     );
   }
 }

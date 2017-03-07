@@ -3,7 +3,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { productDetailsChanged, productUpdate } from '../../actions';
-import { BackgroundImage, Card, CardSection, Button } from '../common';
+import { Card, CardSection, Button } from '../common';
 import ProductForm from './ProductForm';
 import { EDIT } from '../../actions/constants';
 
@@ -30,7 +30,7 @@ class ProductEdit extends Component {
 
   render() {
     return (
-      <BackgroundImage>
+
         <Card>
         <ProductForm onRef={ref => (this.child = ref)} />
           <CardSection>
@@ -39,7 +39,7 @@ class ProductEdit extends Component {
             </Button>
           </CardSection>
         </Card>
-      </BackgroundImage>
+
     );
   }
 }

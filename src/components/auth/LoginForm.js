@@ -4,11 +4,11 @@ import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { userDetailsChanged, loginUser, forgotPassword } from '../../actions';
-import { Card, CardSection, Button, Input, Spinner, BackgroundImage } from '../common';
+import { Card, CardSection, Button, Input, Spinner } from '../common';
 import { LABEL_EMAIL, PLACEHOLDER_EMAIL, LABEL_PASSWORD, PLACEHOLDER_PASSWORD, SIGN_IN,
   SPINNER_SIZE, FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED
 } from '../../actions/constants';
-import { validateEmail, validatePassword } from '../common/Utils';
+import { validateEmail } from '../common/Utils';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -79,9 +79,9 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <BackgroundImage>
-        <Card>
-          <CardSection>
+
+        <Card style={{ backgroundColor: '#1abc9c' }}>
+          <CardSection style={{ backgroundColor: '#1abc9c' }}>
               <Input
                 ref='email'
                 label={LABEL_EMAIL}
@@ -95,14 +95,17 @@ class LoginForm extends Component {
               />
           </CardSection>
           <View
-            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+        style={{ flexDirection: 'row',
+        justifyContent: 'flex-end',
+         alignItems: 'flex-end',
+         backgroundColor: '#1abc9c' }}
           >
             <Text style={styles.errorTextStyle}>
               {this.state.errors.email}
             </Text>
           </View>
 
-          <CardSection>
+          <CardSection style={{ backgroundColor: '#1abc9c' }}>
             <Input
               secureTextEntry
               label={LABEL_PASSWORD}
@@ -116,23 +119,27 @@ class LoginForm extends Component {
             />
           </CardSection>
           <View
-            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+            style={{ flexDirection: 'row',
+             justifyContent: 'flex-end',
+             alignItems: 'flex-end',
+            backgroundColor: '#1abc9c'
+           }}
           >
           <Text style={styles.errorTextStyle}>
             {this.state.errors.password}
           </Text>
           </View>
-          
+
           <Text style={styles.errorTextStyle}>
             {this.props.error}
           </Text>
 
-          <CardSection>
+          <CardSection style={{ backgroundColor: '#1abc9c' }}>
             {this.renderButton()}
             {this.renderForgotPassword()}
          </CardSection>
         </Card>
-      </BackgroundImage>
+
     );
   }
 }
@@ -146,6 +153,7 @@ const styles = {
   containerStyle: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: '#1abc9c',
     justifyContent: 'center',
     alignItems: 'center'
   },

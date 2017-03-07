@@ -32,13 +32,13 @@ class SellerProfile extends Component {
 
   render() {
     return (
-      <BackgroundImage>
+
         <ListView
           enableEmptySections
           dataSource={this.dataSource}
           renderRow={this.renderRow}
         />
-      </BackgroundImage>
+      
     );
   }
 }
