@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import { List, ListItem } from 'react-native-elements';
 import {
-  Dimensions,
-  ScrollView,
-  Text,
+  Dimensions
 } from 'react-native';
 
 
@@ -37,6 +36,35 @@ const styles = {
   },
 };
 
+const list = [
+{
+  name: 'LoginForm',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+{
+  name: 'AccountSettings',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+{
+  name: 'ProductCreate',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+{
+  name: 'ProductDetails',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+{
+  name: 'ForgotPassword',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+
+];
+
 class Menu extends Component {
 
 
@@ -46,27 +74,20 @@ class Menu extends Component {
 
   render() {
     return (
-      <ScrollView scrollsToTop={false} style={styles.menu}>
-        <Text onPress={() => this.props.onItemSelected('LoginForm')} style={styles.item} >
-          Login
-        </Text>
+      <List containerStyle={{ marginBottom: 20 }}>
+     {
+       list.map((l, i) => (
+          <ListItem
+           roundAvatar
+           onPress={() => this.props.onItemSelected(l["name"])}
+           key={i}
+           title={l.name}
 
-        <Text onPress={() => this.props.onItemSelected('AccountSettings')} style={styles.item} >
-          Account Settings
-        </Text>
 
-        <Text onPress={() => this.props.onItemSelected('ProductCreate')} style={styles.item} >
-          Upload Product
-        </Text>
-
-        <Text onPress={() => this.props.onItemSelected('ProductDetails')} style={styles.item} >
-          Products List
-        </Text>
-
-        <Text onPress={() => this.props.onItemSelected('ForgotPassword')} style={styles.item} >
-          Forgot Password
-        </Text>
-      </ScrollView>
+          />
+       ))
+     }
+     </List>
     );
   }
 }
