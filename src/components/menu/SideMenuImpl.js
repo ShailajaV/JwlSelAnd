@@ -1,20 +1,21 @@
-import { Actions } from 'react-native-router-flux';
-import SideMenu from 'react-native-side-menu';
 import React, { Component } from 'react';
-import { Menu } from '../common/Menu';
-
+import SideMenu from 'react-native-side-menu';
+import { Actions } from 'react-native-router-flux';
+import { BackgroundImage, Header } from '../common';
+import Menu from './Menu';
 
 class SideMenuImpl extends Component {
   state = {
-    isOpen: false,
-    selectedItem: 'About',
+      isOpen: false,
+      selectedItem: 'About',
   };
+
   onMenuItemSelected = (item) => {
     this.setState({
       isOpen: false,
       selectedItem: item,
     });
-    //this.goToScreen(item);
+    this.goToScreen(item);
   }
 
   goToScreen(route) {
@@ -33,28 +34,31 @@ class SideMenuImpl extends Component {
         return Actions.logIn();
     }
   }
-
   toggle() {
+      console.log('this.is.togglest ', this.state.isOpen);
     this.setState({
       isOpen: !this.state.isOpen,
     });
+    console.log('this.is.toggle ', this.state.isOpen);
   }
   updateMenuState(isOpen) {
     this.setState({ isOpen });
   }
-
   render() {
-const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+    return (
+      <SideMenu
+        menu={menu}
+        isOpen={this.state.isOpen}
+        onChange={(isOpen) => this.updateMenuState(isOpen)}
+      >
+      <BackgroundImage>
+      <Header headerText='Toggle' onPress={() => this.toggle()} />
+      </BackgroundImage>
+      </SideMenu>
 
-  return (
-    <SideMenu
-      menu={menu}
-      menuPosition={'left'}
-      isOpen={this.state.isOpen}
-      onChange={(isOpen) => this.updateMenuState(isOpen)}
-    />
-  );
-}
+    );
   }
+}
 
 export default SideMenuImpl;

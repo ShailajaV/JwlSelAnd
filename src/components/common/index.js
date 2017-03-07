@@ -9,5 +9,4 @@ export * from './MultilineInput';
 export * from './Spinner';
 export * from './Confirm';
 export * from './SelectImage';
-export * from './Menu';
 export * from './Utils';

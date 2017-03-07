@@ -71,4 +71,4 @@ class Menu extends Component {
   }
 }
 
-export { Menu };
+export default Menu;

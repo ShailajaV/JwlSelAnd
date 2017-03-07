@@ -25,7 +25,7 @@ const styles = {
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     height: 60,
-    paddingTop: 15
+    paddingTop: 15,
   },
   textstyle: {
     fontSize: 20

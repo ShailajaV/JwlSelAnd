@@ -2,20 +2,15 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import firebase from 'firebase';
-import SideMenu from 'react-native-side-menu';
-import { View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import { BackgroundImage, Header } from './components/common';
-import { Menu } from './components/common/Menu';
+//import { View } from 'react-native';
+//import { Actions } from 'react-native-router-flux';
+import { BackgroundImage } from './components/common';
+
 import Router from './Router';
 import configureStore from './ConfigureStore';
 
 class App extends Component {
-  state = {
-    isOpen: false,
-    selectedItem: 'About',
-  };
-
+  
   componentWillMount() {
     const config = {
     apiKey: 'AIzaSyDFmxMQ6Fp55hh6RQiaUuIHsUYDlTKySZc',
@@ -26,56 +21,15 @@ class App extends Component {
     };
   firebase.initializeApp(config);
   }
-  onMenuItemSelected = (item) => {
-    this.setState({
-      isOpen: false,
-      selectedItem: item,
-    });
-    this.goToScreen(item);
-  }
-
-  goToScreen(route) {
-    switch (route) {
-      case 'LoginForm':
-        return Actions.logIn();
-      case 'AccountSettings':
-        return Actions.sellerProfile();
-      case 'ProductCreate':
-        return Actions.productDetails();
-      case 'ProductDetails':
-        return Actions.productsList();
-      case 'ForgotPassword':
-        return Actions.forgotPassword();
-      default:
-        return Actions.logIn();
-    }
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  }
-  updateMenuState(isOpen) {
-    this.setState({ isOpen });
-  }
 
   render() {
     const store = configureStore();
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+
     return (
       <BackgroundImage>
-        <SideMenu
-          menu={menu}
-          isOpen={this.state.isOpen}
-          onChange={(isOpen) => this.updateMenuState(isOpen)}
-        >
-        <View>
-        <Header headerText='Toggle' onPress={() => this.toggle()} />
-        </View>
         <Provider store={store}>
          <Router />
         </Provider>
-        </SideMenu>
       </BackgroundImage>
     );
   }
