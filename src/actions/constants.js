@@ -63,6 +63,9 @@ export const INVALID_PHONE_NUMBER = 'Phone number should contain only numbers.';
 export const LENGTH_PHONE_NUMBER = 'Phone number should contain 10 digits.';
 export const INVALID_ZIP = 'Zip should contain only numbers.';
 export const PLEASE_ENTER = 'Please enter ';
+export const SPACE = '';
+export const FILE = 'file://';
+export const ANDROID = 'android';
 
 // Seller profile related constants
 export const KEY_SELLER = 'seller';

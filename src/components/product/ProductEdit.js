@@ -30,16 +30,14 @@ class ProductEdit extends Component {
 
   render() {
     return (
-
-        <Card>
+      <Card>
         <ProductForm onRef={ref => (this.child = ref)} />
-          <CardSection>
-            <Button onPress={this.onEdit.bind(this)}>
-              {EDIT}
-            </Button>
-          </CardSection>
-        </Card>
-
+        <CardSection>
+          <Button onPress={this.onEdit.bind(this)}>
+            {EDIT}
+          </Button>
+        </CardSection>
+      </Card>
     );
   }
 }

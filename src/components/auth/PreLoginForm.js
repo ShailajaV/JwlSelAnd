@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import { signIn, signUp } from '../../actions';
 import { Card, CardSection, Button } from '../common';
 import { SIGN_IN, SIGN_UP } from '../../actions/constants';
+import styles from '../common/CommonCSS';
 
 class PreLoginForm extends Component {
   onLogInButton() {
-      this.props.signIn();
-    }
+    this.props.signIn();
+  }
 
   onSignUpButton() {
     this.props.signUp();
@@ -17,19 +18,18 @@ class PreLoginForm extends Component {
 
   render() {
     return (
-
-      <Card style={styles.containerStyle}>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-          <CardSection>
+      <Card style={styles.loginContainerStyle}>
+        <CardSection />
+        <CardSection />
+        <CardSection />
+        <CardSection />
+        <CardSection>
           <Image
             source={require('../common/images/logo.png')}
             style={styles.upload}
             resizeMode={Image.resizeMode.sretch}
           />
-          </CardSection>
+        </CardSection>
         <CardSection>
           <Button onPress={this.onLogInButton.bind(this)}>
             {SIGN_IN}
@@ -42,24 +42,4 @@ class PreLoginForm extends Component {
     );
   }
 }
-const styles = {
-  containerStyle: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginLeft: 0,
-    marginRight: 0,
-    marginTop: 0,
-    backgroundColor: '#1abc9c'
-  },
-  cardUpload: {
-    padding: 150
-  },
-  upload: {
-    borderRadius: 75,
-    width: 150,
-    height: 150
-  }
-};
 export default connect(null, { signIn, signUp })(PreLoginForm);

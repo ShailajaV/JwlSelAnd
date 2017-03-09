@@ -1,6 +1,6 @@
 /* login Form */
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { userDetailsChanged, loginUser, forgotPassword } from '../../actions';
@@ -8,7 +8,8 @@ import { Card, CardSection, Button, Input, Spinner } from '../common';
 import { LABEL_EMAIL, PLACEHOLDER_EMAIL, LABEL_PASSWORD, PLACEHOLDER_PASSWORD, SIGN_IN,
   SPINNER_SIZE, FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED
 } from '../../actions/constants';
-import { validateEmail } from '../common/Utils';
+import { validateEmail, validatePassword } from '../common/Utils';
+import styles from '../common/CommonCSS';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -50,10 +51,10 @@ class LoginForm extends Component {
     let errors = {};
     if (typeof email !== UNDEFINED) errors = validateEmail(email, this.state.errors);
     else if (values.uniqueName === EMAIL) errors = validateEmail(values.value, this.state.errors);
-    /*if (typeof password !== UNDEFINED) errors = validatePassword(password, this.state.errors);
+    if (typeof password !== UNDEFINED) errors = validatePassword(password, this.state.errors);
     else if (values.uniqueName === PASSWORD) {
       errors = validatePassword(values.value, this.state.errors);
-    }*/
+    }
     this.setState({ errors });
     return errors;
   }
@@ -79,9 +80,15 @@ class LoginForm extends Component {
 
   render() {
     return (
-
-        <Card style={{ backgroundColor: '#1abc9c' }}>
-          <CardSection style={{ backgroundColor: '#1abc9c' }}>
+      <Card>
+        <CardSection style={styles.cardSeccontainerStyle}>
+          <Image
+            source={require('../common/images/logo.png')}
+            style={styles.upload}
+            resizeMode={Image.resizeMode.sretch}
+          />
+          </CardSection>
+          <CardSection>
               <Input
                 ref='email'
                 label={LABEL_EMAIL}
@@ -95,17 +102,16 @@ class LoginForm extends Component {
               />
           </CardSection>
           <View
-        style={{ flexDirection: 'row',
-        justifyContent: 'flex-end',
-         alignItems: 'flex-end',
-         backgroundColor: '#1abc9c' }}
+            style={{ flexDirection: 'row',
+            justifyContent: 'flex-end',
+             alignItems: 'flex-end' }}
           >
             <Text style={styles.errorTextStyle}>
               {this.state.errors.email}
             </Text>
           </View>
 
-          <CardSection style={{ backgroundColor: '#1abc9c' }}>
+          <CardSection>
             <Input
               secureTextEntry
               label={LABEL_PASSWORD}
@@ -121,20 +127,19 @@ class LoginForm extends Component {
           <View
             style={{ flexDirection: 'row',
              justifyContent: 'flex-end',
-             alignItems: 'flex-end',
-            backgroundColor: '#1abc9c'
+             alignItems: 'flex-end'
            }}
           >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.password}
-          </Text>
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.password}
+            </Text>
           </View>
 
-          <Text style={styles.errorTextStyle}>
-            {this.props.error}
-          </Text>
+            <Text style={styles.errorTextStyle}>
+              {this.props.error}
+            </Text>
 
-          <CardSection style={{ backgroundColor: '#1abc9c' }}>
+          <CardSection>
             {this.renderButton()}
             {this.renderForgotPassword()}
          </CardSection>
@@ -143,29 +148,6 @@ class LoginForm extends Component {
     );
   }
 }
-
-const styles = {
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red'
-  },
-  containerStyle: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: '#1abc9c',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  forgotPasswordStyle: {
-    flex: 1,
-    color: 'blue',
-    fontSize: 20,
-    justifyContent: 'center',
-    alignSelf: 'center',
-    fontFamily: 'Cochin'
-  }
-};
 
 const mapStateToProps = ({ auth }) => {
   const { email, password, error, loading } = auth;

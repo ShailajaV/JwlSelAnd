@@ -1,16 +1,17 @@
 /* Product information */
 import React, { Component } from 'react';
-import { Text, View, TouchableOpacity, Image, PixelRatio, Platform,
+import { Text, View, TouchableOpacity, Image, Platform,
   ScrollView } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 import { CardSection, Input } from '../common';
 import { LABEL_PRODUCT_NAME, LABEL_DAYS_OF_RENT, LABEL_RENT_EXPECTED,
   UPLOAD_COLLECTIONS, PRODUCT_NAME, DAYS_OF_RENT, RENT_EXPECTED,
-  UNDEFINED } from '../../actions/constants';
+  UNDEFINED, SPACE, FILE, ANDROID } from '../../actions/constants';
 import { productDetailsChanged } from '../../actions';
 import { validateEmptyFields, validateURLField, validateDaysOfRent,
   validateRentExpected } from '../common/Utils';
+import styles from '../common/CommonCSS';
 
 class ProductForm extends Component {
   constructor(props) {
@@ -70,18 +71,14 @@ class ProductForm extends Component {
 
   selectPhotoTapped() {
     ImagePicker.showImagePicker({}, (response) => {
-    if (response.didCancel) {
+    if (response.didCancel || response.error || response.customButton) {
       console.log('User cancelled photo picker');
-    } else if (response.error) {
-      console.log('ImagePicker Error: ', response.error);
-    } else if (response.customButton) {
-      console.log('User tapped custom button: ', response.customButton);
     } else {
         let source;
-        if (Platform.OS === 'android') {
+        if (Platform.OS === ANDROID) {
           source = { uri: response.uri };
         } else {
-          source = { uri: response.uri.replace('file://', '') };
+          source = { uri: response.uri.replace(FILE, SPACE) };
         }
         this.props.productDetailsChanged({ prop: 'uploadURL', value: source });
         this.handleChange('url', source);
@@ -90,14 +87,14 @@ class ProductForm extends Component {
   }
 
   render() {
-    let srcImg = '';
-    if (this.props === null || this.props === '' || this.props === 'undefined') {
+    let srcImg = SPACE;
+    if (this.props === null || this.props === SPACE || this.props === UNDEFINED) {
         srcImg = require('../common/images/noimage.png');
     } else {
       const { url, uploadURL } = this.props;
-      if (uploadURL !== '') {
+      if (uploadURL !== SPACE) {
         srcImg = uploadURL;
-      } else if (url !== '') {
+      } else if (url !== SPACE) {
         srcImg = { uri: url };
       } else {
         srcImg = require('../common/images/noimage.png');
@@ -109,9 +106,9 @@ class ProductForm extends Component {
         <ScrollView>
           <CardSection>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <Text style={styles.labelStyle}>{UPLOAD_COLLECTIONS}</Text>
+              <Text style={styles.uploadLabelStyle}>{UPLOAD_COLLECTIONS}</Text>
             </TouchableOpacity>
-
+            <CardSection />
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
                 <Image style={styles.upload} source={srcImg} />
@@ -197,34 +194,6 @@ class ProductForm extends Component {
     );
   }
 }
-
-const styles = {
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red'
-  },
-  uploadContainer: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  upload: {
-    borderRadius: 75,
-    width: 150,
-    height: 150
-  },
-  labelStyle: {
-    color: '#000',
-    fontSize: 18,
-    paddingLeft: 20,
-    fontFamily: 'Cochin',
-    lineHeight: 23,
-    height: 30,
-    backgroundColor: '#fff'
-  }
-};
 
 const mapStateToProps = (state) => {
   const { productName, daysOfRent, rentExpected, url, uploadURL, error } = state.productForm;

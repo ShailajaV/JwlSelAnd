@@ -1,25 +1,14 @@
 /* Customized component for label and text box view */
 import React from 'react';
 import { View } from 'react-native';
+import styles from './CommonCSS';
 
 const Card = (props) => {
   return (
-    <View style={[styles.containerStyle, props.style]}>
+    <View style={[styles.cardStyle, props.style]}>
       {props.children}
     </View>
   );
 };
 
-const styles = {
-  containerStyle: {
-    //borderWidth: 1,
-    borderRadius: 2,
-    borderColor: '#ddd',
-    backgroundColor: '#1abc9c',
-    borderBottomWidth: 0,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 10
-  }
-};
 export { Card };

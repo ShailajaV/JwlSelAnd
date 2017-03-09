@@ -15,6 +15,7 @@ import { SPINNER_SIZE, LABEL_FULLNAME, PLACEHOLDER_FULLNAME, LABEL_EMAIL, PLACEH
 } from '../../actions/constants';
 import { validateEmail, validatePassword, validateEmptyFields, validateZip,
   validatePhoneNumber } from '../common/Utils';
+import styles from '../common/CommonCSS';
 
 class RegisterForm extends Component {
 
@@ -347,28 +348,9 @@ class RegisterForm extends Component {
   }
 }
 
-const styles = {
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red'
-  }
-};
-
 const mapStateToProps = ({ auth }) => {
-  const { fullName,
-    email,
-    password,
-    companyName,
-    error,
-    loading,
-    addrStreet,
-    addrApt,
-    state,
-    city,
-    zip,
-    phoneNum
-   } = auth;
+  const { fullName, email, password, companyName, error, loading, addrStreet, addrApt, state, city,
+    zip, phoneNum } = auth;
   return { fullName,
     email,
     password,

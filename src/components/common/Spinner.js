@@ -1,7 +1,7 @@
 /* A spinner while processing a request */
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
-
+import styles from './CommonCSS';
 
 const Spinner = ({ size }) => {
   return (
@@ -9,14 +9,6 @@ const Spinner = ({ size }) => {
       <ActivityIndicator size={size || 'large'} />
     </View>
   );
-};
-
-const styles = {
-  spinnerStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
 };
 
 export { Spinner };

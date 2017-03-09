@@ -5,7 +5,6 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { sellerProfileInfo } from '../../actions';
 import SellerProfileForm from './SellerProfileForm';
-import { BackgroundImage } from '../common';
 
 class SellerProfile extends Component {
   componentWillMount() {
@@ -32,13 +31,11 @@ class SellerProfile extends Component {
 
   render() {
     return (
-
-        <ListView
-          enableEmptySections
-          dataSource={this.dataSource}
-          renderRow={this.renderRow}
-        />
-      
+      <ListView
+        enableEmptySections
+        dataSource={this.dataSource}
+        renderRow={this.renderRow}
+      />
     );
   }
 }

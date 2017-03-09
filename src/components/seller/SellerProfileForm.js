@@ -2,17 +2,17 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { View, Image, Text, TouchableOpacity,
-   Platform, PixelRatio, ScrollView } from 'react-native';
+   Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, MultilineInput, Button,
-  BackgroundImage } from '../common';
+import { Card, CardSection, Input, MultilineInput, Button } from '../common';
 import { LABEL_SELLER_NAME, LABEL_COMPANY_NAME,
   LABEL_SELLER_ADDRESS, SAVE, NEXT, FULLNAME, COMPANYNAME, ADDRESS,
-  UNDEFINED } from '../../actions/constants';
+  UNDEFINED, SPACE, FILE, ANDROID } from '../../actions/constants';
 import { sellerProfileChanged, saveSellerProfile, getSellerProfileImage } from '../../actions';
 import { validateEmptyFields } from '../common/Utils';
+import styles from '../common/CommonCSS';
 
 class SellerProfileForm extends Component {
   constructor(props) {
@@ -104,18 +104,14 @@ class SellerProfileForm extends Component {
 
   selectPhotoTapped() {
     ImagePicker.showImagePicker({}, (response) => {
-    if (response.didCancel) {
-      console.log('User cancelled photo picker');
-    } else if (response.error) {
-      console.log('ImagePicker Error: ', response.error);
-    } else if (response.customButton) {
-      console.log('User tapped custom button: ', response.customButton);
+    if (response.didCancel || response.error || response.customButton) {
+      console.log('Error while picking image');
     } else {
       let source;
-      if (Platform.OS === 'android') {
+      if (Platform.OS === ANDROID) {
         source = { uri: response.uri };
       } else {
-        source = { uri: response.uri.replace('file://', '') };
+        source = { uri: response.uri.replace(FILE, SPACE) };
       }
       this.setState({
           uploadURL: source,
@@ -126,10 +122,10 @@ class SellerProfileForm extends Component {
   }
 
   render() {
-    let srcImg = '';
+    let srcImg = SPACE;
     if (this.state.uploadURL !== null) {
       srcImg = this.state.uploadURL;
-    } else if (this.props.image === 'undefined' || this.props.image === '' ||
+    } else if (this.props.image === UNDEFINED || this.props.image === SPACE ||
                 this.props.image === null || this.state.deleteFlag === 1) {
       srcImg = require('../common/images/noimage.png');
     } else {
@@ -137,160 +133,127 @@ class SellerProfileForm extends Component {
     }
 
     return (
-
-        <ScrollView>
-          <Card>
-            <CardSection>
-              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-                <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-                  <Image style={styles.upload} source={srcImg} />
-                </View>
-              </TouchableOpacity>
-              <View sytle={styles.containerStyle}>
-                <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
-                  <Image
-                    source={require('../common/images/deleteimage.jpeg')}
-                    style={styles.imageStyle}
-                    resizeMode={Image.resizeMode.sretch}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-                  <Image
-                    source={require('../common/images/editimage.png')}
-                    style={styles.imageStyle}
-                    resizeMode={Image.resizeMode.sretch}
-                  />
-                </TouchableOpacity>
+      <ScrollView>
+        <Card>
+          <CardSection>
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
+                <Image style={styles.upload} source={srcImg} />
               </View>
-            </CardSection>
-            <CardSection style={{ justifyContent: 'flex-end' }}>
-              <TouchableOpacity onPress={this.makeEditable.bind(this)}>
+            </TouchableOpacity>
+            <CardSection />
+            <View sytle={styles.selContainerStyle}>
+              <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
                 <Image
-                  source={require('../common/images/editimage.png')}
+                  source={require('../common/images/deleteimage.jpeg')}
                   style={styles.imageStyle}
                   resizeMode={Image.resizeMode.sretch}
                 />
               </TouchableOpacity>
-            </CardSection>
-            <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
-            >
-              <Text style={styles.errorTextStyle}>
-                {this.state.errors.email}
-              </Text>
+              <CardSection />
+              <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+                <Image
+                  source={require('../common/images/editImage.png')}
+                  style={styles.imageStyle}
+                  resizeMode={Image.resizeMode.sretch}
+                />
+              </TouchableOpacity>
             </View>
-
-            <CardSection>
-              <Input
-                editable={this.state.editable}
-                label={LABEL_SELLER_NAME}
-                value={this.props.fullName}
-                uniqueName={FULLNAME}
-                validate={this.validations}
-                onChange={this.handleChange.bind(this)}
-                onChangeText={value =>
-                  this.props.sellerProfileChanged({ prop: 'fullName', value })}
+          </CardSection>
+          <CardSection style={{ justifyContent: 'flex-end' }}>
+            <TouchableOpacity onPress={this.makeEditable.bind(this)}>
+              <Image
+                source={require('../common/images/editImage.png')}
+                style={styles.imageStyle}
+                resizeMode={Image.resizeMode.sretch}
               />
-            </CardSection>
-            <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
-            >
-              <Text style={styles.errorTextStyle}>
-                {this.state.errors.fullName}
-              </Text>
-            </View>
-
-            <CardSection>
-              <Input
-                editable={this.state.editable}
-                label={LABEL_COMPANY_NAME}
-                value={this.props.companyName}
-                uniqueName={COMPANYNAME}
-                validate={this.validations}
-                onChange={this.handleChange.bind(this)}
-                onChangeText={value =>
-                  this.props.sellerProfileChanged({ prop: 'companyName', value })}
-              />
-            </CardSection>
-            <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
-            >
-              <Text style={styles.errorTextStyle}>
-                {this.state.errors.companyName}
-              </Text>
-            </View>
-
-            <CardSection>
-              <MultilineInput
-                editable={this.state.editable}
-                label={LABEL_SELLER_ADDRESS}
-                value={this.props.address}
-                uniqueName={ADDRESS}
-                validate={this.validations}
-                onChange={this.handleChange.bind(this)}
-                onChangeText={value =>
-                  this.props.sellerProfileChanged({ prop: 'address', value })}
-              />
-            </CardSection>
-            <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
-            >
-              <Text style={styles.errorTextStyle}>
-                {this.state.errors.address}
-              </Text>
-            </View>
-
+            </TouchableOpacity>
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
             <Text style={styles.errorTextStyle}>
-              {this.props.error}
+              {this.state.errors.email}
             </Text>
+          </View>
 
-            <CardSection>
-              <Button onPress={this.onSaveButtonPress.bind(this)}>
-                {SAVE}
-              </Button>
-              <Button onPress={this.onNextButtonPress.bind(this)}>
-                {NEXT}
-              </Button>
-           </CardSection>
-          </Card>
-        </ScrollView>
-      
+          <CardSection>
+            <Input
+              editable={this.state.editable}
+              label={LABEL_SELLER_NAME}
+              value={this.props.fullName}
+              uniqueName={FULLNAME}
+              validate={this.validations}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.sellerProfileChanged({ prop: 'fullName', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.fullName}
+            </Text>
+          </View>
+
+          <CardSection>
+            <Input
+              editable={this.state.editable}
+              label={LABEL_COMPANY_NAME}
+              value={this.props.companyName}
+              uniqueName={COMPANYNAME}
+              validate={this.validations}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.sellerProfileChanged({ prop: 'companyName', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.companyName}
+            </Text>
+          </View>
+
+          <CardSection>
+            <MultilineInput
+              editable={this.state.editable}
+              label={LABEL_SELLER_ADDRESS}
+              value={this.props.address}
+              uniqueName={ADDRESS}
+              validate={this.validations}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.sellerProfileChanged({ prop: 'address', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.address}
+            </Text>
+          </View>
+
+          <Text style={styles.errorTextStyle}>
+            {this.props.error}
+          </Text>
+
+          <CardSection>
+            <Button onPress={this.onSaveButtonPress.bind(this)}>
+              {SAVE}
+            </Button>
+            <Button onPress={this.onNextButtonPress.bind(this)}>
+              {NEXT}
+            </Button>
+         </CardSection>
+        </Card>
+      </ScrollView>
     );
   }
 }
-
-const styles = {
-  imageStyle: {
-    width: 50,
-    height: 50,
-    resizeMode: 'contain',
-    alignSelf: 'flex-end'
-  },
-  containerStyle: {
-    padding: 5,
-    justifyContent: 'flex-start',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    position: 'relative',
-    opacity: 0.7
-  },
-  errorTextStyle: {
-    fontSize: 20,
-    alignSelf: 'center',
-    color: 'red'
-  },
-  uploadContainer: {
-    borderColor: '#9B9B9B',
-    borderWidth: 1 / PixelRatio.get(),
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  upload: {
-    borderRadius: 75,
-    width: 150,
-    height: 150
-  }
-};
 
 const mapStateToProps = (state) => {
   const { fullName, companyName, address, image, error } = state.sellerForm;

@@ -39,22 +39,20 @@ class ProductCreate extends Component {
 
   render() {
     return (
-
-        <Card>
+      <Card>
         <ProductForm onRef={ref => (this.child = ref)} />
-          <CardSection>
-            <Button onPress={this.onAddMore.bind(this)}>
-              {ADD_MORE}
-            </Button>
-            <Button onPress={this.onSubmit.bind(this)}>
-              {SUBMIT}
-            </Button>
-            <Button onPress={this.onProductsList.bind(this)}>
-              NEXT
-            </Button>
-          </CardSection>
-        </Card>
-
+        <CardSection>
+          <Button onPress={this.onAddMore.bind(this)}>
+            {ADD_MORE}
+          </Button>
+          <Button onPress={this.onSubmit.bind(this)}>
+            {SUBMIT}
+          </Button>
+          <Button onPress={this.onProductsList.bind(this)}>
+            NEXT
+          </Button>
+        </CardSection>
+      </Card>
     );
   }
 }
