@@ -1,12 +1,12 @@
 /* login Form */
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { userDetailsChanged, loginUser, forgotPassword } from '../../actions';
+import { userDetailsChanged, loginUser, forgotPassword, signUp } from '../../actions';
 import { Card, CardSection, Button, Input, Spinner } from '../common';
 import { LABEL_EMAIL, PLACEHOLDER_EMAIL, LABEL_PASSWORD, PLACEHOLDER_PASSWORD, SIGN_IN,
-  SPINNER_SIZE, FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED
+  SPINNER_SIZE, FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED, SIGN_UP
 } from '../../actions/constants';
 import { validateEmail, validatePassword } from '../common/Utils';
 import styles from '../common/CommonCSS';
@@ -34,16 +34,8 @@ class LoginForm extends Component {
     Actions.forgotPassword();
   }
 
-  handleChange(fieldName, fieldValue) {
-    if (typeof this.state.errors[fieldName] !== UNDEFINED) {
-      const errors = Object.assign({}, this.state.errors);
-      delete errors[fieldName];
-      this.setState({
-        [fieldName]: fieldValue,
-        errors });
-    } else {
-      this.setState({ [fieldName]: fieldValue });
-    }
+  onSignUpButton() {
+    this.props.signUp();
   }
 
   validations(values) {
@@ -59,11 +51,25 @@ class LoginForm extends Component {
     return errors;
   }
 
+  handleChange(fieldName, fieldValue) {
+    if (typeof this.state.errors[fieldName] !== UNDEFINED) {
+      const errors = Object.assign({}, this.state.errors);
+      delete errors[fieldName];
+      this.setState({
+        [fieldName]: fieldValue,
+        errors });
+    } else {
+      this.setState({ [fieldName]: fieldValue });
+    }
+  }
+
   renderForgotPassword() {
     return (
-      <Button onPress={this.onForgotPassword.bind(this)}>
-      {FORGOT_PASSWORD}
-      </Button>
+      <TouchableOpacity onPress={this.onForgotPassword.bind(this)}>
+        <Text style={styles.buttonTextStyle}>
+          {FORGOT_PASSWORD}
+        </Text>
+      </TouchableOpacity>
     );
   }
 
@@ -143,6 +149,15 @@ class LoginForm extends Component {
             {this.renderButton()}
             {this.renderForgotPassword()}
          </CardSection>
+
+         <CardSection style={{ justifyContent: 'center' }}>
+            <Text style={styles.buttonTextStyle}>
+              Dont you have account?
+            </Text >
+            <Button onPress={this.onSignUpButton.bind(this)}>
+              {SIGN_UP}
+            </Button>
+         </CardSection>
         </Card>
 
     );
@@ -155,5 +170,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps,
-  { userDetailsChanged, loginUser, forgotPassword
+  { userDetailsChanged, loginUser, forgotPassword, signUp
   })(LoginForm);
