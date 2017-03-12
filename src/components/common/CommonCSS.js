@@ -72,6 +72,8 @@ export default {
     fontSize: 18,
     lineHeight: 23,
     flex: 2,
+    borderBottomWidth: 1,
+    borderColor: '#fff'
     //backgroundColor: '#fff'
   },
 

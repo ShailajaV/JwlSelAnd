@@ -24,7 +24,7 @@ class Input extends Component {
           style={inputStyle}
           value={this.props.value}
           onChangeText={this.props.onChangeText}
-          underlineColorAndroid='#fff'
+          underlineColorAndroid='transparent'
           onBlur={(value) => this.handleBlur(value)}
           onChange={(value) => this.onChangeValue(value)}
         />
