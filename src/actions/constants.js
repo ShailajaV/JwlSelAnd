@@ -1,7 +1,6 @@
 /* Application related constants */
 
 // auth related form constants
-export const KEY_SIGN_IN = 'signIn';
 export const KEY_SIGN_UP = 'signUp';
 export const KEY_LOGIN = 'logIn';
 export const KEY_FORGOT_PASSWORD = 'forgotPassword';
@@ -12,7 +11,7 @@ export const HEADER_FORGOT_PASSWORD = 'Forgot Password';
 export const KEY_AUTH = 'auth';
 export const SEND = 'Send';
 export const SIGN_IN = 'Sign In';
-export const SIGN_UP = 'Register';
+export const SIGN_UP = 'Dont you have account yet? Create One';
 export const LABEL_FULLNAME = 'Full Name';
 export const PLACEHOLDER_FULLNAME = 'display name';
 export const LABEL_EMAIL = 'Email';

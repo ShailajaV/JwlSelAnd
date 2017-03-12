@@ -25,6 +25,7 @@ class ForgotPasswordForm extends Component {
           <TextInput
             style={styles.inputStyle}
             placeholder={PLACEHOLDER_EMAIL}
+            placeholderTextColor='#fff'
             value={this.props.email}
             onChangeText={value =>
               this.props.userDetailsChanged({ prop: 'email', value })}

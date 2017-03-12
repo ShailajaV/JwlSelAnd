@@ -18,17 +18,6 @@ export default {
     opacity: 0.7
   },
 
-  loginContainerStyle: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginLeft: 0,
-    marginRight: 0,
-    marginTop: 0,
-    backgroundColor: '#1abc9c',
-  },
-
   upload: {
     borderRadius: 75,
     width: 150,
@@ -51,7 +40,7 @@ export default {
 
   buttonTextStyle: {
     alignSelf: 'center',
-    color: '#007aff',
+    color: '#fff',
     fontSize: 16,
     fontWeight: '600',
     paddingTop: 10,
@@ -61,10 +50,10 @@ export default {
   buttonStyle: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: '#fff',
+    //backgroundColor: '#fff',
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#007aff',
+    borderColor: '#fff',
     marginLeft: 5,
     marginRight: 5
   },
@@ -72,21 +61,22 @@ export default {
   textStyle: {
     fontSize: 20,
     alignSelf: 'center',
-    color: 'black',
+    color: '#fff',
     fontFamily: 'Cochin'
   },
 
   inputStyle: {
-    color: '#000',
+    color: '#fff',
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
     lineHeight: 23,
     flex: 2,
-    backgroundColor: '#fff'
+    //backgroundColor: '#fff'
   },
 
   labelStyle: {
+    color: '#fff',
     fontSize: 18,
     paddingLeft: 20,
     flex: 2,
@@ -103,13 +93,13 @@ export default {
   },
 
   mulInputStyle: {
-    color: '#000',
+    color: '#fff',
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
     lineHeight: 60,
     flex: 2,
-    backgroundColor: '#fff'
+    //backgroundColor: '#fff'
   },
 
   mulInpcontainerStyle: {
@@ -181,5 +171,5 @@ export default {
     lineHeight: 23,
     height: 30
   }
-  
+
 };

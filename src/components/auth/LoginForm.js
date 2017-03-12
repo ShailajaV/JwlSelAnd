@@ -4,8 +4,8 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { userDetailsChanged, loginUser, forgotPassword, signUp } from '../../actions';
-import { Card, CardSection, Button, Input, Spinner } from '../common';
-import { LABEL_EMAIL, PLACEHOLDER_EMAIL, LABEL_PASSWORD, PLACEHOLDER_PASSWORD, SIGN_IN,
+import { Card, CardSection, Button, InputText, Spinner } from '../common';
+import { PLACEHOLDER_EMAIL, PLACEHOLDER_PASSWORD, SIGN_IN,
   SPINNER_SIZE, FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED, SIGN_UP
 } from '../../actions/constants';
 import { validateEmail, validatePassword } from '../common/Utils';
@@ -43,10 +43,10 @@ class LoginForm extends Component {
     let errors = {};
     if (typeof email !== UNDEFINED) errors = validateEmail(email, this.state.errors);
     else if (values.uniqueName === EMAIL) errors = validateEmail(values.value, this.state.errors);
-    if (typeof password !== UNDEFINED) errors = validatePassword(password, this.state.errors);
+    /*if (typeof password !== UNDEFINED) errors = validatePassword(password, this.state.errors);
     else if (values.uniqueName === PASSWORD) {
       errors = validatePassword(values.value, this.state.errors);
-    }
+    }*/
     this.setState({ errors });
     return errors;
   }
@@ -93,73 +93,72 @@ class LoginForm extends Component {
             style={styles.upload}
             resizeMode={Image.resizeMode.sretch}
           />
-          </CardSection>
-          <CardSection>
-              <Input
-                ref='email'
-                label={LABEL_EMAIL}
-                placeholder={PLACEHOLDER_EMAIL}
-                value={this.props.email}
-                uniqueName={EMAIL}
-                validate={this.validations}
-                onChange={this.handleChange.bind(this)}
-                onChangeText={value =>
-                  this.props.userDetailsChanged({ prop: 'email', value })}
-              />
-          </CardSection>
-          <View
-            style={{ flexDirection: 'row',
-            justifyContent: 'flex-end',
-             alignItems: 'flex-end' }}
-          >
-            <Text style={styles.errorTextStyle}>
-              {this.state.errors.email}
-            </Text>
-          </View>
+        </CardSection>
+        <CardSection>
+          <InputText
+            ref='email'
+            placeholder={PLACEHOLDER_EMAIL}
+            value={this.props.email}
+            uniqueName={EMAIL}
+            validate={this.validations}
+            onChange={this.handleChange.bind(this)}
+            onChangeText={value =>
+              this.props.userDetailsChanged({ prop: 'email', value })}
+          />
+        </CardSection>
+        <View
+          style={{ flexDirection: 'row',
+          justifyContent: 'flex-start',
+           alignItems: 'center' }}
+        >
+          <Text style={styles.errorTextStyle}>
+            {this.state.errors.email}
+          </Text>
+        </View>
 
-          <CardSection>
-            <Input
-              secureTextEntry
-              label={LABEL_PASSWORD}
-              placeholder={PLACEHOLDER_PASSWORD}
-              value={this.props.password}
-              uniqueName={PASSWORD}
-              validate={this.validations}
-              onChange={this.handleChange.bind(this)}
-              onChangeText={value =>
-                this.props.userDetailsChanged({ prop: 'password', value })}
-            />
-          </CardSection>
-          <View
+        <CardSection>
+          <InputText
+            secureTextEntry
+            placeholder={PLACEHOLDER_PASSWORD}
+            value={this.props.password}
+            uniqueName={PASSWORD}
+            validate={this.validations}
+            onChange={this.handleChange.bind(this)}
+            onChangeText={value =>
+              this.props.userDetailsChanged({ prop: 'password', value })}
+          />
+        </CardSection>
+        <View
             style={{ flexDirection: 'row',
-             justifyContent: 'flex-end',
-             alignItems: 'flex-end'
+             justifyContent: 'flex-start',
+             alignItems: 'center'
            }}
-          >
-            <Text style={styles.errorTextStyle}>
-              {this.state.errors.password}
-            </Text>
-          </View>
+        >
+          <Text style={styles.errorTextStyle}>
+            {this.state.errors.password}
+          </Text>
+        </View>
 
-            <Text style={styles.errorTextStyle}>
-              {this.props.error}
-            </Text>
+        <Text style={styles.errorTextStyle}>
+          {this.props.error}
+        </Text>
 
-          <CardSection>
-            {this.renderButton()}
-            {this.renderForgotPassword()}
-         </CardSection>
+        <CardSection>
+          {this.renderButton()}
+        </CardSection>
 
-         <CardSection style={{ justifyContent: 'center' }}>
+        <CardSection style={{ justifyContent: 'center' }}>
+          {this.renderForgotPassword()}
+        </CardSection>
+
+        <CardSection style={{ justifyContent: 'center' }}>
+          <TouchableOpacity onPress={this.onSignUpButton.bind(this)}>
             <Text style={styles.buttonTextStyle}>
-              Dont you have account?
-            </Text >
-            <Button onPress={this.onSignUpButton.bind(this)}>
               {SIGN_UP}
-            </Button>
-         </CardSection>
-        </Card>
-
+            </Text >
+          </TouchableOpacity>
+        </CardSection>
+      </Card>
     );
   }
 }
