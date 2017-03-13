@@ -97,7 +97,7 @@ class LoginForm extends Component {
         <CardSection>
         <Image
           source={require('../common/images/email.png')}
-          style={styles.imageStyle}
+          style={styles.emailNpwdStyle}
           resizeMode={Image.resizeMode.sretch}
         />
           <InputText
@@ -124,7 +124,7 @@ class LoginForm extends Component {
         <CardSection>
         <Image
           source={require('../common/images/pwd.png')}
-          style={styles.imageStyle}
+          style={styles.emailNpwdStyle}
           resizeMode={Image.resizeMode.sretch}
         />
           <InputText

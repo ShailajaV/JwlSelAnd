@@ -125,6 +125,12 @@ export default {
     resizeMode: 'contain',
     alignSelf: 'flex-end'
   },
+  emailNpwdStyle: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+    alignSelf: 'flex-end'
+  },
 
   selContainerStyle: {
     padding: 5,
