@@ -127,7 +127,7 @@ class SellerProfileForm extends Component {
       srcImg = this.state.uploadURL;
     } else if (this.props.image === UNDEFINED || this.props.image === SPACE ||
                 this.props.image === null || this.state.deleteFlag === 1) {
-      srcImg = require('../common/images/noimage.png');
+      srcImg = require('../common/images/noImage.png');
     } else {
       srcImg = { uri: this.props.image };
     }
@@ -145,7 +145,7 @@ class SellerProfileForm extends Component {
             <View sytle={styles.selContainerStyle}>
               <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
                 <Image
-                  source={require('../common/images/deleteimage.jpeg')}
+                  source={require('../common/images/deleteImage.jpeg')}
                   style={styles.imageStyle}
                   resizeMode={Image.resizeMode.sretch}
                 />

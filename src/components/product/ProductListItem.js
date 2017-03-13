@@ -43,7 +43,7 @@ class ProductListItem extends Component {
               <CardSection />
               <TouchableOpacity onPress={this.onDelete.bind(this)}>
               <Image
-                source={require('../common/images/deleteimage.jpeg')}
+                source={require('../common/images/deleteImage.jpeg')}
                 style={styles.imageStyle}
                 resizeMode={Image.resizeMode.sretch}
               />
