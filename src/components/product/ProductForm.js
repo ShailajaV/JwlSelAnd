@@ -89,7 +89,7 @@ class ProductForm extends Component {
   render() {
     let srcImg = SPACE;
     if (this.props === null || this.props === SPACE || this.props === UNDEFINED) {
-        srcImg = require('../common/images/noimage.png');
+        srcImg = require('../common/images/noImage.png');
     } else {
       const { url, uploadURL } = this.props;
       if (uploadURL !== SPACE) {
@@ -97,7 +97,7 @@ class ProductForm extends Component {
       } else if (url !== SPACE) {
         srcImg = { uri: url };
       } else {
-        srcImg = require('../common/images/noimage.png');
+        srcImg = require('../common/images/noImage.png');
       }
     }
 

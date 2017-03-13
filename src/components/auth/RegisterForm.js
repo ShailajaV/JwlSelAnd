@@ -2,16 +2,14 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardSection, Input, Button, Spinner } from '../common';
+import { Card, CardSection, InputText, Button, Spinner } from '../common';
 import {
   userDetailsChanged,
   createUserAccount } from '../../actions';
-import { SPINNER_SIZE, LABEL_FULLNAME, PLACEHOLDER_FULLNAME, LABEL_EMAIL, PLACEHOLDER_EMAIL,
-  LABEL_PASSWORD, PLACEHOLDER_PASSWORD, LABEL_COMPANY_NAME, PLACEHOLDER_COMPANY_NAME,
-  LABEL_ADDRESS_LINE1, PLACEHOLDER_STREET, LABEL_ADDRESS_LINE2, PLACEHOLDER_APT, LABEL_STATE,
-  PLACEHOLDER_STATE, LABEL_CITY, PLACEHOLDER_CITY, LABEL_ZIP, PLACEHOLDER_ZIP, LABEL_PHONENUMBER,
-  PLACEHOLDER_PHONENUMBER, SIGN_UP, EMAIL, PASSWORD, UNDEFINED, FULLNAME, COMPANYNAME,
-  ADDRESS_STREET, ADDRESS_APT, STATE, CITY, ZIP, PHONE_NUMBER
+import { SPINNER_SIZE, PLACEHOLDER_FULLNAME, PLACEHOLDER_EMAIL, PLACEHOLDER_PASSWORD,
+  PLACEHOLDER_COMPANY_NAME, PLACEHOLDER_STREET, PLACEHOLDER_APT, PLACEHOLDER_STATE,
+  PLACEHOLDER_CITY, PLACEHOLDER_ZIP, PLACEHOLDER_PHONENUMBER, REGISTER, EMAIL, PASSWORD, UNDEFINED,
+  FULLNAME, COMPANYNAME, ADDRESS_STREET, ADDRESS_APT, STATE, CITY, ZIP, PHONE_NUMBER
 } from '../../actions/constants';
 import { validateEmail, validatePassword, validateEmptyFields, validateZip,
   validatePhoneNumber } from '../common/Utils';
@@ -34,7 +32,7 @@ class RegisterForm extends Component {
     }
     return (
       <Button onPress={this.onButtonPress.bind(this)}>
-        {SIGN_UP}
+        {REGISTER}
       </Button>
     );
   }
@@ -139,10 +137,9 @@ class RegisterForm extends Component {
     return (
 
         <ScrollView>
-          <Card style={{ backgroundColor: '#1abc9c' }}>
+          <Card>
             <CardSection>
-              <Input
-                label={LABEL_FULLNAME}
+              <InputText
                 placeholder={PLACEHOLDER_FULLNAME}
                 value={this.props.fullName}
                 uniqueName={FULLNAME}
@@ -153,7 +150,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.fullName}
@@ -161,8 +158,7 @@ class RegisterForm extends Component {
             </View>
 
             <CardSection>
-              <Input
-                label={LABEL_EMAIL}
+              <InputText
                 placeholder={PLACEHOLDER_EMAIL}
                 value={this.props.email}
                 uniqueName={EMAIL}
@@ -173,7 +169,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.email}
@@ -181,9 +177,8 @@ class RegisterForm extends Component {
             </View>
 
             <CardSection>
-              <Input
+              <InputText
                 secureTextEntry
-                label={LABEL_PASSWORD}
                 placeholder={PLACEHOLDER_PASSWORD}
                 value={this.props.password}
                 uniqueName={PASSWORD}
@@ -194,7 +189,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.password}
@@ -202,8 +197,7 @@ class RegisterForm extends Component {
             </View>
 
             <CardSection>
-              <Input
-                label={LABEL_COMPANY_NAME}
+              <InputText
                 placeholder={PLACEHOLDER_COMPANY_NAME}
                 value={this.props.companyName}
                 uniqueName={COMPANYNAME}
@@ -214,7 +208,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.companyName}
@@ -222,8 +216,7 @@ class RegisterForm extends Component {
             </View>
 
             <CardSection>
-              <Input
-                label={LABEL_ADDRESS_LINE1}
+              <InputText
                 placeholder={PLACEHOLDER_STREET}
                 value={this.props.addrStreet}
                 uniqueName={ADDRESS_STREET}
@@ -234,7 +227,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.addrStreet}
@@ -242,8 +235,7 @@ class RegisterForm extends Component {
             </View>
 
             <CardSection>
-              <Input
-                label={LABEL_ADDRESS_LINE2}
+              <InputText
                 placeholder={PLACEHOLDER_APT}
                 value={this.props.addrApt}
                 uniqueName={ADDRESS_APT}
@@ -254,7 +246,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.addrApt}
@@ -262,8 +254,7 @@ class RegisterForm extends Component {
             </View>
 
             <CardSection>
-              <Input
-                label={LABEL_STATE}
+              <InputText
                 placeholder={PLACEHOLDER_STATE}
                 value={this.props.state}
                 uniqueName={STATE}
@@ -274,7 +265,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.state}
@@ -282,8 +273,7 @@ class RegisterForm extends Component {
             </View>
 
             <CardSection>
-              <Input
-                label={LABEL_CITY}
+              <InputText
                 placeholder={PLACEHOLDER_CITY}
                 value={this.props.city}
                 uniqueName={CITY}
@@ -292,8 +282,7 @@ class RegisterForm extends Component {
                 onChangeText={value =>
                   this.props.userDetailsChanged({ prop: 'city', value })}
               />
-              <Input
-                label={LABEL_ZIP}
+              <InputText
                 placeholder={PLACEHOLDER_ZIP}
                 value={this.props.zip}
                 uniqueName={ZIP}
@@ -304,7 +293,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.city}
@@ -315,8 +304,7 @@ class RegisterForm extends Component {
             </View>
 
             <CardSection>
-              <Input
-                label={LABEL_PHONENUMBER}
+              <InputText
                 placeholder={PLACEHOLDER_PHONENUMBER}
                 value={this.props.phoneNum}
                 uniqueName={PHONE_NUMBER}
@@ -327,7 +315,7 @@ class RegisterForm extends Component {
               />
             </CardSection>
             <View
-              style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
             >
               <Text style={styles.errorTextStyle}>
                 {this.state.errors.phoneNumber}
