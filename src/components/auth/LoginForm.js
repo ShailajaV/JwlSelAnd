@@ -95,6 +95,11 @@ class LoginForm extends Component {
           />
         </CardSection>
         <CardSection>
+        <Image
+          source={require('../common/images/email.png')}
+          style={styles.imageStyle}
+          resizeMode={Image.resizeMode.sretch}
+        />
           <InputText
             ref='email'
             placeholder={PLACEHOLDER_EMAIL}
@@ -117,6 +122,11 @@ class LoginForm extends Component {
         </View>
 
         <CardSection>
+        <Image
+          source={require('../common/images/pwd.png')}
+          style={styles.imageStyle}
+          resizeMode={Image.resizeMode.sretch}
+        />
           <InputText
             secureTextEntry
             placeholder={PLACEHOLDER_PASSWORD}
