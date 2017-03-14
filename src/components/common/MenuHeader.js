@@ -5,13 +5,13 @@ import styles from './CommonCSS';
 
 // Make a Component
 const MenuHeader = ({ onPress }) => {
-  const { imageStyle, headerStyle } = styles;
+  const { hamStyle, headerStyle } = styles;
   return (
     <View style={headerStyle}>
       <TouchableOpacity onPress={onPress}>
         <Image
           source={require('../common/images/ham.png')}
-          style={imageStyle}
+          style={hamStyle}
           resizeMode={Image.resizeMode.sretch}
         />
       </TouchableOpacity>

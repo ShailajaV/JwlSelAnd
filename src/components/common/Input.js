@@ -26,6 +26,8 @@ class Input extends Component {
           onChangeText={this.props.onChangeText}
           placeholderTextColor='#fff'
           underlineColorAndroid='transparent'
+          multiline
+          numberOfLines={1}
           onBlur={(value) => this.handleBlur(value)}
           onChange={(value) => this.onChangeValue(value)}
         />

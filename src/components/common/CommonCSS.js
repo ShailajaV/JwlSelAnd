@@ -62,7 +62,7 @@ export default {
     fontSize: 20,
     alignSelf: 'center',
     color: '#fff',
-    fontFamily: 'Cochin'
+    fontFamily: 'Times New Roman'
   },
 
   inputStyle: {
@@ -70,10 +70,12 @@ export default {
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
-    lineHeight: 23,
+    lineHeight: 30,
     flex: 2,
     borderBottomWidth: 1,
-    borderColor: '#fff'
+    borderColor: '#fff',
+    fontFamily: 'Times New Roman'
+    //backgroundColor: '#fff'
   },
 
   labelStyle: {
@@ -81,7 +83,7 @@ export default {
     fontSize: 18,
     paddingLeft: 20,
     flex: 2,
-    fontFamily: 'Cochin',
+    fontFamily: 'Times New Roman',
     lineHeight: 23,
     height: 40
   },
@@ -132,8 +134,8 @@ export default {
     alignSelf: 'flex-end'
   },
   emailNpwdStyle: {
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     resizeMode: 'contain',
     alignSelf: 'flex-end'
   },
@@ -158,7 +160,7 @@ export default {
     color: '#000',
     fontSize: 18,
     paddingLeft: 20,
-    fontFamily: 'Cochin',
+    fontFamily: 'Times New Roman',
     lineHeight: 23,
     height: 30,
     backgroundColor: '#fff'
@@ -181,7 +183,7 @@ export default {
     color: '#000',
     fontSize: 18,
     paddingLeft: 20,
-    fontFamily: 'Cochin',
+    fontFamily: 'Times New Roman',
     lineHeight: 23,
     height: 30
   }
