@@ -115,13 +115,19 @@ export default {
     backgroundColor: '#F8F8F8',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    height: 60,
+    height: 40,
     paddingTop: 15,
   },
 
   imageStyle: {
     width: 50,
     height: 50,
+    resizeMode: 'contain',
+    alignSelf: 'flex-end'
+  },
+  hamStyle: {
+    width: 30,
+    height: 30,
     resizeMode: 'contain',
     alignSelf: 'flex-end'
   },
