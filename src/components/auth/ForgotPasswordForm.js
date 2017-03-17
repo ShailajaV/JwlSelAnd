@@ -91,8 +91,8 @@ class ForgotPasswordForm extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
-  const { email } = auth;
-  return { email };
+  const { email, error } = auth;
+  return { email, error };
 };
 
 export default connect(mapStateToProps,
