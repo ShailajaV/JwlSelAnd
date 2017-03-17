@@ -75,7 +75,6 @@ export default {
     borderBottomWidth: 1,
     borderColor: '#fff',
     fontFamily: 'Times New Roman'
-    //backgroundColor: '#fff'
   },
 
   labelStyle: {
@@ -187,5 +186,5 @@ export default {
     lineHeight: 23,
     height: 30
   }
-
+  
 };
