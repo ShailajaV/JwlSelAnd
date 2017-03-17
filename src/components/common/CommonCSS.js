@@ -114,8 +114,10 @@ export default {
 
   headerStyle: {
     backgroundColor: '#F8F8F8',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    //justifyContent: 'flex-start',
+    //alignItems: 'center',
     height: 40,
     paddingTop: 15,
   },
@@ -126,12 +128,23 @@ export default {
     resizeMode: 'contain',
     alignSelf: 'flex-end'
   },
+
   hamStyle: {
     width: 30,
     height: 30,
     resizeMode: 'contain',
     alignSelf: 'flex-end'
   },
+
+  logoStyle: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   emailNpwdStyle: {
     width: 25,
     height: 25,
@@ -186,5 +199,5 @@ export default {
     lineHeight: 23,
     height: 30
   }
-  
+
 };
