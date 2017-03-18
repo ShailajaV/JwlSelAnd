@@ -70,7 +70,8 @@ export default {
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
-    lineHeight: 30,
+    lineHeight: 23,
+    height: 40,
     flex: 2,
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -83,7 +84,7 @@ export default {
     paddingLeft: 20,
     flex: 2,
     fontFamily: 'Times New Roman',
-    lineHeight: 23,
+    lineHeight: 30,
     height: 40
   },
 
