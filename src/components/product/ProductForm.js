@@ -6,7 +6,7 @@ import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
 import { CardSection, Input } from '../common';
 import { LABEL_PRODUCT_NAME, LABEL_DAYS_OF_RENT, LABEL_RENT_EXPECTED,
-  UPLOAD_COLLECTIONS, PRODUCT_NAME, DAYS_OF_RENT, RENT_EXPECTED,
+  UPLOAD_PRODUCT, PRODUCT_NAME, DAYS_OF_RENT, RENT_EXPECTED,
   UNDEFINED, SPACE, FILE, ANDROID } from '../../actions/constants';
 import { productDetailsChanged } from '../../actions';
 import { validateEmptyFields, validateURLField, validateDaysOfRent,
@@ -89,7 +89,7 @@ class ProductForm extends Component {
   render() {
     let srcImg = SPACE;
     if (this.props === null || this.props === SPACE || this.props === UNDEFINED) {
-        srcImg = require('../common/images/noImage.png');
+        srcImg = require('../common/images/empty.png');
     } else {
       const { url, uploadURL } = this.props;
       if (uploadURL !== SPACE) {
@@ -97,7 +97,7 @@ class ProductForm extends Component {
       } else if (url !== SPACE) {
         srcImg = { uri: url };
       } else {
-        srcImg = require('../common/images/noImage.png');
+        srcImg = require('../common/images/empty.png');
       }
     }
 
@@ -106,7 +106,7 @@ class ProductForm extends Component {
         <ScrollView>
           <CardSection>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <Text style={styles.uploadLabelStyle}>{UPLOAD_COLLECTIONS}</Text>
+              <Text style={styles.uploadLabelStyle}>{UPLOAD_PRODUCT}</Text>
             </TouchableOpacity>
             <CardSection />
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>

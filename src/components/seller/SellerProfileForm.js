@@ -127,7 +127,7 @@ class SellerProfileForm extends Component {
       srcImg = this.state.uploadURL;
     } else if (this.props.image === UNDEFINED || this.props.image === SPACE ||
                 this.props.image === null || this.state.deleteFlag === 1) {
-      srcImg = require('../common/images/noImage.png');
+      srcImg = require('../common/images/empty.png');
     } else {
       srcImg = { uri: this.props.image };
     }
@@ -145,7 +145,7 @@ class SellerProfileForm extends Component {
             <View sytle={styles.selContainerStyle}>
               <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
                 <Image
-                  source={require('../common/images/deleteImage.jpeg')}
+                  source={require('../common/images/delete.jpeg')}
                   style={styles.imageStyle}
                   resizeMode={Image.resizeMode.sretch}
                 />
@@ -153,7 +153,7 @@ class SellerProfileForm extends Component {
               <CardSection />
               <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
                 <Image
-                  source={require('../common/images/editImage.png')}
+                  source={require('../common/images/edit.png')}
                   style={styles.imageStyle}
                   resizeMode={Image.resizeMode.sretch}
                 />
@@ -163,7 +163,7 @@ class SellerProfileForm extends Component {
           <CardSection style={{ justifyContent: 'flex-end' }}>
             <TouchableOpacity onPress={this.makeEditable.bind(this)}>
               <Image
-                source={require('../common/images/editImage.png')}
+                source={require('../common/images/edit.png')}
                 style={styles.imageStyle}
                 resizeMode={Image.resizeMode.sretch}
               />

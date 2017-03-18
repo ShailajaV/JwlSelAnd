@@ -19,7 +19,7 @@ const MenuHeader = ({ onPress }) => {
         </View>
         <View style={{ width: 40, height: 50 }} >
         <Image
-          source={require('../common/images/editImage.png')}
+          source={require('../common/images/edit.png')}
           style={logoStyle}
           resizeMode={Image.resizeMode.sretch}
         />

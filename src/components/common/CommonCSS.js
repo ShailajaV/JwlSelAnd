@@ -50,7 +50,6 @@ export default {
   buttonStyle: {
     flex: 1,
     alignSelf: 'stretch',
-    //backgroundColor: '#fff',
     borderRadius: 5,
     borderWidth: 1,
     borderColor: '#fff',
@@ -120,7 +119,7 @@ export default {
     //justifyContent: 'flex-start',
     //alignItems: 'center',
     height: 40,
-    paddingTop: 15,
+    paddingTop: 8
   },
 
   imageStyle: {
@@ -170,13 +169,12 @@ export default {
   },
 
   uploadLabelStyle: {
-    color: '#000',
+    color: '#fff',
     fontSize: 18,
     paddingLeft: 20,
     fontFamily: 'Times New Roman',
     lineHeight: 23,
-    height: 30,
-    backgroundColor: '#fff'
+    height: 30
   },
 
   spinnerStyle: {
@@ -193,7 +191,7 @@ export default {
   },
 
   prdLabelStyle: {
-    color: '#000',
+    color: '#fff',
     fontSize: 18,
     paddingLeft: 20,
     fontFamily: 'Times New Roman',

@@ -35,7 +35,7 @@ class ProductListItem extends Component {
             <View>
               <TouchableOpacity onPress={this.onEdit.bind(this)}>
                 <Image
-                  source={require('../common/images/editImage.png')}
+                  source={require('../common/images/edit.png')}
                   style={styles.imageStyle}
                   resizeMode={Image.resizeMode.sretch}
                 />
@@ -43,7 +43,7 @@ class ProductListItem extends Component {
               <CardSection />
               <TouchableOpacity onPress={this.onDelete.bind(this)}>
               <Image
-                source={require('../common/images/deleteImage.jpeg')}
+                source={require('../common/images/delete.jpeg')}
                 style={styles.imageStyle}
                 resizeMode={Image.resizeMode.sretch}
               />
