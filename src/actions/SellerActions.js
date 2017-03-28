@@ -40,7 +40,6 @@ export const sellerProfileInfo = () => {
 export const saveSellerProfile = ({
   imageURL, deleteFlag, fullName, companyName, address, uid }) => {
   const { currentUser } = firebase.auth();
-  console.log('imageURL ', imageURL);
   return (dispatch) => {
     firebase.database().ref(`/sellers/${currentUser.uid}/${uid}`)
     .set({ fullName, companyName, address })
@@ -56,8 +55,7 @@ export const saveSellerProfile = ({
         Actions.productDetails();
       }
     })
-    .catch((error) => {
-      console.log('error is ', error);
+    .catch(() => {
       dispatch({
         type: SELLER_SAVE_FAIL,
         payload: ERRMSG_SELLER_PROFILE_FAILED

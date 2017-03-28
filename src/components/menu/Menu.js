@@ -39,17 +39,17 @@ class Menu extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#ededed', paddingTop: 50 }}>
-      <List containerStyle={{ marginBottom: 20 }}>
-        {
-          list.map((l, i) => (
-            <ListItem
-              onPress={() => this.props.onItemSelected(l.name)}
-              key={i}
-              title={l.name}
-            />
-          ))
-        }
-      </List>
+        <List containerStyle={{ marginBottom: 20 }}>
+          {
+            list.map((l, i) => (
+              <ListItem
+                onPress={() => this.props.onItemSelected(l.name)}
+                key={i}
+                title={l.name}
+              />
+            ))
+          }
+        </List>
       </View>
     );
   }

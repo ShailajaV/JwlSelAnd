@@ -80,7 +80,6 @@ export const loginUser = ({ email, password }) => {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => loginUserSuccess(dispatch, user))
       .catch((error) => {
-        console.log('error is ', error);
         handleSignInErrorMessages(dispatch, error.code);
     });
   };
@@ -100,7 +99,6 @@ const loginUserSuccess = (dispatch, user) => {
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
-
   Actions.seller();
 };
 

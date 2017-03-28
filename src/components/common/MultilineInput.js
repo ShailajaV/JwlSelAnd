@@ -26,7 +26,6 @@ class MultilineInput extends Component {
           value={this.props.value}
           onChangeText={this.props.onChangeText}
           underlineColorAndroid='transparent'
-          maxLength={255}
           multiline
           numberOfLines={4}
           onBlur={(value) => this.handleBlur(value)}

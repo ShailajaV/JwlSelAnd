@@ -1,4 +1,4 @@
-import { PixelRatio } from 'react-native';
+import { PixelRatio, Platform, StyleSheet } from 'react-native';
 
 export default {
   cardStyle: {
@@ -197,6 +197,28 @@ export default {
     fontFamily: 'Times New Roman',
     lineHeight: 23,
     height: 30
+  },
+
+  container: {
+   flex: 1,
+   paddingTop: Platform.OS === 'ios' ? 20 : 0,
+ },
+
+ item: {
+    flex: 1,
+    borderColor: 'blue',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 4,
+    overflow: 'hidden',
+  },
+  
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
   }
 
 };
