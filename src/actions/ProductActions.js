@@ -1,11 +1,9 @@
 /* This file includes all product details action creators */
-import firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
-//import { saveProfileImage } from './common/ImgOperations.js';
+import { firebaseDatabase, firebaseAuth, firebaseStorage } from '../FirebaseConfig';
 import { PRODUCT_DETAILS_CHANGED, PRODUCT_SAVE_FAIL, PRODUCTSLIST_FETCH_SUCCESS,
    PRODUCT_SAVE_SUCCESS, PRODUCT_DELETE_FAIL } from './types';
-//import { ERRMSG_PRODUCT_DETAILS_FAILED } from './errorMsgConstants';
 import { PRODUCT_DETAILS_ADDMORE, PRODUCT_DETAILS_SUBMIT,
   PRODUCT_DETAILS_EDIT, PRODUCT_DETAILS_DELETE } from './constants';
 import { ERRMSG_PROFILE_IMAGE_FAILED, ERR_STORAGE_UNAUTH, ERRMSG_STRG_UNAUTH, ERR_STRG_UNAUTHORIZED,
@@ -53,9 +51,9 @@ export const productCreate = ({ uploadURL, productName, daysOfRent,
 * @return : productForm/RentedJewelleryForm
 */
 export const getProductDetails = () => {
-  const { currentUser } = firebase.auth();
+  const { currentUser } = firebaseAuth;
   return (dispatch) => {
-    firebase.database().ref(`/products/${currentUser.uid}`)
+    firebaseDatabase.ref(`/products/${currentUser.uid}`)
     .on('value', snapshot => {
       dispatch({ type: PRODUCTSLIST_FETCH_SUCCESS, payload: snapshot.val() });
     });
@@ -68,11 +66,11 @@ export const getProductDetails = () => {
 */
 const saveProductDetails = (dispatch, uri, productName, daysOfRent,
   rentExpected, uid, callingScreen, mime = 'application/octet-stream') => {
-  const { currentUser } = firebase.auth();
+  const { currentUser } = firebaseAuth;
   return () => {
     const imageRef = `/images/products/${currentUser.uid}/${productName}`;
     let uploadBlob = null;
-    const imageReference = firebase.storage().ref(imageRef);
+    const imageReference = firebaseStorage.ref(imageRef);
 
     fs.readFile(uri, 'base64')
     .then((data) => {
@@ -88,7 +86,7 @@ const saveProductDetails = (dispatch, uri, productName, daysOfRent,
     })
     .then((url) => {
       if (callingScreen === PRODUCT_DETAILS_EDIT) {
-        firebase.database().ref(`/products/${currentUser.uid}/${uid}`)
+        firebaseDatabase.ref(`/products/${currentUser.uid}/${uid}`)
         .set({ productName, daysOfRent, rentExpected, url })
         .then(() => {
           handleSuccess(dispatch, callingScreen);
@@ -97,7 +95,7 @@ const saveProductDetails = (dispatch, uri, productName, daysOfRent,
           dispatch({ type: PRODUCT_SAVE_FAIL, payload: ERRMSG_PRODUCT_DETAILS_FAILED });
         });
       } else {
-        firebase.database().ref(`/products/${currentUser.uid}`)
+        firebaseDatabase.ref(`/products/${currentUser.uid}`)
         .push({ productName, daysOfRent, rentExpected, url })
         .then(() => {
           handleSuccess(dispatch, callingScreen);
@@ -190,14 +188,14 @@ const handleSuccess = (dispatch, callingScreen) => {
 */
 export const productUpdate = ({ productName, daysOfRent,
   rentExpected, url, uploadURL, uid }) => {
-  const { currentUser } = firebase.auth();
+  const { currentUser } = firebaseAuth;
   return (dispatch) => {
     if (uploadURL !== null && uploadURL !== '') {
       const { uri } = uploadURL;
       dispatch(saveProductDetails(dispatch, uri, productName, daysOfRent,
             rentExpected, uid, PRODUCT_DETAILS_EDIT));
     } else {
-      firebase.database().ref(`/products/${currentUser.uid}/${uid}`)
+      firebaseDatabase.ref(`/products/${currentUser.uid}/${uid}`)
       .set({ productName, daysOfRent, rentExpected, url })
       .then(() => {
         handleSuccess(dispatch, PRODUCT_DETAILS_EDIT);
@@ -209,59 +207,14 @@ export const productUpdate = ({ productName, daysOfRent,
   };
 };
 
-/* Update product details into firebase storage
-* @parameter: uri, productName, daysOfRent, rentExpected, callingScreen
-* @return : ProductList
-
-const updateImageAndProduct = (dispatch, uri, productName, daysOfRent,
-  rentExpected, uid, callingScreen, mime = 'application/octet-stream') => {
-  const { currentUser } = firebase.auth();
-  console.log('productName all ', productName, daysOfRent,
-    rentExpected);
-  return () => {
-    console.log('hello return');
-    const imageRef = `/images/products/${currentUser.uid}/${productName}`;
-    let uploadBlob = null;
-    const imageReference = firebase.storage().ref(imageRef);
-
-    fs.readFile(uri, 'base64')
-    .then((data) => {
-      return Blob.build(data, { type: `${mime};BASE64` });
-    })
-    .then((blob) => {
-      uploadBlob = blob;
-      console.log('blob ', blob);
-      return imageReference.put(blob, { contentType: mime });
-    })
-    .then(() => {
-      uploadBlob.close();
-      return imageReference.getDownloadURL();
-    })
-    .then((url) => {
-      console.log('url is ', url);
-      firebase.database().ref(`/products/${currentUser.uid}/${uid}`)
-      .set({ productName, daysOfRent, rentExpected, url })
-      .then(() => {
-        handleSuccess(dispatch, callingScreen);
-      })
-      .catch(() => {
-        dispatch({ type: PRODUCT_SAVE_FAIL, payload: ERRMSG_PRODUCT_DETAILS_FAILED });
-      });
-    })
-    .catch((error) => {
-      handleImgErrorMessages(dispatch, error.code, callingScreen);
-    });
-  };
-};
-
 /* Delete product details from firebase storage
 * @parameter: uid, productName
 * @return : ProductList
 */
 export const productDelete = ({ uid, productName }) => {
-  const { currentUser } = firebase.auth();
+  const { currentUser } = firebaseAuth;
   return (dispatch) => {
-    firebase.database().ref(`/products/${currentUser.uid}/${uid}`)
+    firebaseDatabase.ref(`/products/${currentUser.uid}/${uid}`)
     .remove()
     .then(() => {
       const imageRef = `/images/products/${currentUser.uid}/${productName}`;

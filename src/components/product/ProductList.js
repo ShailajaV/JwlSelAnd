@@ -58,7 +58,7 @@ class ProductsList extends Component {
     return rowData;
   }
 
-  renderRow(product) {
+  renderItem(product) {
     return <ProductListItem product={product} />;
   }
 
@@ -69,7 +69,7 @@ class ProductsList extends Component {
         dataSource={this.dataSource}
         padding={4}
         itemsPerRow={this.state.itemsPerRow}
-        renderRow={this.renderRow}
+        renderItem={this.renderItem}
       />
     );
   }

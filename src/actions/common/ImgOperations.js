@@ -1,7 +1,7 @@
 /* This file includes all image related action creators */
-import firebase from 'firebase';
 import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
+import { firebaseStorage } from '../../FirebaseConfig';
 import { SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL,
   PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL } from '../types';
@@ -26,7 +26,7 @@ export const saveProfileImage = (uri, imageRef, callingScreen,
                                 mime = 'application/octet-stream') => {
   return (dispatch) => {
     let uploadBlob = null;
-    const imageReference = firebase.storage().ref(imageRef);
+    const imageReference = firebaseStorage.ref(imageRef);
 
     fs.readFile(uri, 'base64')
     .then((data) => {
@@ -57,7 +57,7 @@ export const saveProfileImage = (uri, imageRef, callingScreen,
 */
 export const deleteProfileImage = (imageRef, callingScreen) => {
   return (dispatch) => {
-    firebase.storage().ref().child(imageRef)
+    firebaseStorage.ref().child(imageRef)
     .delete()
     .then(() => {
       handleSuccess(dispatch, callingScreen);

@@ -1,9 +1,9 @@
 /* Welcome file which starts rendering the app */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import firebase from 'firebase';
 import SideMenu from 'react-native-side-menu';
 import { Actions } from 'react-native-router-flux';
+import { firebaseAuth } from './FirebaseConfig';
 import { MenuHeader } from './components/common';
 import Menu from './components/menu/Menu';
 import Router from './Router';
@@ -17,16 +17,7 @@ class App extends Component {
   };
 
   componentWillMount() {
-    const config = {
-    apiKey: 'AIzaSyDFmxMQ6Fp55hh6RQiaUuIHsUYDlTKySZc',
-    authDomain: 'jewellery-ece6f.firebaseapp.com',
-    databaseURL: 'https://jewellery-ece6f.firebaseio.com',
-    storageBucket: 'jewellery-ece6f.appspot.com',
-    messagingSenderId: '601320078334'
-    };
-    firebase.initializeApp(config);
-
-    firebase.auth().onAuthStateChanged((user) => {
+    firebaseAuth.onAuthStateChanged((user) => {
       if (user) {
         this.setState({ isLoggedIn: true });
       } else {

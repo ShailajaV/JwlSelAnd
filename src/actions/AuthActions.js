@@ -1,7 +1,7 @@
 /* This file includes all auth action creators */
-import firebase from 'firebase';
 import { Actions } from 'react-native-router-flux';
 //import Communications from 'react-native-communications';
+import { firebaseDatabase, firebaseAuth } from '../FirebaseConfig';
 import { USER_DETAILS_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER,
   LOGOUT_USER, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAIL
 } from './types';
@@ -40,7 +40,7 @@ export const signUp = () => {
 */
 export const passwordReset = ({ email }) => {
   return (dispatch) => {
-    firebase.auth().sendPasswordResetEmail(email)
+    firebaseAuth.sendPasswordResetEmail(email)
     .then(() => {
       dispatch({
         type: PASSWORD_RESET_SUCCESS
@@ -77,7 +77,7 @@ export const loginUser = ({ email, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    firebaseAuth.signInWithEmailAndPassword(email, password)
       .then(user => loginUserSuccess(dispatch, user))
       .catch((error) => {
         handleSignInErrorMessages(dispatch, error.code);
@@ -127,17 +127,17 @@ export const createUserAccount = ({ fullName,
 }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebaseAuth.createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        const { currentUser } = firebase.auth();
+        const { currentUser } = firebaseAuth;
         const address = `${addrStreet},${addrApt},${city},${state},${zip}`;
-        firebase.database().ref(`/sellers/${currentUser.uid}/`)
+        firebaseDatabase.ref(`/sellers/${currentUser.uid}/`)
           .push({ fullName, companyName, address, phoneNum })
           .then(() => {
             loginUserSuccess(dispatch, user);
           })
           .catch(() => {
-            firebase.auth().currentUser.delete()
+            firebaseAuth.currentUser.delete()
             .then(() => {
               loginUserFail(dispatch, ERRMSG_SIGNUP_FAILED);
             })
@@ -158,10 +158,10 @@ export const createUserAccount = ({ fullName,
 */
 export const logOut = () => {
   return (dispatch) => {
-    firebase.auth().signOut()
+    firebaseAuth.signOut()
     .then(() => {
       dispatch({ type: LOGOUT_USER });
-      Actions.auth();
+      Actions.auth({ type: 'reset' });
     })
     .catch((error) => console.log(error));
   };
