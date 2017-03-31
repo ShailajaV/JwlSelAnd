@@ -8,16 +8,17 @@ import SellerProfile from './components/seller/SellerProfile';
 import ProductCreate from './components/product/ProductCreate';
 import ProductList from './components/product/ProductList';
 import ProductEdit from './components/product/ProductEdit';
+import MainScreen from './MainScreen';
 import {
   KEY_AUTH, KEY_SIGN_UP, KEY_LOGIN, KEY_FORGOT_PASSWORD,
   KEY_SELLER, KEY_SELLER_PROFILE, KEY_PRODUCT_DETAILS, KEY_PRODUCT_LIST,
-  KEY_PRODUCT_EDIT
+  KEY_PRODUCT_EDIT, KEY_MENU, KEY_MENU_PROFILE
 } from './actions/constants';
 
 const RouterComponent = () => {
   return (
     <Router showNavigationBar={false} >
-      <Scene key={KEY_AUTH}>
+      <Scene key={KEY_AUTH} initial>
         <Scene
           key={KEY_LOGIN}
           sceneStyle={{ backgroundColor: '#1abc9c', }}
@@ -34,6 +35,14 @@ const RouterComponent = () => {
           component={ForgotPasswordForm}
         />
       </Scene>
+      <Scene key={KEY_MENU}>
+      <Scene
+        key={KEY_MENU_PROFILE}
+        sceneStyle={{ backgroundColor: '#1abc9c', }}
+        component={MainScreen} hideNavBar
+      />
+       </Scene>
+
 
       <Scene key={KEY_SELLER}>
         <Scene
@@ -57,7 +66,8 @@ const RouterComponent = () => {
           component={ProductEdit} hideNavBar
         />
       </Scene>
-    </Router>
+</Router>
+
   );
 };
 

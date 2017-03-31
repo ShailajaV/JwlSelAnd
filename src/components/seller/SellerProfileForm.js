@@ -133,7 +133,7 @@ class SellerProfileForm extends Component {
     }
 
     return (
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: '#1abc9c', }}>
         <Card>
           <CardSection>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>

@@ -39,7 +39,7 @@ class ProductCreate extends Component {
 
   render() {
     return (
-      <Card>
+      <Card style={{ backgroundColor: '#1abc9c', }}>
         <ProductForm onRef={ref => (this.child = ref)} />
         <CardSection>
           <Button onPress={this.onAddMore.bind(this)}>

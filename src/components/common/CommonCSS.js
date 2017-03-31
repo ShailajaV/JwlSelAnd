@@ -214,11 +214,20 @@ export default {
     margin: 4,
     overflow: 'hidden',
   },
-  
+
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 4,
-  }
+  },
+  MenuContainer: {
+    flex: 1,
+    backgroundColor: '#F5FCFF',
+  },
+  MenuButton: {
+    position: 'absolute',
+    top: 20,
+    padding: 10,
+  },
 
 };

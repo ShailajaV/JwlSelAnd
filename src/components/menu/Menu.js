@@ -4,11 +4,6 @@ import { List, ListItem } from 'react-native-elements';
 
 const list = [
 {
-  name: 'LoginForm',
-  avatar_url: ' ',
-  subtitle: ' '
-},
-{
   name: 'AccountSettings',
   avatar_url: ' ',
   subtitle: ' '
@@ -20,11 +15,6 @@ const list = [
 },
 {
   name: 'ProductDetails',
-  avatar_url: ' ',
-  subtitle: ' '
-},
-{
-  name: 'ForgotPassword',
   avatar_url: ' ',
   subtitle: ' '
 },

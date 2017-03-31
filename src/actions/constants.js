@@ -56,6 +56,8 @@ export const PLEASE_ENTER = 'Please enter ';
 export const SPACE = '';
 export const FILE = 'file://';
 export const ANDROID = 'android';
+export const KEY_MENU = 'menu';
+export const KEY_MENU_PROFILE = 'menu_profile';
 
 // Seller profile related constants
 export const KEY_SELLER = 'seller';
