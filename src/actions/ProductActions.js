@@ -3,7 +3,7 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
 import { firebaseDatabase, firebaseAuth, firebaseStorage } from '../FirebaseConfig';
 import { PRODUCT_DETAILS_CHANGED, PRODUCT_SAVE_FAIL, PRODUCTSLIST_FETCH_SUCCESS,
-   PRODUCT_SAVE_SUCCESS, PRODUCT_DELETE_FAIL } from './types';
+   PRODUCT_SAVE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_SAVE, PRODUCT_SUBMIT } from './types';
 import { PRODUCT_DETAILS_ADDMORE, PRODUCT_DETAILS_SUBMIT,
   PRODUCT_DETAILS_EDIT, PRODUCT_DETAILS_DELETE } from './constants';
 import { ERRMSG_PROFILE_IMAGE_FAILED, ERR_STORAGE_UNAUTH, ERRMSG_STRG_UNAUTH, ERR_STRG_UNAUTHORIZED,
@@ -38,9 +38,11 @@ export const productCreate = ({ uploadURL, productName, daysOfRent,
   return (dispatch) => {
     const { uri } = uploadURL;
     if (onSubmit) {
+      dispatch({ type: PRODUCT_SUBMIT });
       dispatch(saveProductDetails(dispatch, uri, productName, daysOfRent,
         rentExpected, null, PRODUCT_DETAILS_SUBMIT));
     } else {
+      dispatch({ type: PRODUCT_SAVE });
       dispatch(saveProductDetails(dispatch, uri, productName, daysOfRent,
         rentExpected, null, PRODUCT_DETAILS_ADDMORE));
     }
@@ -106,6 +108,7 @@ const saveProductDetails = (dispatch, uri, productName, daysOfRent,
       }
     })
     .catch((error) => {
+      console.log('error is ', error);
       handleImgErrorMessages(dispatch, error.code, callingScreen);
     });
   };
@@ -190,6 +193,7 @@ export const productUpdate = ({ productName, daysOfRent,
   rentExpected, url, uploadURL, uid }) => {
   const { currentUser } = firebaseAuth;
   return (dispatch) => {
+    dispatch({ type: PRODUCT_SAVE });
     if (uploadURL !== null && uploadURL !== '') {
       const { uri } = uploadURL;
       dispatch(saveProductDetails(dispatch, uri, productName, daysOfRent,

@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { Card, CardSection, Button } from '../common';
+import { Card, CardSection, Button, Spinner } from '../common';
 import ProductForm from './ProductForm';
-import { ADD_MORE, SUBMIT } from '../../actions/constants';
+import { ADD_MORE, SUBMIT, SPINNER_SIZE } from '../../actions/constants';
 import { productDetailsChanged, productCreate } from '../../actions';
 
 class ProductCreate extends Component {
@@ -37,17 +37,35 @@ class ProductCreate extends Component {
     }
   }
 
+  renderAddButton() {
+    if (this.props.loading) {
+      return <Spinner size={SPINNER_SIZE} />;
+    }
+    return (
+      <Button onPress={this.onAddMore.bind(this)}>
+        {ADD_MORE}
+      </Button>
+    );
+  }
+
+  renderSubmitButton() {
+    if (this.props.submitLoading) {
+      return <Spinner size={SPINNER_SIZE} />;
+    }
+    return (
+      <Button onPress={this.onSubmit.bind(this)}>
+        {SUBMIT}
+      </Button>
+    );
+  }
+
   render() {
     return (
       <Card style={{ backgroundColor: '#1abc9c', }}>
         <ProductForm onRef={ref => (this.child = ref)} />
         <CardSection>
-          <Button onPress={this.onAddMore.bind(this)}>
-            {ADD_MORE}
-          </Button>
-          <Button onPress={this.onSubmit.bind(this)}>
-            {SUBMIT}
-          </Button>
+          {this.renderAddButton()}
+          {this.renderSubmitButton()}
           <Button onPress={this.onProductsList.bind(this)}>
             NEXT
           </Button>
@@ -58,8 +76,9 @@ class ProductCreate extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { productName, daysOfRent, rentExpected, url, uploadURL } = state.productForm;
-  return { productName, daysOfRent, rentExpected, url, uploadURL };
+  const { productName, daysOfRent, rentExpected, url, uploadURL, loading,
+    submitLoading } = state.productForm;
+  return { productName, daysOfRent, rentExpected, url, uploadURL, loading, submitLoading };
 };
 
 export default connect(mapStateToProps,

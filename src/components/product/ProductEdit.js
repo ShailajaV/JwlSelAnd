@@ -3,9 +3,9 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { productDetailsChanged, productUpdate } from '../../actions';
-import { Card, CardSection, Button } from '../common';
+import { Card, CardSection, Button, Spinner } from '../common';
 import ProductForm from './ProductForm';
-import { EDIT } from '../../actions/constants';
+import { EDIT, SPINNER_SIZE } from '../../actions/constants';
 
 class ProductEdit extends Component {
 
@@ -28,14 +28,23 @@ class ProductEdit extends Component {
     }
   }
 
+  renderEditButton() {
+    if (this.props.loading) {
+      return <Spinner size={SPINNER_SIZE} />;
+    }
+    return (
+      <Button onPress={this.onEdit.bind(this)}>
+        {EDIT}
+      </Button>
+    );
+  }
+
   render() {
     return (
       <Card style={{ backgroundColor: '#1abc9c', }}>
         <ProductForm onRef={ref => (this.child = ref)} />
         <CardSection>
-          <Button onPress={this.onEdit.bind(this)}>
-            {EDIT}
-          </Button>
+          {this.renderEditButton()}
         </CardSection>
       </Card>
     );
@@ -43,8 +52,8 @@ class ProductEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { productName, daysOfRent, rentExpected, url, uploadURL } = state.productForm;
-  return { productName, daysOfRent, rentExpected, url, uploadURL };
+  const { productName, daysOfRent, rentExpected, url, uploadURL, loading } = state.productForm;
+  return { productName, daysOfRent, rentExpected, url, uploadURL, loading };
 };
 
 export default connect(mapStateToProps, { productDetailsChanged, productUpdate })(ProductEdit);

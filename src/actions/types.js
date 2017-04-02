@@ -19,6 +19,8 @@ export const GETPROFILE_IMAGE_FAIL = 'getprofile_image_fail';
 
 //prodct details constants
 export const PRODUCT_DETAILS_CHANGED = 'product_details_changed';
+export const PRODUCT_SAVE = 'product_save';
+export const PRODUCT_SUBMIT = 'product_submit';
 export const PRODUCT_SAVE_SUCCESS = 'product_save_success';
 export const PRODUCT_SAVE_FAIL = 'product_save_fail';
 export const PRODUCTSLIST_FETCH_SUCCESS = 'productslist_fetch_success';
