@@ -1,6 +1,7 @@
 /* Edit the  product */
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { productDetailsChanged, productUpdate } from '../../actions';
 import { Card, CardSection, Button, Spinner } from '../common';
@@ -41,12 +42,14 @@ class ProductEdit extends Component {
 
   render() {
     return (
-      <Card style={{ backgroundColor: '#1abc9c', }}>
-        <ProductForm onRef={ref => (this.child = ref)} />
-        <CardSection>
-          {this.renderEditButton()}
-        </CardSection>
-      </Card>
+      <ScrollView style={{ backgroundColor: '#1abc9c' }}>
+        <Card>
+          <ProductForm onRef={ref => (this.child = ref)} />
+          <CardSection>
+            {this.renderEditButton()}
+          </CardSection>
+        </Card>
+      </ScrollView>
     );
   }
 }

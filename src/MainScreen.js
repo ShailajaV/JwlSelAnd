@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 import SideMenu from 'react-native-side-menu';
 import Menu from './components/menu/Menu';
 import styles from './components/common/CommonCSS';
+import LoginForm from './components/auth/LoginForm';
 import SellerProfile from './components/seller/SellerProfile';
 import ProductCreate from './components/product/ProductCreate';
 import ProductList from './components/product/ProductList';
-import MenuButton from './components/common/MenuButton';
+import ProductEdit from './components/product/ProductEdit';
+import { MenuHeader } from './components/common/MenuHeader';
 import { logOut } from './actions';
 
 class MainScreen extends Component {
@@ -34,9 +36,8 @@ class MainScreen extends Component {
   }
 
   renderContent() {
-    console.log('this.state.selectedItem ', this.state.selectedItem);
     switch (this.state.selectedItem) {
-       case 'AccountSettings':
+      case 'AccountSettings':
         return <SellerProfile />;
       case 'ProductCreate':
         return <ProductCreate />;
@@ -44,9 +45,20 @@ class MainScreen extends Component {
         return <ProductList />;
       case 'Logout':
         this.props.logOut();
-        return <SellerProfile />;
+        return <LoginForm />;
       default:
-        return <SellerProfile />;
+        switch (this.props.item) {
+          case 'sellerProfile':
+            return <SellerProfile />;
+          case 'productCreate':
+            return <ProductCreate />;
+          case 'productList':
+            return <ProductList />;
+          case 'productEdit':
+            return <ProductEdit />;
+          default:
+            return <SellerProfile />;
+        }
     }
   }
 
@@ -59,12 +71,10 @@ class MainScreen extends Component {
         isOpen={this.state.isOpen}
         onChange={(isOpen) => this.updateMenuState(isOpen)}
       >
+      <MenuHeader headerText='Toggle' onPress={() => this.toggle()} />
       <View style={styles.MenuContainer}>
         {this.renderContent()}
       </View>
-      <MenuButton style={styles.MenuButton} onPress={() => this.toggle()}>
-       <Image source={{ uri: 'https://raw.githubusercontent.com/react-native-community/react-native-side-menu/master/examples/Basic/assets/menu.png' }} style={{ width: 32, height: 32 }} />
-     </MenuButton>
       </SideMenu>
     );
   }

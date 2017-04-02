@@ -1,5 +1,6 @@
 /* Create a product */
 import React, { Component } from 'react';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { Card, CardSection, Button, Spinner } from '../common';
@@ -61,16 +62,18 @@ class ProductCreate extends Component {
 
   render() {
     return (
-      <Card style={{ backgroundColor: '#1abc9c', }}>
-        <ProductForm onRef={ref => (this.child = ref)} />
-        <CardSection>
-          {this.renderAddButton()}
-          {this.renderSubmitButton()}
-          <Button onPress={this.onProductsList.bind(this)}>
-            NEXT
-          </Button>
-        </CardSection>
-      </Card>
+      <ScrollView style={{ backgroundColor: '#1abc9c' }}>
+        <Card>
+          <ProductForm onRef={ref => (this.child = ref)} />
+          <CardSection>
+            {this.renderAddButton()}
+            {this.renderSubmitButton()}
+            <Button onPress={this.onProductsList.bind(this)}>
+              NEXT
+            </Button>
+          </CardSection>
+        </Card>
+      </ScrollView>
     );
   }
 }

@@ -107,18 +107,18 @@ class SellerProfileForm extends Component {
     if (response.didCancel || response.error || response.customButton) {
       console.log('Error while picking image');
     } else {
-      let source;
-      if (Platform.OS === ANDROID) {
-        source = { uri: response.uri };
-      } else {
-        source = { uri: response.uri.replace(FILE, SPACE) };
-      }
-      this.setState({
-          uploadURL: source,
-          deleteFlag: 0
+        let source;
+        if (Platform.OS === ANDROID) {
+          source = { uri: response.uri };
+        } else {
+          source = { uri: response.uri.replace(FILE, SPACE) };
+        }
+        this.setState({
+            uploadURL: source,
+            deleteFlag: 0
         });
-    }
-  });
+      }
+    });
   }
 
   render() {
@@ -133,7 +133,7 @@ class SellerProfileForm extends Component {
     }
 
     return (
-      <ScrollView style={{ backgroundColor: '#1abc9c', }}>
+      <ScrollView>
         <Card>
           <CardSection>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>

@@ -62,7 +62,6 @@ export const KEY_MENU_PROFILE = 'menu_profile';
 // Seller profile related constants
 //export const KEY_SELLER = 'seller';
 export const HEADER_ACT_SETTINGS = 'Account Settings';
-export const KEY_SELLER_PROFILE = 'sellerProfile';
 export const LABEL_SELLER_NAME = 'Name of the Seller';
 export const LABEL_COMPANY_NAME = 'Company Name';
 export const LABEL_SELLER_ADDRESS = 'Address';

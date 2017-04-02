@@ -70,6 +70,7 @@ class ProductsList extends Component {
         padding={4}
         itemsPerRow={this.state.itemsPerRow}
         renderItem={this.renderItem}
+        style={{ backgroundColor: '#1abc9c' }}
       />
     );
   }

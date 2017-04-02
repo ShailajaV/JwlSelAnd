@@ -102,8 +102,7 @@ class ProductForm extends Component {
     }
 
     return (
-      <View>
-        <ScrollView style={{ backgroundColor: '#1abc9c', }}>
+        <ScrollView>
           <CardSection>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <Text style={styles.uploadLabelStyle}>{UPLOAD_PRODUCT}</Text>
@@ -190,7 +189,6 @@ class ProductForm extends Component {
             {this.props.error}
           </Text>
         </ScrollView>
-      </View>
     );
   }
 }
