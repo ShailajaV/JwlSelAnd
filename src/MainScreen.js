@@ -45,7 +45,7 @@ class MainScreen extends Component {
         return <ProductList />;
       case 'Logout':
         this.props.logOut();
-        return <LoginForm />;
+        return <SellerProfile />;
       default:
         switch (this.props.item) {
           case 'sellerProfile':
