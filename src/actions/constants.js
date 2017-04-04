@@ -102,3 +102,4 @@ export const HEADER_PRODUCT_EDIT = 'Edit Product';
 export const EDIT = 'Edit';
 export const PRODUCT_DETAILS_EDIT = 'product_details_edit';
 export const PRODUCT_DETAILS_DELETE = 'product_details_delete';
+export const PLACEHOLDER_SEARCH = 'Search';

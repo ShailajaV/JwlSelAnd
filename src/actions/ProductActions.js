@@ -108,7 +108,6 @@ const saveProductDetails = (dispatch, uri, productName, daysOfRent,
       }
     })
     .catch((error) => {
-      console.log('error is ', error);
       handleImgErrorMessages(dispatch, error.code, callingScreen);
     });
   };
