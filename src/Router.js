@@ -17,17 +17,17 @@ const RouterComponent = () => {
       <Scene key={KEY_AUTH} initial>
         <Scene
           key={KEY_LOGIN}
-          sceneStyle={{ backgroundColor: '#1abc9c', }}
+          sceneStyle={{ backgroundColor: '#1abc9c' }}
           component={LoginForm} hideNavBar initial
         />
         <Scene
           key={KEY_SIGN_UP}
-          sceneStyle={{ backgroundColor: '#1abc9c', }}
+          sceneStyle={{ backgroundColor: '#1abc9c' }}
           component={RegisterForm} hideNavBar
         />
         <Scene
           key={KEY_FORGOT_PASSWORD}
-          sceneStyle={{ backgroundColor: '#1abc9c', }}
+          sceneStyle={{ backgroundColor: '#1abc9c' }}
           component={ForgotPasswordForm}
         />
       </Scene>
@@ -53,8 +53,7 @@ const RouterComponent = () => {
           component={MainScreen} hideNavBar
         />
       </Scene>
-</Router>
-
+    </Router>
   );
 };
 

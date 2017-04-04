@@ -145,6 +145,15 @@ export default {
     alignItems: 'center',
   },
 
+  searchStyle: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'flex-end'
+  },
+
   emailNpwdStyle: {
     width: 25,
     height: 25,
@@ -202,11 +211,12 @@ export default {
   container: {
    flex: 1,
    paddingTop: Platform.OS === 'ios' ? 20 : 0,
+   backgroundColor: '#1abc9c'
  },
 
  item: {
     flex: 1,
-    borderColor: 'blue',
+    borderColor: '#fff',
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 6,
     justifyContent: 'center',

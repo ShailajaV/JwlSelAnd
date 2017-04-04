@@ -4,7 +4,6 @@ import { View } from 'react-native';
 import SideMenu from 'react-native-side-menu';
 import Menu from './components/menu/Menu';
 import styles from './components/common/CommonCSS';
-import LoginForm from './components/auth/LoginForm';
 import SellerProfile from './components/seller/SellerProfile';
 import ProductCreate from './components/product/ProductCreate';
 import ProductList from './components/product/ProductList';
@@ -64,7 +63,6 @@ class MainScreen extends Component {
 
   render() {
     const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-
     return (
       <SideMenu
         menu={menu}

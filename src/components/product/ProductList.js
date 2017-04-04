@@ -1,12 +1,14 @@
 /* This file fetches products list */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, TextInput } from 'react-native';
 import GridView from 'react-native-gridview';
 import { connect } from 'react-redux';
-import { getProductDetails } from '../../actions';
+import { getProductDetails, productDetailsChanged } from '../../actions';
+import { CardSection } from '../common';
 import ProductListItem from './ProductListItem';
 import styles from '../common/CommonCSS';
+import { PLACEHOLDER_SEARCH } from '../../actions/constants';
 
 class ProductsList extends Component {
 
@@ -70,7 +72,6 @@ class ProductsList extends Component {
         padding={4}
         itemsPerRow={this.state.itemsPerRow}
         renderItem={this.renderItem}
-        style={{ backgroundColor: '#1abc9c' }}
       />
     );
   }
@@ -78,6 +79,23 @@ class ProductsList extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <CardSection>
+        <TextInput
+          placeholder={PLACEHOLDER_SEARCH}
+          autoCorrect={false}
+          style={[styles.inputStyle, { alignSelf: 'stretch',
+          borderRadius: 5,
+          borderWidth: 1,
+          borderColor: '#fff',
+          marginLeft: 5,
+          marginRight: 5 }]}
+          value={this.props.search}
+          placeholderTextColor='#fff'
+          underlineColorAndroid='transparent'
+          onChangeText={value =>
+            this.props.productDetailsChanged({ prop: 'search', value })}
+        />
+        </CardSection>
         {this.renderGridView()}
       </View>
     );
@@ -85,10 +103,16 @@ class ProductsList extends Component {
 }
 
 const mapStateToProps = state => {
-  const products = _.map(state.products, (val, uid) => {
+  const { search } = state.productForm;
+  const productsList = _.map(state.products, (val, uid) => {
     return { ...val, uid };
   });
+  const products = productsList.filter(
+    (product) => {
+      return product.productName.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    }
+  );
   return { products };
 };
 
-export default connect(mapStateToProps, { getProductDetails })(ProductsList);
+export default connect(mapStateToProps, { getProductDetails, productDetailsChanged })(ProductsList);
