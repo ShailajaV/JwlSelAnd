@@ -222,7 +222,7 @@ export default {
     justifyContent: 'center',
     alignItems: 'center',
     margin: 4,
-    overflow: 'hidden',
+    overflow: 'hidden'
   },
 
   row: {
@@ -230,14 +230,21 @@ export default {
     alignItems: 'center',
     marginBottom: 4,
   },
+
   MenuContainer: {
     flex: 1,
     backgroundColor: '#F5FCFF',
   },
+
   MenuButton: {
     position: 'absolute',
     top: 20,
     padding: 10,
   },
 
+  searchImg: {
+    borderRadius: 50,
+    width: 30,
+    height: 30,
+  }
 };

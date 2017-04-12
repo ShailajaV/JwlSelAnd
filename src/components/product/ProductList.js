@@ -1,7 +1,7 @@
 /* This file fetches products list */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, TextInput } from 'react-native';
+import { View, TextInput, Image } from 'react-native';
 import GridView from 'react-native-gridview';
 import { connect } from 'react-redux';
 import { getProductDetails, productDetailsChanged } from '../../actions';
@@ -79,22 +79,34 @@ class ProductsList extends Component {
   render() {
     return (
       <View style={styles.container}>
-      <CardSection>
-        <TextInput
-          placeholder={PLACEHOLDER_SEARCH}
-          autoCorrect={false}
-          style={[styles.inputStyle, { alignSelf: 'stretch',
-          borderRadius: 5,
-          borderWidth: 1,
-          borderColor: '#fff',
-          marginLeft: 5,
-          marginRight: 5 }]}
-          value={this.props.search}
-          placeholderTextColor='#fff'
-          underlineColorAndroid='transparent'
-          onChangeText={value =>
-            this.props.productDetailsChanged({ prop: 'search', value })}
-        />
+        <CardSection
+          style={{
+            borderColor: '#fff',
+            borderWidth: 1,
+            margin: 4,
+            alignSelf: 'stretch',
+            height: 40 }}
+        >
+          <Image
+            source={require('../common/images/search.png')}
+            style={styles.searchImg}
+            resizeMode={Image.resizeMode.sretch}
+          />
+          <TextInput
+            placeholder={PLACEHOLDER_SEARCH}
+            autoCorrect={false}
+            style={[styles.inputStyle, { alignSelf: 'stretch',
+            borderRadius: 5,
+            borderWidth: 0,
+            borderColor: '#ddd',
+            marginLeft: 5,
+            marginRight: 5 }]}
+            value={this.props.search}
+            placeholderTextColor='#fff'
+            underlineColorAndroid='transparent'
+            onChangeText={value =>
+              this.props.productDetailsChanged({ prop: 'search', value })}
+          />
         </CardSection>
         {this.renderGridView()}
       </View>

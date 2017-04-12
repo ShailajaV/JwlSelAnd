@@ -11,7 +11,8 @@ const INITIAL_STATE = {
   rentExpected: '',
   uploadURL: '',
   url: '',
-  error: ''
+  error: '',
+  search: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
