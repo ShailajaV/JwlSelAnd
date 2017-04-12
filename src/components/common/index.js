@@ -8,3 +8,4 @@ export * from './InputText';
 export * from './MultilineInput';
 export * from './Spinner';
 export * from './Utils';
+export * from './ScreenSpinner';

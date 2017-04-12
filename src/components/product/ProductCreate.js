@@ -3,12 +3,22 @@ import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { Card, CardSection, Button, Spinner } from '../common';
+import { Card, CardSection, Button, ScreenSpinner } from '../common';
 import ProductForm from './ProductForm';
-import { ADD_MORE, SUBMIT, SPINNER_SIZE } from '../../actions/constants';
+import { ADD_MORE, SUBMIT } from '../../actions/constants';
 import { productDetailsChanged, productCreate } from '../../actions';
 
 class ProductCreate extends Component {
+state ={
+     visible: false
+  };
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        visible: !this.state.visible
+      });
+    }, 3000);
+  }
 
   onAddMore() {
     const errors = this.child.validations(this.props);
@@ -40,7 +50,7 @@ class ProductCreate extends Component {
 
   renderAddButton() {
     if (this.props.loading) {
-      return <Spinner size={SPINNER_SIZE} />;
+      return <ScreenSpinner visible={this.state.visible} />;
     }
     return (
       <Button onPress={this.onAddMore.bind(this)}>
@@ -51,7 +61,7 @@ class ProductCreate extends Component {
 
   renderSubmitButton() {
     if (this.props.submitLoading) {
-      return <Spinner size={SPINNER_SIZE} />;
+      return <ScreenSpinner visible={this.state.visible} />;
     }
     return (
       <Button onPress={this.onSubmit.bind(this)}>
