@@ -124,7 +124,7 @@ const mapStateToProps = state => {
       return product.productName.toLowerCase().indexOf(search.toLowerCase()) !== -1;
     }
   );
-  return { products };
+  return { products, search };
 };
 
 export default connect(mapStateToProps, { getProductDetails, productDetailsChanged })(ProductsList);

@@ -2,22 +2,32 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-import { Card, CardSection, Button, ScreenSpinner } from '../common';
+import { Card, CardSection, Button, Spinner } from '../common';
 import ProductForm from './ProductForm';
 import { ADD_MORE, SUBMIT } from '../../actions/constants';
 import { productDetailsChanged, productCreate } from '../../actions';
 
 class ProductCreate extends Component {
-state ={
-     visible: false
-  };
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+       visible: false
+    };
+  }
+
+  componentWillMount() {
     setInterval(() => {
-      this.setState({
-        visible: !this.state.visible
-      });
+      if (!this.state.visible) {
+        this.setState({
+          visible: !this.state.visible
+        });
+      }
     }, 3000);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { visible } = nextProps;
+    this.setState({ visible });
   }
 
   onAddMore() {
@@ -30,10 +40,6 @@ state ={
       rentExpected,
       onSubmit: false });
     }
-  }
-
-  onProductsList() {
-    Actions.productsList();
   }
 
   onSubmit() {
@@ -50,7 +56,7 @@ state ={
 
   renderAddButton() {
     if (this.props.loading) {
-      return <ScreenSpinner visible={this.state.visible} />;
+      return <Spinner visible={this.state.visible} />;
     }
     return (
       <Button onPress={this.onAddMore.bind(this)}>
@@ -61,7 +67,7 @@ state ={
 
   renderSubmitButton() {
     if (this.props.submitLoading) {
-      return <ScreenSpinner visible={this.state.visible} />;
+      return <Spinner visible={this.state.visible} />;
     }
     return (
       <Button onPress={this.onSubmit.bind(this)}>
@@ -78,9 +84,6 @@ state ={
           <CardSection>
             {this.renderAddButton()}
             {this.renderSubmitButton()}
-            <Button onPress={this.onProductsList.bind(this)}>
-              NEXT
-            </Button>
           </CardSection>
         </Card>
       </ScrollView>

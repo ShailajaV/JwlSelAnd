@@ -6,7 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import { userDetailsChanged, loginUser, forgotPassword, signUp } from '../../actions';
 import { Card, CardSection, Button, InputText, Spinner } from '../common';
 import { PLACEHOLDER_EMAIL, PLACEHOLDER_PASSWORD, SIGN_IN,
-  SPINNER_SIZE, FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED, SIGN_UP
+  FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED, SIGN_UP
 } from '../../actions/constants';
 import { validateEmail, validatePassword } from '../common/Utils';
 import styles from '../common/CommonCSS';
@@ -14,11 +14,26 @@ import styles from '../common/CommonCSS';
 class LoginForm extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+       visible: false,
+       errors: {}
+    };
     this.validations = this.validations.bind(this);
   }
 
-  state = {
-    errors: {}
+  componentWillMount() {
+    setInterval(() => {
+      if (!this.state.visible) {
+        this.setState({
+          visible: !this.state.visible
+        });
+      }
+    }, 3000);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { visible } = nextProps;
+    this.setState({ visible });
   }
 
   onButtonPress() {
@@ -75,7 +90,7 @@ class LoginForm extends Component {
 
   renderButton() {
     if (this.props.loading) {
-      return <Spinner size={SPINNER_SIZE} />;
+      return <Spinner visible={this.state.visible} />;
     }
     return (
       <Button onPress={this.onButtonPress.bind(this)}>

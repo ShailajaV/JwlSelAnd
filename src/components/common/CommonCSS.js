@@ -246,5 +246,25 @@ export default {
     borderRadius: 50,
     width: 30,
     height: 30,
+  },
+
+  spinnerContainer: {
+    flex: 1,
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
+  },
+  
+  spinnerBackground: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 };

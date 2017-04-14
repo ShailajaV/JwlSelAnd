@@ -16,7 +16,6 @@ export const REGISTER = 'Register';
 export const PLACEHOLDER_FULLNAME = 'display name';
 export const PLACEHOLDER_EMAIL = 'email@gmail.com';
 export const PLACEHOLDER_PASSWORD = 'password';
-export const SPINNER_SIZE = 'large';
 export const PLACEHOLDER_STREET = 'Street Address';
 export const PLACEHOLDER_APT = 'Apt#, Suit#';
 export const PLACEHOLDER_COMPANY_NAME = 'organization name';

@@ -169,13 +169,6 @@ class SellerProfileForm extends Component {
               />
             </TouchableOpacity>
           </CardSection>
-          <View
-            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
-          >
-            <Text style={styles.errorTextStyle}>
-              {this.state.errors.email}
-            </Text>
-          </View>
 
           <CardSection>
             <Input
