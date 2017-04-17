@@ -19,12 +19,12 @@ const MenuHeader = ({ onPress }) => {
       </View>
       <View style={{ width: 40, height: 50 }} >
         <Image
-          source={require('../common/images/email.png')}
+          source={require('../common/images/logo_action_bar.png')}
           style={logoStyle}
           resizeMode={Image.resizeMode.sretch}
         />
       </View>
-      <View style={{ width: 10, height: 50 }} />
+      <View style={{ width: 40, height: 50 }} />
     </View>
   );
 };

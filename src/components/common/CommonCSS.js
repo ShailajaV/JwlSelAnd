@@ -137,7 +137,7 @@ export default {
   },
 
   logoStyle: {
-    width: 30,
+    width: 80,
     height: 30,
     resizeMode: 'contain',
     flexDirection: 'row',
@@ -257,7 +257,7 @@ export default {
     left: 0,
     right: 0
   },
-  
+
   spinnerBackground: {
     position: 'absolute',
     top: 0,
