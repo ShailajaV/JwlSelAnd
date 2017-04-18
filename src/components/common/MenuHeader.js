@@ -8,7 +8,7 @@ const MenuHeader = ({ onPress }) => {
   const { hamStyle, headerStyle, logoStyle } = styles;
   return (
     <View style={headerStyle}>
-      <View style={{ width: 30, height: 50 }} >
+      <View style={{ width: 50, height: 50 }} >
         <TouchableOpacity onPress={onPress}>
           <Image
             source={require('../common/images/ham.png')}
@@ -17,14 +17,14 @@ const MenuHeader = ({ onPress }) => {
           />
         </TouchableOpacity>
       </View>
-      <View style={{ width: 40, height: 50 }} >
+      <View style={{ width: 50, height: 50 }} >
         <Image
           source={require('../common/images/logo_action_bar.png')}
           style={logoStyle}
           resizeMode={Image.resizeMode.sretch}
         />
       </View>
-      <View style={{ width: 40, height: 50 }} />
+      <View style={{ width: 50, height: 50 }} />
     </View>
   );
 };
