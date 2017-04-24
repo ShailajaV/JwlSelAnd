@@ -4,10 +4,6 @@
 export const KEY_SIGN_UP = 'signUp';
 export const KEY_LOGIN = 'logIn';
 export const KEY_FORGOT_PASSWORD = 'forgotPassword';
-/*export const HEADER_SIGN_IN = 'Welcome to Jewellery project';
-export const HEADER_LOG_IN = 'Sign in to Jewellery project';
-export const HEADER_SIGN_UP = 'Register in to Jewellery project';
-export const HEADER_FORGOT_PASSWORD = 'Forgot Password';*/
 export const KEY_AUTH = 'auth';
 export const SEND = 'Send';
 export const SIGN_IN = 'Sign In';
@@ -60,12 +56,10 @@ export const PLEASE_ENTER = 'Please enter ';
 export const SPACE = '';
 export const FILE = 'file://';
 export const ANDROID = 'android';
-export const KEY_MENU = 'menu';
-export const KEY_MENU_PROFILE = 'menu_profile';
+export const KEY_SELLER_MENU = 'sellerMenu';
+export const KEY_SELLER_MENU_PROFILE = 'sellerMenuProfile';
 
 // Seller profile related constants
-//export const KEY_SELLER = 'seller';
-//export const HEADER_ACT_SETTINGS = 'Account Settings';
 export const LABEL_SELLER_NAME = 'Name of the Seller';
 export const LABEL_COMPANY_NAME = 'Company Name';
 export const LABEL_SELLER_ADDRESS = 'Address';
@@ -76,7 +70,6 @@ export const ADDRESS = 'address';
 
 // Product related constants
 export const KEY_PRODUCT_DETAILS = 'productDetails';
-//export const HEADER_PRODUCT_DETAILS = 'Upload Product Details';
 export const LABEL_PRODUCT_NAME = 'Name of the Piece';
 export const LABEL_DAYS_OF_RENT = 'Days of Rent (days)';
 export const LABEL_RENT_EXPECTED = 'Rent per day';
@@ -97,12 +90,10 @@ export const INVALID_RENT_EXPECTED =
 export const EMPTY_PRODUCT_NAME = 'Please enter product name.';
 
 export const KEY_PRODUCT_LIST = 'productsList';
-//export const HEADER_PRODUCT_LIST = 'Rented Jewellery';
 export const DAYS = 'days';
 export const DOLLAR = '$';
 export const PER_DAY = '/day';
 export const KEY_PRODUCT_EDIT = 'productEdit';
-//export const HEADER_PRODUCT_EDIT = 'Edit Product';
 export const EDIT = 'Edit';
 export const PRODUCT_DETAILS_EDIT = 'product_details_edit';
 export const PRODUCT_DETAILS_DELETE = 'product_details_delete';
@@ -110,5 +101,6 @@ export const PLACEHOLDER_SEARCH = 'Search';
 
 // Buyer constants
 // Buyer products by seller
-export const KEY_BUYER = 'buyer';
-export const KEY_PRODUCTS_BY_SELLER = 'products_by_sellers';
+export const KEY_BUYER_MENU = 'buyerMenu';
+export const KEY_BUYER_MENU_PROFILE = 'buyerMenuProfile';
+export const KEY_PRODUCTS_BY_SELLER = 'productsBySellers';

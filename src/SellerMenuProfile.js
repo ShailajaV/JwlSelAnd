@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View } from 'react-native';
 import SideMenu from 'react-native-side-menu';
-import Menu from './components/menu/Menu';
+import SellerMenu from './components/menu/SellerMenu';
 import styles from './components/common/CommonCSS';
 import SellerProfile from './components/seller/SellerProfile';
 import ProductCreate from './components/product/ProductCreate';
@@ -11,7 +11,7 @@ import ProductEdit from './components/product/ProductEdit';
 import { MenuHeader } from './components/common/MenuHeader';
 import { logOut } from './actions';
 
-class MainScreen extends Component {
+class SellerMenuProfile extends Component {
   state = {
     isOpen: false,
     selectedItem: 1,
@@ -62,7 +62,7 @@ class MainScreen extends Component {
   }
 
   render() {
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
+    const menu = <SellerMenu onItemSelected={this.onMenuItemSelected} />;
     return (
       <SideMenu
         menu={menu}
@@ -78,4 +78,4 @@ class MainScreen extends Component {
   }
 }
 
-export default connect(null, { logOut })(MainScreen);
+export default connect(null, { logOut })(SellerMenuProfile);

@@ -4,17 +4,7 @@ import { List, ListItem } from 'react-native-elements';
 
 const list = [
 {
-  name: 'AccountSettings',
-  avatar_url: ' ',
-  subtitle: ' '
-},
-{
-  name: 'ProductCreate',
-  avatar_url: ' ',
-  subtitle: ' '
-},
-{
-  name: 'ProductDetails',
+  name: 'AllProducts',
   avatar_url: ' ',
   subtitle: ' '
 },
@@ -25,7 +15,7 @@ const list = [
 },
 ];
 
-class Menu extends Component {
+class BuyerMenu extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: '#ededed', paddingTop: 50 }}>
@@ -51,4 +41,4 @@ ListItem.defaultProps = {
   rightIcon: { name: 'chevron-right' }
 };
 
-export default Menu;
+export default BuyerMenu;

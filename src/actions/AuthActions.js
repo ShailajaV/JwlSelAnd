@@ -3,7 +3,7 @@ import { Actions } from 'react-native-router-flux';
 //import Communications from 'react-native-communications';
 import { firebaseDatabase, firebaseAuth } from '../FirebaseConfig';
 import { USER_DETAILS_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER,
-  LOGOUT_USER, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAIL
+  LOGOUT_USER, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAIL, BUYER_LOGIN
 } from './types';
 import { ERRMSG_AUTH_FAILED, ERRCODE_EMAIL_INUSE, ERRMSG_EMAIL_INUSE, ERRCODE_INVALID_EMAIL,
   ERRMSG_INVALID_EMAIL, ERRCODE_WEAK_PASSWORD, ERRMSG_WEAK_PASSWORD, ERRCODE_USER_DISABLED,
@@ -99,7 +99,7 @@ const loginUserSuccess = (dispatch, user) => {
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
-  Actions.menu();
+  Actions.sellerMenu();
 };
 
 // Password reset fail
@@ -166,6 +166,16 @@ export const logOut = () => {
       Actions.auth({ type: 'reset' });
     })
     .catch((error) => console.log(error));
+  };
+};
+
+/* Buyer login
+* @return : BuyerProductList
+*/
+export const buyerLogin = () => {
+  return (dispatch) => {
+    dispatch({ type: BUYER_LOGIN });
+    Actions.buyerMenu();
   };
 };
 

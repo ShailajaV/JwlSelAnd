@@ -4,13 +4,14 @@ import { Scene, Router } from 'react-native-router-flux';
 import LoginForm from './components/auth/LoginForm';
 import Register from './components/auth/Register';
 import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
-import MainScreen from './MainScreen';
+import SellerMenuProfile from './SellerMenuProfile';
+import BuyerMenuProfile from './BuyerMenuProfile';
 import BuyerProductList from './components/product/BuyerProductList';
 import {
   KEY_AUTH, KEY_SIGN_UP, KEY_LOGIN, KEY_FORGOT_PASSWORD,
   KEY_PRODUCT_DETAILS, KEY_PRODUCT_LIST,
-  KEY_PRODUCT_EDIT, KEY_MENU, KEY_MENU_PROFILE,
-  KEY_BUYER, KEY_PRODUCTS_BY_SELLER
+  KEY_PRODUCT_EDIT, KEY_SELLER_MENU, KEY_SELLER_MENU_PROFILE,
+  KEY_BUYER_MENU, KEY_BUYER_MENU_PROFILE, KEY_PRODUCTS_BY_SELLER
 } from './actions/constants';
 
 const RouterComponent = () => {
@@ -33,33 +34,38 @@ const RouterComponent = () => {
           component={ForgotPasswordForm}
         />
       </Scene>
-      <Scene key={KEY_MENU}>
+      <Scene key={KEY_SELLER_MENU}>
         <Scene
-          key={KEY_MENU_PROFILE}
+          key={KEY_SELLER_MENU_PROFILE}
           item='sellerProfile'
-          component={MainScreen} hideNavBar
+          component={SellerMenuProfile} hideNavBar
         />
         <Scene
           key={KEY_PRODUCT_DETAILS}
           item='productCreate'
-          component={MainScreen} hideNavBar
+          component={SellerMenuProfile} hideNavBar
         />
         <Scene
           key={KEY_PRODUCT_LIST}
           item='productList'
-          component={MainScreen} hideNavBar
+          component={SellerMenuProfile} hideNavBar
         />
         <Scene
           key={KEY_PRODUCT_EDIT}
           item='productEdit'
-          component={MainScreen} hideNavBar
+          component={SellerMenuProfile} hideNavBar
         />
       </Scene>
-      <Scene key={KEY_BUYER}>
+      <Scene key={KEY_BUYER_MENU}>
+        <Scene
+          key={KEY_BUYER_MENU_PROFILE}
+          item='buyerProducts'
+          component={BuyerMenuProfile} hideNavBar
+        />
         <Scene
           key={KEY_PRODUCTS_BY_SELLER}
           sceneStyle={{ backgroundColor: '#1abc9c' }}
-          component={BuyerProductList} hideNavBar initial
+          component={BuyerProductList} hideNavBar
         />
       </Scene>
     </Router>
