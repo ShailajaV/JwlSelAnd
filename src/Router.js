@@ -2,13 +2,15 @@
 import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import LoginForm from './components/auth/LoginForm';
-import RegisterForm from './components/auth/RegisterForm';
+import Register from './components/auth/Register';
 import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 import MainScreen from './MainScreen';
+import BuyerProductList from './components/product/BuyerProductList';
 import {
   KEY_AUTH, KEY_SIGN_UP, KEY_LOGIN, KEY_FORGOT_PASSWORD,
   KEY_PRODUCT_DETAILS, KEY_PRODUCT_LIST,
-  KEY_PRODUCT_EDIT, KEY_MENU, KEY_MENU_PROFILE
+  KEY_PRODUCT_EDIT, KEY_MENU, KEY_MENU_PROFILE,
+  KEY_BUYER, KEY_PRODUCTS_BY_SELLER
 } from './actions/constants';
 
 const RouterComponent = () => {
@@ -23,7 +25,7 @@ const RouterComponent = () => {
         <Scene
           key={KEY_SIGN_UP}
           sceneStyle={{ backgroundColor: '#1abc9c' }}
-          component={RegisterForm} hideNavBar
+          component={Register} hideNavBar
         />
         <Scene
           key={KEY_FORGOT_PASSWORD}
@@ -51,6 +53,13 @@ const RouterComponent = () => {
           key={KEY_PRODUCT_EDIT}
           item='productEdit'
           component={MainScreen} hideNavBar
+        />
+      </Scene>
+      <Scene key={KEY_BUYER}>
+        <Scene
+          key={KEY_PRODUCTS_BY_SELLER}
+          sceneStyle={{ backgroundColor: '#1abc9c' }}
+          component={BuyerProductList} hideNavBar initial
         />
       </Scene>
     </Router>

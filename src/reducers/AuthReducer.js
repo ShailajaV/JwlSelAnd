@@ -22,7 +22,8 @@ const INITIAL_STATE = {
   state: '',
   city: '',
   zip: '',
-  phoneNum: ''
+  phoneNum: '',
+  drLicense: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

@@ -4,14 +4,15 @@
 export const KEY_SIGN_UP = 'signUp';
 export const KEY_LOGIN = 'logIn';
 export const KEY_FORGOT_PASSWORD = 'forgotPassword';
-export const HEADER_SIGN_IN = 'Welcome to Jewellery project';
+/*export const HEADER_SIGN_IN = 'Welcome to Jewellery project';
 export const HEADER_LOG_IN = 'Sign in to Jewellery project';
 export const HEADER_SIGN_UP = 'Register in to Jewellery project';
-export const HEADER_FORGOT_PASSWORD = 'Forgot Password';
+export const HEADER_FORGOT_PASSWORD = 'Forgot Password';*/
 export const KEY_AUTH = 'auth';
 export const SEND = 'Send';
 export const SIGN_IN = 'Sign In';
 export const SIGN_UP = 'Dont you have account yet? Create One';
+export const CONTINUE_GUEST = 'Continue as guest';
 export const REGISTER = 'Register';
 export const PLACEHOLDER_FULLNAME = 'display name';
 export const PLACEHOLDER_EMAIL = 'email@gmail.com';
@@ -23,6 +24,7 @@ export const PLACEHOLDER_STATE = 'state';
 export const PLACEHOLDER_CITY = 'city';
 export const PLACEHOLDER_ZIP = 'Zip (e.g.75063)';
 export const PLACEHOLDER_PHONENUMBER = 'Phone Number e.g.(111)-(111)-(1111)';
+export const PLACEHOLDER_DRLICENSE = 'Drivers license number';
 export const EMAIL_SUBJECT = 'Welcome to Jewllery world!';
 export const EMAIL_BODY = 'Hi,  ';
 export const FORGOT_PASSWORD = 'Forgot Password ?';
@@ -43,6 +45,7 @@ export const STATE = 'state';
 export const CITY = 'city';
 export const ZIP = 'zip';
 export const PHONE_NUMBER = 'phoneNumber';
+export const DRLICENSE_NUMBER = 'drLicense';
 export const EMPTY_FULLNAME = 'Please enter full name.';
 export const EMPTY_COMPANY_NAME = 'Please enter company name.';
 export const EMPTY_ADDR_STREET = 'Please enter street address.';
@@ -50,6 +53,8 @@ export const EMPTY_ADDR_APT = 'Please enter apartment or suit number.';
 export const EMPTY_PHONE_NUMBER = 'Please enter phone number.';
 export const INVALID_PHONE_NUMBER = 'Phone number should contain only numbers.';
 export const LENGTH_PHONE_NUMBER = 'Phone number should contain 10 digits.';
+export const EMPTY_DRLICENSE_NUMBER = 'Please enter drivers license number.';
+export const INVALID_DRLICENSE_NUMBER = 'Invalid drivers license number.';
 export const INVALID_ZIP = 'Zip should contain only numbers.';
 export const PLEASE_ENTER = 'Please enter ';
 export const SPACE = '';
@@ -60,7 +65,7 @@ export const KEY_MENU_PROFILE = 'menu_profile';
 
 // Seller profile related constants
 //export const KEY_SELLER = 'seller';
-export const HEADER_ACT_SETTINGS = 'Account Settings';
+//export const HEADER_ACT_SETTINGS = 'Account Settings';
 export const LABEL_SELLER_NAME = 'Name of the Seller';
 export const LABEL_COMPANY_NAME = 'Company Name';
 export const LABEL_SELLER_ADDRESS = 'Address';
@@ -71,7 +76,7 @@ export const ADDRESS = 'address';
 
 // Product related constants
 export const KEY_PRODUCT_DETAILS = 'productDetails';
-export const HEADER_PRODUCT_DETAILS = 'Upload Product Details';
+//export const HEADER_PRODUCT_DETAILS = 'Upload Product Details';
 export const LABEL_PRODUCT_NAME = 'Name of the Piece';
 export const LABEL_DAYS_OF_RENT = 'Days of Rent (days)';
 export const LABEL_RENT_EXPECTED = 'Rent per day';
@@ -92,13 +97,18 @@ export const INVALID_RENT_EXPECTED =
 export const EMPTY_PRODUCT_NAME = 'Please enter product name.';
 
 export const KEY_PRODUCT_LIST = 'productsList';
-export const HEADER_PRODUCT_LIST = 'Rented Jewellery';
+//export const HEADER_PRODUCT_LIST = 'Rented Jewellery';
 export const DAYS = 'days';
 export const DOLLAR = '$';
 export const PER_DAY = '/day';
 export const KEY_PRODUCT_EDIT = 'productEdit';
-export const HEADER_PRODUCT_EDIT = 'Edit Product';
+//export const HEADER_PRODUCT_EDIT = 'Edit Product';
 export const EDIT = 'Edit';
 export const PRODUCT_DETAILS_EDIT = 'product_details_edit';
 export const PRODUCT_DETAILS_DELETE = 'product_details_delete';
 export const PLACEHOLDER_SEARCH = 'Search';
+
+// Buyer constants
+// Buyer products by seller
+export const KEY_BUYER = 'buyer';
+export const KEY_PRODUCTS_BY_SELLER = 'products_by_sellers';

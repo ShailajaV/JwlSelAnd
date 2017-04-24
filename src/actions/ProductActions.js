@@ -3,7 +3,8 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
 import { firebaseDatabase, firebaseAuth, firebaseStorage } from '../FirebaseConfig';
 import { PRODUCT_DETAILS_CHANGED, PRODUCT_SAVE_FAIL, PRODUCTSLIST_FETCH_SUCCESS,
-   PRODUCT_SAVE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_SAVE, PRODUCT_SUBMIT } from './types';
+  PRODUCT_SAVE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_SAVE, PRODUCT_SUBMIT,
+  BUYER_LOGIN, ALL_PRODUCTSLIST_FETCH_SUCCESS } from './types';
 import { PRODUCT_DETAILS_ADDMORE, PRODUCT_DETAILS_SUBMIT,
   PRODUCT_DETAILS_EDIT, PRODUCT_DETAILS_DELETE } from './constants';
 import { ERRMSG_PROFILE_IMAGE_FAILED, ERR_STORAGE_UNAUTH, ERRMSG_STRG_UNAUTH, ERR_STRG_UNAUTHORIZED,
@@ -57,6 +58,7 @@ export const getProductDetails = () => {
   return (dispatch) => {
     firebaseDatabase.ref(`/products/${currentUser.uid}`)
     .on('value', snapshot => {
+      console.log('snapshot in getProductDetails ', snapshot);
       dispatch({ type: PRODUCTSLIST_FETCH_SUCCESS, payload: snapshot.val() });
     });
   };
@@ -228,6 +230,29 @@ export const productDelete = ({ uid, productName }) => {
         type: PRODUCT_DELETE_FAIL,
         payload: ERRMSG_PRODUCT_DELETE_FAILED
       });
+    });
+  };
+};
+
+/* log into user account
+* @parameter: email and password
+* @return : SellerProfileForm
+*/
+export const buyerLogin = () => {
+  return (dispatch) => {
+    dispatch({ type: BUYER_LOGIN });
+    Actions.buyer();
+  };
+};
+
+/* Fetch all product details
+* @return : productForm/RentedJewelleryForm
+*/
+export const getAllProductDetails = () => {
+  return (dispatch) => {
+    firebaseDatabase.ref('products')
+    .on('value', snapshot => {
+      dispatch({ type: ALL_PRODUCTSLIST_FETCH_SUCCESS, payload: snapshot.val() });
     });
   };
 };

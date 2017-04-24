@@ -5,11 +5,13 @@ import SellerReducer from './SellerReducer';
 import SellerFormReducer from './SellerFormReducer';
 import ProductReducer from './ProductReducer';
 import ProductsListReducer from './ProductsListReducer';
+import buyerProductReducer from './BuyerProductReducer';
 
 export default combineReducers({
   auth: AuthReducer,
   sellers: SellerReducer,
   sellerForm: SellerFormReducer,
   productForm: ProductReducer,
-  products: ProductsListReducer
+  products: ProductsListReducer,
+  buyerProductForm: buyerProductReducer
 });

@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { userDetailsChanged, loginUser, forgotPassword, signUp } from '../../actions';
+import { userDetailsChanged, loginUser, forgotPassword, signUp, buyerLogin } from '../../actions';
 import { Card, CardSection, Button, InputText, Spinner } from '../common';
 import { PLACEHOLDER_EMAIL, PLACEHOLDER_PASSWORD, SIGN_IN,
-  FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED, SIGN_UP
+  FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED, SIGN_UP, CONTINUE_GUEST
 } from '../../actions/constants';
 import { validateEmail, validatePassword } from '../common/Utils';
 import styles from '../common/CommonCSS';
@@ -51,6 +51,10 @@ class LoginForm extends Component {
 
   onSignUpButton() {
     this.props.signUp();
+  }
+
+  onBuyerLogin() {
+    this.props.buyerLogin();
   }
 
   validations(values) {
@@ -183,6 +187,14 @@ class LoginForm extends Component {
             </Text >
           </TouchableOpacity>
         </CardSection>
+
+        <CardSection style={{ justifyContent: 'center' }}>
+          <TouchableOpacity onPress={this.onBuyerLogin.bind(this)}>
+            <Text style={styles.buttonTextStyle}>
+              {CONTINUE_GUEST}
+            </Text >
+          </TouchableOpacity>
+        </CardSection>
       </Card>
     );
   }
@@ -194,5 +206,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps,
-  { userDetailsChanged, loginUser, forgotPassword, signUp
+  { userDetailsChanged, loginUser, forgotPassword, signUp, buyerLogin
   })(LoginForm);

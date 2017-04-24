@@ -26,3 +26,7 @@ export const PRODUCT_SAVE_FAIL = 'product_save_fail';
 export const PRODUCTSLIST_FETCH_SUCCESS = 'productslist_fetch_success';
 export const PRODUCT_DELETE_SUCCESS = 'product_delete_success';
 export const PRODUCT_DELETE_FAIL = 'product_delete_fail';
+
+//Buyer products by sellerProfile
+export const BUYER_LOGIN = 'buyer_login';
+export const ALL_PRODUCTSLIST_FETCH_SUCCESS = 'all_productslist_fetch_success';

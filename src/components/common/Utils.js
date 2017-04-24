@@ -4,7 +4,9 @@ import { EMPTY_EMAIL, INVALID_EMAIL_PATTERN, EMPTY_PASSWORD,
   EMPTY_ADDR_APT, INVALID_PHONE_NUMBER, INVALID_ZIP, EMPTY_PHONE_NUMBER, FULLNAME, COMPANYNAME,
   ADDRESS_STREET, ADDRESS_APT, STATE, CITY, PLEASE_ENTER, ADDRESS, PRODUCT_NAME,
   LENGTH_PHONE_NUMBER, EMPTY_IMAGE, EMPTY_DAYS_OF_RENT, INVALID_DAYS_OF_RENT,
-  EMPTY_RENT_EXPECTED, INVALID_RENT_EXPECTED, EMPTY_PRODUCT_NAME } from '../../actions/constants';
+  EMPTY_RENT_EXPECTED, INVALID_RENT_EXPECTED, EMPTY_PRODUCT_NAME,
+  //EMPTY_DRLICENSE_NUMBER, INVALID_DRLICENSE_NUMBER
+} from '../../actions/constants';
 
 let errors = {};
 export const validateEmail = (email, stateErrors) => {
@@ -76,6 +78,22 @@ const validateOnlyNumbers = (fieldValue) => {
   const re = /^[0-9]+$/;
   return re.test(fieldValue);
 };
+
+
+/*export const validateDrLicense = (value, stateErrors) => {
+  errors = stateErrors;
+  if (!value.replace(/\s/g, '').length) errors.phoneNumber = EMPTY_DRLICENSE_NUMBER;
+  else if (!validateAlphaNumeric(value)) {
+    errors.phoneNumber = INVALID_DRLICENSE_NUMBER;
+  }
+  return errors;
+};
+
+const validateAlphaNumeric = (fieldValue) => {
+  // Only numbers
+  const re = /^[0-9]+$/;
+  return re.test(fieldValue);
+};*/
 
 export const validateURLField = (uploadURL, url, stateErrors) => {
   errors = stateErrors;

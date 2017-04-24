@@ -123,7 +123,9 @@ export const createUserAccount = ({ fullName,
   state,
   city,
   zip,
-  phoneNum
+  phoneNum,
+  drLicense,
+  isBuyer
 }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
@@ -132,7 +134,7 @@ export const createUserAccount = ({ fullName,
         const { currentUser } = firebaseAuth;
         const address = `${addrStreet},${addrApt},${city},${state},${zip}`;
         firebaseDatabase.ref(`/sellers/${currentUser.uid}/`)
-          .push({ fullName, companyName, address, phoneNum })
+          .push({ fullName, companyName, address, phoneNum, drLicense, isBuyer })
           .then(() => {
             loginUserSuccess(dispatch, user);
           })
