@@ -1,4 +1,4 @@
-package com.jwlseland;
+package world.jewell.app;
 
 import com.facebook.react.ReactActivity;
 

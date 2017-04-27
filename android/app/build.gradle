@@ -93,7 +93,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.jwlseland"
+        applicationId "world.jewell.app"
         minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
