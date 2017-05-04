@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { userDetailsChanged, loginUser, forgotPassword, signUp, buyerLogin } from '../../actions';
-import { Card, CardSection, Button, InputText, Spinner } from '../common';
+import { CardSection, Button, InputText, Spinner } from '../common';
 import { PLACEHOLDER_EMAIL, PLACEHOLDER_PASSWORD, SIGN_IN,
   FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED, SIGN_UP, CONTINUE_GUEST
 } from '../../actions/constants';
-import { validateEmail, validatePassword } from '../common/Utils';
+import { validateEmail } from '../common/Utils';
 import styles from '../common/CommonCSS';
 
 class LoginForm extends Component {
@@ -58,7 +59,7 @@ class LoginForm extends Component {
   }
 
   validations(values) {
-    const { email, password } = values;
+    const { email } = values;
     let errors = {};
     if (typeof email !== UNDEFINED) errors = validateEmail(email, this.state.errors);
     else if (values.uniqueName === EMAIL) errors = validateEmail(values.value, this.state.errors);
@@ -82,10 +83,18 @@ class LoginForm extends Component {
     }
   }
 
+  loginWithFacebook() {
+
+  }
+
+  loginWithGoogle() {
+
+  }
+
   renderForgotPassword() {
     return (
       <TouchableOpacity onPress={this.onForgotPassword.bind(this)}>
-        <Text style={styles.buttonTextStyle}>
+        <Text style={{ color: '#fff', fontSize: 11, fontWeight: '500' }}>
           {FORGOT_PASSWORD}
         </Text>
       </TouchableOpacity>
@@ -105,97 +114,96 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <Card>
-        <CardSection style={styles.cardSeccontainerStyle}>
+      <Image
+        style={styles.loginFormMainBodyCardStyle}
+        source={require('../common/images/background.jpg')}
+      >
+        <CardSection style={styles.loginFormLogoCardSectionStyle}>
           <Image
             source={require('../common/images/logo.png')}
             style={styles.upload}
             resizeMode={Image.resizeMode.sretch}
           />
         </CardSection>
-        <CardSection>
-          <Image
-            source={require('../common/images/email.png')}
-            style={styles.emailNpwdStyle}
-            resizeMode={Image.resizeMode.sretch}
-          />
-          <InputText
-            ref='email'
-            placeholder={PLACEHOLDER_EMAIL}
-            value={this.props.email}
-            uniqueName={EMAIL}
-            validate={this.validations}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.userDetailsChanged({ prop: 'email', value })}
-          />
-        </CardSection>
-        <View
-          style={{ flexDirection: 'row',
-          justifyContent: 'flex-start',
-           alignItems: 'center' }}
-        >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.email}
-          </Text>
-        </View>
-
-        <CardSection>
-          <Image
-            source={require('../common/images/pwd.png')}
-            style={styles.emailNpwdStyle}
-            resizeMode={Image.resizeMode.sretch}
-          />
-          <InputText
-            secureTextEntry
-            placeholder={PLACEHOLDER_PASSWORD}
-            value={this.props.password}
-            uniqueName={PASSWORD}
-            validate={this.validations}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.userDetailsChanged({ prop: 'password', value })}
-          />
-        </CardSection>
-        <View
-            style={{ flexDirection: 'row',
-             justifyContent: 'flex-start',
-             alignItems: 'center'
-           }}
-        >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.password}
-          </Text>
-        </View>
-
-        <Text style={styles.errorTextStyle}>
-          {this.props.error}
-        </Text>
-
-        <CardSection>
-          {this.renderButton()}
-        </CardSection>
-
-        <CardSection style={{ justifyContent: 'center' }}>
-          {this.renderForgotPassword()}
-        </CardSection>
-
-        <CardSection style={{ justifyContent: 'center' }}>
-          <TouchableOpacity onPress={this.onSignUpButton.bind(this)}>
-            <Text style={styles.buttonTextStyle}>
-              {SIGN_UP}
-            </Text >
-          </TouchableOpacity>
-        </CardSection>
-
-        <CardSection style={{ justifyContent: 'center' }}>
-          <TouchableOpacity onPress={this.onBuyerLogin.bind(this)}>
-            <Text style={styles.buttonTextStyle}>
+        <CardSection style={styles.loginFormContentsCardSectionStyle}>
+          <View
+            style={{ alignItems: 'stretch',
+            backgroundColor: '#fff',
+            borderRadius: 4 }}
+          >
+            <CardSection
+              style={{ alignItems: 'stretch',
+              height: 40 }}
+            >
+              <Icon
+                name="md-mail"
+                size={20}
+                backgroundColor="#3b5998"
+                style={styles.emailNpwdIconStyle}
+              />
+              <InputText
+                ref='email'
+                value={this.props.email}
+                uniqueName={EMAIL}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'email', value })}
+                placeholder={PLACEHOLDER_EMAIL}
+              />
+            </CardSection>
+            <View
+              style={{ height: 1, backgroundColor: '#000', flexDirection: 'column', opacity: 0.8 }}
+            />
+            <CardSection
+              style={{ alignItems: 'stretch',
+              height: 40 }}
+            >
+              <Icon
+                name="md-key"
+                size={20}
+                backgroundColor="#3b5998"
+                style={styles.emailNpwdIconStyle}
+              />
+              <InputText
+                secureTextEntry
+                value={this.props.password}
+                uniqueName={PASSWORD}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.userDetailsChanged({ prop: 'password', value })}
+                placeholder={PLACEHOLDER_PASSWORD}
+              />
+            </CardSection>
+          </View>
+          <CardSection style={{ justifyContent: 'center' }}>
+                  {this.renderForgotPassword()}
+          </CardSection>
+          <CardSection
+            style={{ marginLeft: 20,
+              marginRight: 20,
+              marginTop: 20 }}
+          >
+            {this.renderButton()}
+          </CardSection>
+          <CardSection style={{ marginLeft: 20, marginRight: 20 }}>
+            <Button onPress={this.onBuyerLogin.bind(this)}>
               {CONTINUE_GUEST}
+            </Button>
+          </CardSection>
+          <CardSection style={{ justifyContent: 'center', marginTop: 7 }}>
+            <Text style={{ color: '#fff', fontSize: 11, fontWeight: '500', marginTop: 1 }}>
+              {'Don\'t have and account? '}
             </Text >
-          </TouchableOpacity>
+            <TouchableOpacity onPress={this.onSignUpButton.bind(this)}>
+              <Text style={{ color: '#fff', fontSize: 13, fontWeight: '700' }}>
+                {SIGN_UP}
+              </Text >
+            </TouchableOpacity>
+          </CardSection>
         </CardSection>
-      </Card>
+      </Image>
     );
   }
 }

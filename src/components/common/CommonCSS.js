@@ -15,36 +15,50 @@ export default {
     justifyContent: 'flex-start',
     flexDirection: 'row',
     position: 'relative',
-    opacity: 0.7
+    opacity: 0.8
   },
 
   upload: {
-    borderRadius: 75,
-    width: 150,
-    height: 150,
+    width: 180,
+    height: 100,
   },
 
   errorTextStyle: {
-    fontSize: 18,
-    alignSelf: 'center',
+    fontSize: 12,
     color: 'red'
   },
 
-  cardSeccontainerStyle: {
+  loginFormMainBodyCardStyle: {
     flex: 1,
-    flexDirection: 'column',
+    width: undefined,
+    height: undefined,
+    backgroundColor: 'transparent',
+    alignItems: 'stretch'
+  },
+
+  loginFormLogoCardSectionStyle: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 60
+    marginTop: 30
+  },
+
+  loginFormContentsCardSectionStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    marginTop: 40,
+    marginLeft: 40,
+    marginRight: 40,
+    alignItems: 'stretch',
   },
 
   buttonTextStyle: {
     alignSelf: 'center',
     color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-    paddingTop: 10,
-    paddingBottom: 10
+    fontSize: 13,
+    fontWeight: '700',
+    paddingTop: 5,
+    paddingBottom: 5
   },
 
   buttonStyle: {
@@ -65,12 +79,12 @@ export default {
   },
 
   inputStyle: {
-    color: '#fff',
+    color: '#000',
     paddingRight: 5,
-    paddingLeft: 5,
-    fontSize: 18,
+    paddingLeft: 20,
+    fontSize: 15,
     lineHeight: 23,
-    height: 40,
+    height: 27,
     flex: 2,
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -154,11 +168,9 @@ export default {
     alignItems: 'flex-end'
   },
 
-  emailNpwdStyle: {
-    width: 25,
-    height: 25,
-    resizeMode: 'contain',
-    alignSelf: 'flex-end'
+  emailNpwdIconStyle: {
+    paddingLeft: 10,
+    alignSelf: 'center'
   },
 
   selContainerStyle: {

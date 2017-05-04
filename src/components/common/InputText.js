@@ -23,10 +23,12 @@ class InputText extends Component {
           style={inputStyle}
           value={this.props.value}
           onChangeText={this.props.onChangeText}
-          placeholderTextColor='#fff'
-          underlineColorAndroid='transparent'
+          placeholderTextColor='#000'
+          underlineColorAndroid='#fff'
           onBlur={(value) => this.handleBlur(value)}
           onChange={(value) => this.onChangeValue(value)}
+          autoCapitalize={'none'}
+          selectionColor='#000000'
         />
       </View>
     );
