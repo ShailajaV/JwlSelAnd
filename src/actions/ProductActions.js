@@ -58,7 +58,6 @@ export const getProductDetails = () => {
   return (dispatch) => {
     firebaseDatabase.ref(`/products/${currentUser.uid}`)
     .on('value', snapshot => {
-      console.log('snapshot in getProductDetails ', snapshot);
       dispatch({ type: PRODUCTSLIST_FETCH_SUCCESS, payload: snapshot.val() });
     });
   };

@@ -7,11 +7,13 @@ import ForgotPasswordForm from './components/auth/ForgotPasswordForm';
 import SellerMenuProfile from './SellerMenuProfile';
 import BuyerMenuProfile from './BuyerMenuProfile';
 import BuyerProductList from './components/product/BuyerProductList';
+import ChatUI from './components/messenger/ChatUI';
 import {
   KEY_AUTH, KEY_SIGN_UP, KEY_LOGIN, KEY_FORGOT_PASSWORD,
   KEY_PRODUCT_DETAILS, KEY_PRODUCT_LIST,
   KEY_PRODUCT_EDIT, KEY_SELLER_MENU, KEY_SELLER_MENU_PROFILE,
-  KEY_BUYER_MENU, KEY_BUYER_MENU_PROFILE, KEY_PRODUCTS_BY_SELLER
+  KEY_BUYER_MENU, KEY_BUYER_MENU_PROFILE, KEY_PRODUCTS_BY_SELLER,
+  KEY_CHAT
 } from './actions/constants';
 
 const RouterComponent = () => {
@@ -54,6 +56,11 @@ const RouterComponent = () => {
           key={KEY_PRODUCT_EDIT}
           item='productEdit'
           component={SellerMenuProfile} hideNavBar
+		/>
+        <Scene
+          key={KEY_CHAT}
+          item='chat'
+          component={ChatUI} hideNavBar
         />
       </Scene>
       <Scene key={KEY_BUYER_MENU}>

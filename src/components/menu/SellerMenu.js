@@ -19,6 +19,11 @@ const list = [
   subtitle: ' '
 },
 {
+  name: 'Chat',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+{
   name: 'Logout',
   avatar_url: ' ',
   subtitle: ' '

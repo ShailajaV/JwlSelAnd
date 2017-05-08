@@ -4,10 +4,11 @@ import { View } from 'react-native';
 import SideMenu from 'react-native-side-menu';
 import SellerMenu from './components/menu/SellerMenu';
 import styles from './components/common/CommonCSS';
-import SellerProfile from './components/seller/SellerProfile';
+import UserProfile from './components/user/UserProfile';
 import ProductCreate from './components/product/ProductCreate';
 import ProductList from './components/product/ProductList';
 import ProductEdit from './components/product/ProductEdit';
+import ChatUI from './components/messenger/ChatUI';
 import { MenuHeader } from './components/common/MenuHeader';
 import { logOut } from './actions';
 
@@ -37,18 +38,20 @@ class SellerMenuProfile extends Component {
   renderContent() {
     switch (this.state.selectedItem) {
       case 'AccountSettings':
-        return <SellerProfile />;
+        return <UserProfile />;
       case 'ProductCreate':
         return <ProductCreate />;
       case 'ProductDetails':
         return <ProductList />;
+      case 'Chat':
+        return <ChatUI />;
       case 'Logout':
         this.props.logOut();
-        return <SellerProfile />;
+        return <UserProfile />;
       default:
         switch (this.props.item) {
           case 'sellerProfile':
-            return <SellerProfile />;
+            return <UserProfile />;
           case 'productCreate':
             return <ProductCreate />;
           case 'productList':
@@ -56,7 +59,7 @@ class SellerMenuProfile extends Component {
           case 'productEdit':
             return <ProductEdit />;
           default:
-            return <SellerProfile />;
+            return <UserProfile />;
         }
     }
   }

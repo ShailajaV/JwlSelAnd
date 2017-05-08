@@ -1,8 +1,7 @@
 import FCM, { FCMEvent, NotificationType, WillPresentNotificationResult, RemoteNotificationResult }
  from 'react-native-fcm';
 import { Platform } from 'react-native';
-//import firebase from 'firebase';
-import { firebaseDatabase, firebaseAuth } from '../FirebaseConfig';
+import { firebaseDatabase } from '../FirebaseConfig';
 
 export const addMessage = (msg) => {
   console.log('msgin addmessage ', msg, '...msg is ', ...msg);
@@ -12,7 +11,7 @@ export const addMessage = (msg) => {
 };
 };
 
-export const sendMessage = (text, user, userUID, chatId, messageId) => {
+export const sendMessage = (text, user, userUID, messageId) => {
     return function (dispatch) {
         const msg = {
           senderId: user.displayName,
@@ -141,7 +140,7 @@ const startChatting = function (dispatch) {
        .then(token => {
            console.log('token is ', token);
        });
-    FCM.subscribeToTopic('notifications_TestD');
+    FCM.subscribeToTopic('secret-chatroom');
 
     FCM.on(FCMEvent.Notification, async (notif) => {
         if (Platform.OS === 'ios') {

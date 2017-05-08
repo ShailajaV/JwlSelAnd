@@ -71,7 +71,7 @@ export const userDetailsChanged = ({ prop, value }) => {
 
 /* log into user account
 * @parameter: email and password
-* @return : SellerProfileForm
+* @return : SellerProfileForm/BuyerProductList
 */
 export const loginUser = ({ email, password }) => {
   return (dispatch) => {
@@ -112,7 +112,7 @@ const passwordResetFail = (dispatch, text) => {
 
 /* Register new account
 * @parameter: AllUserDetails
-* @return : SellerProfileForm
+* @return : SellerProfileForm/BuyerProductList
 */
 export const createUserAccount = ({ fullName,
   email,
@@ -136,7 +136,19 @@ export const createUserAccount = ({ fullName,
         firebaseDatabase.ref(`/sellers/${currentUser.uid}/`)
           .push({ fullName, companyName, address, phoneNum, drLicense, isBuyer })
           .then(() => {
-            loginUserSuccess(dispatch, user);
+            firebaseAuth.onAuthStateChanged(() => {
+              if (user) {
+                // User is signed in.
+                user.updateProfile({
+                    displayName: fullName
+                }).then(() => {
+                    loginUserSuccess(dispatch, user);
+                }, (error) => {
+                  console.log('error is ', error.code);
+                    loginUserFail(dispatch, ERRMSG_SIGNUP_FAILED);
+                });
+              }
+            });
           })
           .catch(() => {
             firebaseAuth.currentUser.delete()

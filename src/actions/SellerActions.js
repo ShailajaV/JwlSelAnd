@@ -1,8 +1,8 @@
-/* This file includes all seller profile action creators */
+/* This file includes all user profile action creators */
 import { Actions } from 'react-native-router-flux';
 import { firebaseDatabase, firebaseAuth, firebaseStorage } from '../FirebaseConfig';
 import { saveProfileImage, deleteProfileImage } from './common/ImgOperations.js';
-import { SELLER_PROFILE_CHANGED, SELLER_FETCH_SUCCESS,
+import { SELLER_PROFILE_CHANGED, USER_FETCH_SUCCESS,
   SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL, GETPROFILE_IMAGE_SUCCESS,
   GETPROFILE_IMAGE_FAIL } from './types';
 import { ERRMSG_SELLER_PROFILE_FAILED, ERRMSG_STRG_IMG_FAILED,
@@ -20,15 +20,15 @@ export const sellerProfileChanged = ({ prop, value }) => {
   };
 };
 
-/* Fetch seller profile info
-* @return : SellerProfileForm
+/* Fetch user profile info
+* @return : SellerProfileForm/BuyerProductList
 */
-export const sellerProfileInfo = () => {
+export const userProfileInfo = () => {
   const { currentUser } = firebaseAuth;
   return (dispatch) => {
-    firebaseDatabase.ref(`/sellers/${currentUser.uid}/`)
+    firebaseDatabase.ref(`/users/${currentUser.uid}/`)
     .on('value', snapshot => {
-      dispatch({ type: SELLER_FETCH_SUCCESS, payload: snapshot.val() });
+      dispatch({ type: USER_FETCH_SUCCESS, payload: snapshot.val() });
     });
   };
 };
@@ -41,7 +41,7 @@ export const saveSellerProfile = ({
   imageURL, deleteFlag, fullName, companyName, address, uid }) => {
   const { currentUser } = firebaseAuth;
   return (dispatch) => {
-    firebaseDatabase.ref(`/sellers/${currentUser.uid}/${uid}`)
+    firebaseDatabase.ref(`/users/${currentUser.uid}/${uid}`)
     .set({ fullName, companyName, address })
     .then(() => {
       const imageRef = `/images/${currentUser.uid}/profilepicture`;

@@ -3,12 +3,13 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
-import { sellerProfileInfo } from '../../actions';
+import { userProfileInfo } from '../../actions';
 import SellerProfileForm from './SellerProfileForm';
+import BuyerProductList from '../product/BuyerProductList';
 
-class SellerProfile extends Component {
+class UserProfile extends Component {
   componentWillMount() {
-    this.props.sellerProfileInfo();
+    this.props.userProfileInfo();
 
     this.createDataSource(this.props);
   }
@@ -17,18 +18,18 @@ class SellerProfile extends Component {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ sellers }) {
+  createDataSource({ users }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
 
-    this.dataSource = ds.cloneWithRows(sellers);
+    this.dataSource = ds.cloneWithRows(users);
   }
 
-  renderRow(seller) {
-    return <SellerProfileForm seller={seller} />;
+  renderRow(user) {
+    if (user.isBuyer) return <BuyerProductList />;
+    return <SellerProfileForm seller={user} />;
   }
-
   render() {
     return (
       <ListView
@@ -42,10 +43,10 @@ class SellerProfile extends Component {
 }
 
 const mapStateToProps = state => {
-  const sellers = _.map(state.sellers, (val, uid) => {
+  const users = _.map(state.users, (val, uid) => {
     return { ...val, uid };
   });
-  return { sellers };
+  return { users };
 };
 
-export default connect(mapStateToProps, { sellerProfileInfo })(SellerProfile);
+export default connect(mapStateToProps, { userProfileInfo })(UserProfile);

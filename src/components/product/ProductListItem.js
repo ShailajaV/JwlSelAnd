@@ -17,7 +17,7 @@ class ProductListItem extends Component {
     const { productName } = this.props.product;
     this.props.productDelete({ uid: this.props.product.uid, productName });
   }
-
+  
   render() {
     const { productName, daysOfRent, rentExpected, url } = this.props.product;
     return (

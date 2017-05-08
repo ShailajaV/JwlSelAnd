@@ -7,6 +7,7 @@ import styles from './components/common/CommonCSS';
 import BuyerProductList from './components/product/BuyerProductList';
 import { MenuHeader } from './components/common/MenuHeader';
 import { logOut } from './actions';
+import ChatUI from './components/messenger/ChatUI';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -35,6 +36,9 @@ class BuyerMenuProfile extends Component {
     switch (this.state.selectedItem) {
       case 'AllProducts':
         return <BuyerProductList />;
+	case 'Chat':
+        //return <Messenger />;
+        return <ChatUI />;
       case 'Logout':
         this.props.logOut();
         return <BuyerProductList />;
