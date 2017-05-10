@@ -132,8 +132,7 @@ class LoginForm extends Component {
             borderRadius: 4 }}
           >
             <CardSection
-              style={{ alignItems: 'stretch',
-              height: 40 }}
+              style={{ alignItems: 'stretch' }}
             >
               <Icon
                 name="md-mail"
@@ -156,8 +155,7 @@ class LoginForm extends Component {
               style={{ height: 1, backgroundColor: '#000', flexDirection: 'column', opacity: 0.8 }}
             />
             <CardSection
-              style={{ alignItems: 'stretch',
-              height: 40 }}
+              style={{ alignItems: 'stretch' }}
             >
               <Icon
                 name="md-key"

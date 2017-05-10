@@ -44,7 +44,7 @@ export default {
   },
 
   loginFormContentsCardSectionStyle: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'column',
     marginTop: 40,
     marginLeft: 40,
@@ -84,7 +84,7 @@ export default {
     paddingLeft: 20,
     fontSize: 15,
     lineHeight: 23,
-    height: 27,
+    height: 40,
     flex: 2,
     borderBottomWidth: 1,
     borderColor: '#fff',
@@ -102,7 +102,6 @@ export default {
   },
 
   inputContainerStyle: {
-    height: 40,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
