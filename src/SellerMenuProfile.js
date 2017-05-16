@@ -8,6 +8,7 @@ import UserProfile from './components/user/UserProfile';
 import ProductCreate from './components/product/ProductCreate';
 import ProductList from './components/product/ProductList';
 import ProductEdit from './components/product/ProductEdit';
+import ChatUsersList from './components/messenger/ChatUsersList';
 import ChatUI from './components/messenger/ChatUI';
 import { MenuHeader } from './components/common/MenuHeader';
 import { logOut } from './actions';
@@ -44,7 +45,7 @@ class SellerMenuProfile extends Component {
       case 'ProductDetails':
         return <ProductList />;
       case 'Chat':
-        return <ChatUI />;
+        return <ChatUsersList />;
       case 'Logout':
         this.props.logOut();
         return <UserProfile />;
@@ -58,6 +59,8 @@ class SellerMenuProfile extends Component {
             return <ProductList />;
           case 'productEdit':
             return <ProductEdit />;
+          case 'chat':
+            return <ChatUI product={this.props.product} />;
           default:
             return <UserProfile />;
         }

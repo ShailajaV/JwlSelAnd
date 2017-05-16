@@ -278,5 +278,18 @@ export default {
     right: 0,
     justifyContent: 'center',
     alignItems: 'center'
-  }
+  },
+
+   chatImageStyle: {
+     width: 30,
+     height: 30,
+     resizeMode: 'contain',
+     alignSelf: 'flex-start'
+   },
+
+   titleStyle: {
+     fontSize: 18,
+     color: '#ddd',
+     paddingLeft: 15
+   }
 };

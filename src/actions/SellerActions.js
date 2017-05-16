@@ -2,8 +2,7 @@
 import { Actions } from 'react-native-router-flux';
 import { firebaseDatabase, firebaseAuth, firebaseStorage } from '../FirebaseConfig';
 import { saveProfileImage, deleteProfileImage } from './common/ImgOperations.js';
-import { SELLER_PROFILE_CHANGED, USER_FETCH_SUCCESS,
-  SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL, GETPROFILE_IMAGE_SUCCESS,
+import { SELLER_PROFILE_CHANGED, SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL, GETPROFILE_IMAGE_SUCCESS,
   GETPROFILE_IMAGE_FAIL } from './types';
 import { ERRMSG_SELLER_PROFILE_FAILED, ERRMSG_STRG_IMG_FAILED,
   ERR_STRG_OBJ_NOTFOUND } from './errorMsgConstants';
@@ -20,19 +19,6 @@ export const sellerProfileChanged = ({ prop, value }) => {
   };
 };
 
-/* Fetch user profile info
-* @return : SellerProfileForm/BuyerProductList
-*/
-export const userProfileInfo = () => {
-  const { currentUser } = firebaseAuth;
-  return (dispatch) => {
-    firebaseDatabase.ref(`/users/${currentUser.uid}/`)
-    .on('value', snapshot => {
-      dispatch({ type: USER_FETCH_SUCCESS, payload: snapshot.val() });
-    });
-  };
-};
-
 /* save seller profile form
 * @parameter: image, fullName, companyName and address
 * @return : ProductForm
@@ -46,10 +32,10 @@ export const saveSellerProfile = ({
     .then(() => {
       const imageRef = `/images/${currentUser.uid}/profilepicture`;
       if (deleteFlag === 1) {
-        dispatch(deleteProfileImage(imageRef, SELLER_ACCOUNT_SETTINGS));
+        dispatch(deleteProfileImage(imageRef, SELLER_ACCOUNT_SETTINGS, uid));
       } else if (imageURL !== null && imageURL !== '') {
           const { uri } = imageURL;
-          dispatch(saveProfileImage(uri, imageRef, SELLER_ACCOUNT_SETTINGS));
+          dispatch(saveProfileImage(uri, imageRef, SELLER_ACCOUNT_SETTINGS, uid));
       } else {
         dispatch({ type: SELLER_SAVE_SUCCESS });
         Actions.productDetails();

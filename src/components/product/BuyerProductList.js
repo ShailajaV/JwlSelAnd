@@ -117,10 +117,10 @@ class BuyerProductsList extends Component {
 const mapStateToProps = state => {
   const { search } = state.productForm;
   const productsList = [];
-  _.map(state.products, (val, userUID) => {
+  _.map(state.products, (val, id) => {
     _.map(val, (value, uid) => {
-      productsList.push({ ...value, uid, userUID });
-      return { ...value, userUID, uid };
+      productsList.push({ ...value, uid, id });
+      return { ...value, id, uid };
     });
   });
   const products = productsList.filter(

@@ -7,6 +7,7 @@ import styles from './components/common/CommonCSS';
 import BuyerProductList from './components/product/BuyerProductList';
 import { MenuHeader } from './components/common/MenuHeader';
 import { logOut } from './actions';
+import ChatUsersList from './components/messenger/ChatUsersList';
 import ChatUI from './components/messenger/ChatUI';
 
 class BuyerMenuProfile extends Component {
@@ -36,9 +37,8 @@ class BuyerMenuProfile extends Component {
     switch (this.state.selectedItem) {
       case 'AllProducts':
         return <BuyerProductList />;
-	case 'Chat':
-        //return <Messenger />;
-        return <ChatUI />;
+      case 'Chat':
+        return <ChatUsersList />;
       case 'Logout':
         this.props.logOut();
         return <BuyerProductList />;
@@ -46,6 +46,8 @@ class BuyerMenuProfile extends Component {
         switch (this.props.item) {
           case 'buyerProducts':
             return <BuyerProductList />;
+          case 'chat':
+            return <ChatUI product={this.props.product} />;
           default:
             return <BuyerProductList />;
         }

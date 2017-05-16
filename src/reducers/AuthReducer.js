@@ -36,26 +36,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, ...INITIAL_STATE, user: action.payload };
     case LOGIN_USER_FAIL:
       return { ...state, error: action.payload, password: '', loading: false };
-    /*case FULLNAME_CHANGED:
-      return { ...state, fullName: action.payload };
-    case EMAIL_CHANGED:
-      return { ...state, email: action.payload };
-    case PASSWORD_CHANGED:
-      return { ...state, password: action.payload };
-    case COMPANYNAME_CHANGED:
-      return { ...state, companyName: action.payload };
-    case ADDRSTREET_CHANGED:
-      return { ...state, addrStreet: action.payload };
-    case ADDRAPT_CHANGED:
-      return { ...state, addrApt: action.payload };
-    case STATE_CHANGED:
-      return { ...state, state: action.payload };
-    case CITY_CHANGED:
-      return { ...state, city: action.payload };
-    case ZIP_CHANGED:
-      return { ...state, zip: action.payload };
-    case PHONENUM_CHANGED:
-      return { ...state, phoneNum: action.payload };*/
     case LOGOUT_USER:
       return { ...state, ...INITIAL_STATE };
     case PASSWORD_RESET_SUCCESS:

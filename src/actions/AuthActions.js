@@ -3,7 +3,7 @@ import { Actions } from 'react-native-router-flux';
 //import Communications from 'react-native-communications';
 import { firebaseDatabase, firebaseAuth } from '../FirebaseConfig';
 import { USER_DETAILS_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER,
-  LOGOUT_USER, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAIL, BUYER_LOGIN
+  LOGOUT_USER, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAIL, BUYER_LOGIN, USER_FETCH_SUCCESS
 } from './types';
 import { ERRMSG_AUTH_FAILED, ERRCODE_EMAIL_INUSE, ERRMSG_EMAIL_INUSE, ERRCODE_INVALID_EMAIL,
   ERRMSG_INVALID_EMAIL, ERRCODE_WEAK_PASSWORD, ERRMSG_WEAK_PASSWORD, ERRCODE_USER_DISABLED,
@@ -99,7 +99,7 @@ const loginUserSuccess = (dispatch, user) => {
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
-  Actions.sellerMenu();
+  dispatch(userProfileInfo());
 };
 
 // Password reset fail
@@ -129,40 +129,28 @@ export const createUserAccount = ({ fullName,
 }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
-    firebaseAuth.createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        const { currentUser } = firebaseAuth;
-        const address = `${addrStreet},${addrApt},${city},${state},${zip}`;
-        firebaseDatabase.ref(`/sellers/${currentUser.uid}/`)
-          .push({ fullName, companyName, address, phoneNum, drLicense, isBuyer })
-          .then(() => {
-            firebaseAuth.onAuthStateChanged(() => {
-              if (user) {
-                // User is signed in.
-                user.updateProfile({
-                    displayName: fullName
-                }).then(() => {
-                    loginUserSuccess(dispatch, user);
-                }, (error) => {
-                  console.log('error is ', error.code);
-                    loginUserFail(dispatch, ERRMSG_SIGNUP_FAILED);
-                });
-              }
-            });
-          })
-          .catch(() => {
-            firebaseAuth.currentUser.delete()
-            .then(() => {
-              loginUserFail(dispatch, ERRMSG_SIGNUP_FAILED);
-            })
-            .catch(() => {
-              loginUserFail(dispatch, ERRMSG_SIGNUP_FAILED);
-            });
-          });
-        })
-      .catch((error) => {
-        handleSignUpErrorMessages(dispatch, error.code);
-      });
+      firebaseAuth.createUserWithEmailAndPassword(email, password)
+       .then((user) => {
+         const { currentUser } = firebaseAuth;
+         const address = `${addrStreet},${addrApt},${city},${state},${zip}`;
+         firebaseDatabase.ref(`/sellers/${currentUser.uid}/`)
+           .push({ fullName, companyName, address, phoneNum, drLicense, isBuyer })
+           .then(() => {
+             loginUserSuccess(dispatch, user);
+           })
+           .catch(() => {
+             firebaseAuth.currentUser.delete()
+             .then(() => {
+               loginUserFail(dispatch, ERRMSG_SIGNUP_FAILED);
+             })
+             .catch(() => {
+               loginUserFail(dispatch, ERRMSG_SIGNUP_FAILED);
+             });
+           });
+         })
+       .catch((error) => {
+         handleSignUpErrorMessages(dispatch, error.code);
+       });
   };
 };
 
@@ -249,4 +237,25 @@ const handleForgotPasswordErrorMessages = (dispatch, errorCode) => {
       errorMsg = ERRMSG_PASSWORD_RESET_FAILED;
     }
     passwordResetFail(dispatch, errorMsg);
+};
+
+/* Fetch user profile info
+* @return : SellerProfileForm/BuyerProductList
+*/
+export const userProfileInfo = () => {
+  const { currentUser } = firebaseAuth;
+  return (dispatch) => {
+    let userProfile = null;
+    firebaseDatabase.ref(`/users/${currentUser.uid}/`)
+    .on('value', snapshot => {
+      Object.values(snapshot.val()).forEach(
+        userProfileObj => {
+          userProfile = userProfileObj;
+          return { userProfile };
+    });
+      dispatch({ type: USER_FETCH_SUCCESS, payload: snapshot.val() });
+      if (userProfile.isBuyer) Actions.buyerMenu();
+      else Actions.sellerMenu();
+    });
+  };
 };

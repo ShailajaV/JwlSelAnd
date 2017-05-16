@@ -1,7 +1,7 @@
 /* This file includes all image related action creators */
 import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
-import { firebaseStorage } from '../../FirebaseConfig';
+import { firebaseStorage, firebaseDatabase, firebaseAuth } from '../../FirebaseConfig';
 import { SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL,
   PRODUCT_SAVE_SUCCESS, PRODUCT_SAVE_FAIL, PRODUCT_DELETE_SUCCESS,
   PRODUCT_DELETE_FAIL } from '../types';
@@ -22,10 +22,11 @@ window.Blob = Blob;
 * @parameter: uri, imageRef, callingScreen
 * @return : ProductForm
 */
-export const saveProfileImage = (uri, imageRef, callingScreen,
+export const saveProfileImage = (uri, imageRef, callingScreen, uid,
                                 mime = 'application/octet-stream') => {
   return (dispatch) => {
     let uploadBlob = null;
+    const { currentUser } = firebaseAuth;
     const imageReference = firebaseStorage.ref(imageRef);
 
     fs.readFile(uri, 'base64')
@@ -41,7 +42,11 @@ export const saveProfileImage = (uri, imageRef, callingScreen,
       return imageReference.getDownloadURL();
     })
     .then((url) => {
-      handleSuccess(dispatch, callingScreen);
+      firebaseDatabase.ref(`/users/${currentUser.uid}/${uid}`)
+      .set({ profilePic: url })
+      .then(() => {
+        handleSuccess(dispatch, callingScreen);
+      });
       return url;
     })
     .catch((error) => {
@@ -55,12 +60,17 @@ export const saveProfileImage = (uri, imageRef, callingScreen,
 * @parameter: imageRef, callingScreen
 * @return : ProductForm
 */
-export const deleteProfileImage = (imageRef, callingScreen) => {
+export const deleteProfileImage = (imageRef, callingScreen, uid) => {
   return (dispatch) => {
+    const { currentUser } = firebaseAuth;
     firebaseStorage.ref().child(imageRef)
     .delete()
     .then(() => {
-      handleSuccess(dispatch, callingScreen);
+      firebaseDatabase.ref(`/users/${currentUser.uid}/${uid}`)
+      .set({ profilePic: '' })
+      .then(() => {
+        handleSuccess(dispatch, callingScreen);
+      });
     })
     .catch((error) => {
       handleImgErrorMessages(dispatch, error.code, callingScreen);

@@ -3,8 +3,8 @@ const message = (state, action) => {
         case 'ADD_MESSAGE':
             return {
                 id: action.id,
-                senderId: action.senderId,
-                receiverId: action.receiverId,
+                senderName: action.senderName,
+                receiverName: action.receiverName,
                 chats: action.chats
             };
         default:

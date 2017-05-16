@@ -103,5 +103,5 @@ export const PLACEHOLDER_SEARCH = 'Search';
 // Buyer products by seller
 export const KEY_BUYER_MENU = 'buyerMenu';
 export const KEY_BUYER_MENU_PROFILE = 'buyerMenuProfile';
-export const KEY_PRODUCTS_BY_SELLER = 'productsBySellers';
 export const KEY_CHAT = 'chat';
+export const KEY_SELLER_CHAT = 'sellerChat';

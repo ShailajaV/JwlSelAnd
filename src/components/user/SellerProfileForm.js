@@ -125,7 +125,7 @@ class SellerProfileForm extends Component {
     let srcImg = SPACE;
     if (this.state.uploadURL !== null) {
       srcImg = this.state.uploadURL;
-    } else if (this.props.image === UNDEFINED || this.props.image === SPACE ||
+    } else if (typeof this.props.image === UNDEFINED || this.props.image === SPACE ||
                 this.props.image === null || this.state.deleteFlag === 1) {
       srcImg = require('../common/images/empty.png');
     } else {
@@ -147,7 +147,7 @@ class SellerProfileForm extends Component {
                 <Image
                   source={require('../common/images/delete.jpeg')}
                   style={styles.imageStyle}
-                  resizeMode={Image.resizeMode.sretch}
+                  resizeMode={Image.resizeMode.strech}
                 />
               </TouchableOpacity>
               <CardSection />

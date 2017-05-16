@@ -5,12 +5,9 @@ import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { userProfileInfo } from '../../actions';
 import SellerProfileForm from './SellerProfileForm';
-import BuyerProductList from '../product/BuyerProductList';
 
 class UserProfile extends Component {
   componentWillMount() {
-    this.props.userProfileInfo();
-
     this.createDataSource(this.props);
   }
 
@@ -27,7 +24,6 @@ class UserProfile extends Component {
   }
 
   renderRow(user) {
-    if (user.isBuyer) return <BuyerProductList />;
     return <SellerProfileForm seller={user} />;
   }
   render() {

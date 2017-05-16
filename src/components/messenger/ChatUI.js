@@ -4,20 +4,18 @@ import { connect } from 'react-redux';
 import ReactNative from 'react-native';
 import { Title, Screen } from '@shoutem/ui';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-
 import Messages from './Messages';
 import Input from './InputChat';
 import { sendMessage, fetchMessages } from '../../actions';
 
 const mapStateToProps = (state) => {
     const { height } = state.chatForm.meta;
-    const { user } = state.auth;
   let message = null;
     _.map(state.chatForm.messages, (val) => {
         message = { ...val };
-      return { message, height, user };
+      return { message, height };
     });
-    return { height, user, message };
+    return { height, message };
 };
 
 class ChatUI extends Component {
@@ -32,8 +30,8 @@ class ChatUI extends Component {
     }
 
     componentWillMount() {
-      console.log('fetchMessages');
-      this.props.fetchMessages();
+      const { id } = this.props.product;
+      this.props.fetchMessages(id);
     }
 
     componentDidMount() {
@@ -77,15 +75,12 @@ class ChatUI extends Component {
 
 
     sendMessage = (text) => {
-      const { userUID } = this.props.product;
       let messageId;
-      console.log('this.props.message ', this.props.message);
       if (this.props.message !== null && this.props.message !== 'undefined') {
         const { id } = this.props.message;
         messageId = id;
       }
-      console.log('messageId is ', messageId);
-      return sendMessage(text, this.props.user, userUID, messageId);
+      return sendMessage(text, this.props.product, messageId);
     }
 
     render() {

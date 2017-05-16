@@ -30,7 +30,7 @@ const Messages = connect(mapStateToProps)(({ messages, isFetching, dispatch }) =
     console.log('chats ', chats);
     return (
     <MessageList
-      messages={chats}
+      chats={chats}
       style={{ minHeight: 100 }}
       onLayout={(event) => dispatch(updateMessagesHeight(event))}
     />);
