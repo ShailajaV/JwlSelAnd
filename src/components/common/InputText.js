@@ -16,6 +16,7 @@ class InputText extends Component {
     return (
       <View style={inputContainerStyle} >
         <TextInput
+          underlineColorAndroid='transparent'
           editable={this.props.editable}
           secureTextEntry={this.props.secureTextEntry}
           placeholder={this.props.placeholder}
