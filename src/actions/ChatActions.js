@@ -1,6 +1,6 @@
-import FCM, { FCMEvent, NotificationType, WillPresentNotificationResult, RemoteNotificationResult }
- from 'react-native-fcm';
-import { Platform } from 'react-native';
+/*import FCM, { FCMEvent, NotificationType, WillPresentNotificationResult,
+RemoteNotificationResult } from 'react-native-fcm';
+import { Platform } from 'react-native';*/
 import { Actions } from 'react-native-router-flux';
 import { firebaseDatabase, firebaseAuth } from '../FirebaseConfig';
 
@@ -145,7 +145,7 @@ export const updateMessagesHeight = (event) => {
 const startChatting = function (dispatch, id) {
     dispatch(userAuthorized());
     dispatch(fetchMessages(id));
-    FCM.requestPermissions();
+    /*FCM.requestPermissions();
     FCM.getFCMToken()
        .then(token => {
            console.log('token is ', token);
@@ -172,7 +172,7 @@ const startChatting = function (dispatch, id) {
 
     FCM.on(FCMEvent.RefreshToken, token => {
         console.log(token);
-    });
+    });*/
 };
 
 /* Fetch list of chat users
