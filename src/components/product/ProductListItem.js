@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import ResponsiveImage from 'react-native-responsive-image';
 import { CardSection } from '../common';
 import { DAYS, DOLLAR, PER_DAY } from '../../actions/constants';
 import { productDelete } from '../../actions';
@@ -17,7 +18,7 @@ class ProductListItem extends Component {
     const { productName } = this.props.product;
     this.props.productDelete({ uid: this.props.product.uid, productName });
   }
-  
+
   render() {
     const { productName, daysOfRent, rentExpected, url } = this.props.product;
     return (
@@ -29,7 +30,7 @@ class ProductListItem extends Component {
           ]}
         >
           <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-            <Image style={styles.upload} source={{ uri: url }} />
+            <ResponsiveImage style={styles.upload} source={{ uri: url }} />
           </View>
           <View style={styles.prdContainerStyle}>
             <Text style={styles.prdLabelStyle}>{productName}</Text>
@@ -38,19 +39,19 @@ class ProductListItem extends Component {
           </View>
           <View>
             <TouchableOpacity onPress={this.onEdit.bind(this)}>
-              <Image
+            <ResponsiveImage
                 source={require('../common/images/edit.png')}
                 style={styles.imageStyle}
                 resizeMode={Image.resizeMode.sretch}
-              />
+            />
             </TouchableOpacity>
             <CardSection />
             <TouchableOpacity onPress={this.onDelete.bind(this)}>
-              <Image
+            <ResponsiveImage
                 source={require('../common/images/delete.jpeg')}
                 style={styles.imageStyle}
                 resizeMode={Image.resizeMode.sretch}
-              />
+            />
             </TouchableOpacity>
           </View>
         </View>

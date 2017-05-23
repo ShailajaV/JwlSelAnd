@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { View, TextInput, Image } from 'react-native';
 import GridView from 'react-native-gridview';
 import { connect } from 'react-redux';
+import ResponsiveImage from 'react-native-responsive-image';
 import { getProductDetails, productDetailsChanged } from '../../actions';
 import { CardSection } from '../common';
 import ProductListItem from './ProductListItem';
@@ -87,7 +88,7 @@ class ProductsList extends Component {
             alignSelf: 'stretch',
             height: 40 }}
         >
-          <Image
+          <ResponsiveImage
             source={require('../common/images/search.png')}
             style={styles.searchImg}
             resizeMode={Image.resizeMode.sretch}
