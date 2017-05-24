@@ -30,7 +30,7 @@ class ProductListItem extends Component {
           ]}
         >
           <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-            <ResponsiveImage style={styles.upload} source={{ uri: url }} />
+            <ResponsiveImage source={{ uri: url }} initWidth='180' initHeight='100' />
           </View>
           <View style={styles.prdContainerStyle}>
             <Text style={styles.prdLabelStyle}>{productName}</Text>
@@ -43,6 +43,8 @@ class ProductListItem extends Component {
                 source={require('../common/images/edit.png')}
                 style={styles.imageStyle}
                 resizeMode={Image.resizeMode.sretch}
+                initWidth='50'
+                initHeight='50'
             />
             </TouchableOpacity>
             <CardSection />
@@ -51,6 +53,8 @@ class ProductListItem extends Component {
                 source={require('../common/images/delete.jpeg')}
                 style={styles.imageStyle}
                 resizeMode={Image.resizeMode.sretch}
+                initWidth='50'
+                initHeight='50'
             />
             </TouchableOpacity>
           </View>

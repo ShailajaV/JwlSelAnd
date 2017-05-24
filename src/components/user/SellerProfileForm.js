@@ -6,6 +6,7 @@ import { View, Image, Text, TouchableOpacity,
 import { Actions } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
+import ResponsiveImage from 'react-native-responsive-image';
 import { Card, CardSection, Input, MultilineInput, Button } from '../common';
 import { LABEL_SELLER_NAME, LABEL_COMPANY_NAME,
   LABEL_SELLER_ADDRESS, SAVE, NEXT, FULLNAME, COMPANYNAME, ADDRESS,
@@ -137,35 +138,41 @@ class SellerProfileForm extends Component {
           <CardSection>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
               <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-                <Image style={styles.upload} source={srcImg} />
+              <ResponsiveImage source={srcImg} initWidth='180' initHeight='100' />
               </View>
             </TouchableOpacity>
             <CardSection />
             <View sytle={styles.selContainerStyle}>
               <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
-                <Image
+              <ResponsiveImage
                   source={require('../common/images/delete.jpeg')}
                   style={styles.imageStyle}
-                  resizeMode={Image.resizeMode.strech}
-                />
+                  resizeMode={Image.resizeMode.sretch}
+                  initWidth='50'
+                  initHeight='50'
+              />
               </TouchableOpacity>
               <CardSection />
               <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-                <Image
+              <ResponsiveImage
                   source={require('../common/images/edit.png')}
                   style={styles.imageStyle}
                   resizeMode={Image.resizeMode.sretch}
-                />
+                  initWidth='50'
+                  initHeight='50'
+              />
               </TouchableOpacity>
             </View>
           </CardSection>
           <CardSection style={{ justifyContent: 'flex-end' }}>
             <TouchableOpacity onPress={this.makeEditable.bind(this)}>
-              <Image
+            <ResponsiveImage
                 source={require('../common/images/edit.png')}
                 style={styles.imageStyle}
                 resizeMode={Image.resizeMode.sretch}
-              />
+                initWidth='50'
+                initHeight='50'
+            />
             </TouchableOpacity>
           </CardSection>
 
