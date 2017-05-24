@@ -38,6 +38,7 @@
 		DD551CDD0E734926B3FFD7DE /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FE3E879A3E64930A832BE19 /* Octicons.ttf */; };
 		F052F288E34E4BFA87933283 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C38B3AB7C9FB447A92F5F944 /* Foundation.ttf */; };
 		4D81E201656B4A7F9CF8614D /* libRNFIRMessaging.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 74D34C06D97E4332B43F373C /* libRNFIRMessaging.a */; };
+		1D63C736AC1849289521EFC9 /* libRCTImageResizer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33F692D1722B45A59C3BF779 /* libRCTImageResizer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,6 +297,8 @@
 		FFF73D3DFEB244C18113D192 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
 		4B41D627763B46639B971E60 /* RNFIRMessaging.xcodeproj */ = {isa = PBXFileReference; name = "RNFIRMessaging.xcodeproj"; path = "../node_modules/react-native-fcm/ios/RNFIRMessaging.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		74D34C06D97E4332B43F373C /* libRNFIRMessaging.a */ = {isa = PBXFileReference; name = "libRNFIRMessaging.a"; path = "libRNFIRMessaging.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		62BB2A47D8FA4D569CFA1CBB /* RCTImageResizer.xcodeproj */ = {isa = PBXFileReference; name = "RCTImageResizer.xcodeproj"; path = "../node_modules/react-native-image-resizer/ios/RCTImageResizer.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		33F692D1722B45A59C3BF779 /* libRCTImageResizer.a */ = {isa = PBXFileReference; name = "libRCTImageResizer.a"; path = "libRCTImageResizer.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +330,7 @@
 				D98A3FF9012F47ABB0C9B4D2 /* libRNImagePicker.a in Frameworks */,
 				6C9AE7A5E87E4A469D6B8D70 /* libRNVectorIcons.a in Frameworks */,
 				4D81E201656B4A7F9CF8614D /* libRNFIRMessaging.a in Frameworks */,
+				1D63C736AC1849289521EFC9 /* libRCTImageResizer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +512,7 @@
 				289820F888404698A336E393 /* RNImagePicker.xcodeproj */,
 				A6B3BADA1A4C4A60B3B68C60 /* RNVectorIcons.xcodeproj */,
 				4B41D627763B46639B971E60 /* RNFIRMessaging.xcodeproj */,
+				62BB2A47D8FA4D569CFA1CBB /* RCTImageResizer.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1009,6 +1014,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JwlSelAnd.app/JwlSelAnd";
@@ -1025,6 +1031,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

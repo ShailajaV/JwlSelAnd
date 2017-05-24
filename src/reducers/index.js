@@ -10,7 +10,7 @@ import ChatReducer from './ChatReducer';
 
 export default combineReducers({
   auth: AuthReducer,
-  users: UserReducer,
+  user: UserReducer,
   sellerForm: SellerFormReducer,
   productForm: ProductReducer,
   products: ProductsListReducer,

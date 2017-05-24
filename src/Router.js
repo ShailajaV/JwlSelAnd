@@ -65,7 +65,7 @@ const RouterComponent = () => {
       <Scene key={KEY_BUYER_MENU}>
         <Scene
           key={KEY_BUYER_MENU_PROFILE}
-          item='buyerProducts'
+          item='sellersList'
           component={BuyerMenuProfile} hideNavBar
         />
         <Scene

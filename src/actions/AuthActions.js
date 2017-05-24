@@ -3,7 +3,7 @@ import { Actions } from 'react-native-router-flux';
 //import Communications from 'react-native-communications';
 import { firebaseDatabase, firebaseAuth } from '../FirebaseConfig';
 import { USER_DETAILS_CHANGED, LOGIN_USER_SUCCESS, LOGIN_USER_FAIL, LOGIN_USER,
-  LOGOUT_USER, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAIL, BUYER_LOGIN, USER_FETCH_SUCCESS
+  LOGOUT_USER, PASSWORD_RESET_SUCCESS, PASSWORD_RESET_FAIL, USER_FETCH_SUCCESS
 } from './types';
 import { ERRMSG_AUTH_FAILED, ERRCODE_EMAIL_INUSE, ERRMSG_EMAIL_INUSE, ERRCODE_INVALID_EMAIL,
   ERRMSG_INVALID_EMAIL, ERRCODE_WEAK_PASSWORD, ERRMSG_WEAK_PASSWORD, ERRCODE_USER_DISABLED,
@@ -11,6 +11,7 @@ import { ERRMSG_AUTH_FAILED, ERRCODE_EMAIL_INUSE, ERRMSG_EMAIL_INUSE, ERRCODE_IN
   ERRMSG_WRONG_PASSWORD, ERRMSG_SIGNUP_FAILED, ERRMSG_PASSWORD_RESET_FAILED, ERRCODE_NETWORK_ERROR,
   ERRMSG_NETWEORK_ERROR
 } from './errorMsgConstants';
+import { getAllSellers } from './ProductActions';
 
 /* Sign in page
 * @parameter
@@ -133,8 +134,8 @@ export const createUserAccount = ({ fullName,
        .then((user) => {
          const { currentUser } = firebaseAuth;
          const address = `${addrStreet},${addrApt},${city},${state},${zip}`;
-         firebaseDatabase.ref(`/sellers/${currentUser.uid}/`)
-           .push({ fullName, companyName, address, phoneNum, drLicense, isBuyer })
+         firebaseDatabase.ref(`/users/${currentUser.uid}/`)
+           .set({ fullName, companyName, address, phoneNum, drLicense, isBuyer })
            .then(() => {
              loginUserSuccess(dispatch, user);
            })
@@ -174,8 +175,9 @@ export const logOut = () => {
 */
 export const buyerLogin = () => {
   return (dispatch) => {
-    dispatch({ type: BUYER_LOGIN });
-    Actions.buyerMenu();
+    /*dispatch({ type: BUYER_LOGIN });
+    Actions.buyerMenu();*/
+    dispatch(getAllSellers());
   };
 };
 
@@ -248,13 +250,9 @@ export const userProfileInfo = () => {
     let userProfile = null;
     firebaseDatabase.ref(`/users/${currentUser.uid}/`)
     .on('value', snapshot => {
-      Object.values(snapshot.val()).forEach(
-        userProfileObj => {
-          userProfile = userProfileObj;
-          return { userProfile };
-    });
+      userProfile = snapshot.val();
       dispatch({ type: USER_FETCH_SUCCESS, payload: snapshot.val() });
-      if (userProfile.isBuyer) Actions.buyerMenu();
+      if (userProfile.isBuyer) dispatch(getAllSellers());
       else Actions.sellerMenu();
     });
   };

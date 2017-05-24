@@ -1,7 +1,6 @@
 package world.jewell.app;
 
 import com.facebook.react.ReactActivity;
-import android.content.Intent;
 
 public class MainActivity extends ReactActivity {
 
@@ -13,9 +12,4 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "JwlSelAnd";
     }
-	@Override
-	public void onNewIntent (Intent intent) {
-		super.onNewIntent(intent);
-		setIntent(intent);
-	}  
 }

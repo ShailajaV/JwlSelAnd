@@ -3,7 +3,8 @@ import RNFetchBlob from 'react-native-fetch-blob';
 import { Actions } from 'react-native-router-flux';
 import { firebaseDatabase, firebaseAuth, firebaseStorage } from '../FirebaseConfig';
 import { PRODUCT_DETAILS_CHANGED, PRODUCT_SAVE_FAIL, PRODUCTSLIST_FETCH_SUCCESS,
-  PRODUCT_SAVE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_SAVE, PRODUCT_SUBMIT } from './types';
+  PRODUCT_SAVE_SUCCESS, PRODUCT_DELETE_FAIL, PRODUCT_SAVE, PRODUCT_SUBMIT,
+  SELLERS_FETCH_SUCCESS } from './types';
 import { PRODUCT_DETAILS_ADDMORE, PRODUCT_DETAILS_SUBMIT,
   PRODUCT_DETAILS_EDIT, PRODUCT_DETAILS_DELETE } from './constants';
 import { ERRMSG_PROFILE_IMAGE_FAILED, ERR_STORAGE_UNAUTH, ERRMSG_STRG_UNAUTH, ERR_STRG_UNAUTHORIZED,
@@ -12,7 +13,7 @@ import { ERRMSG_PROFILE_IMAGE_FAILED, ERR_STORAGE_UNAUTH, ERRMSG_STRG_UNAUTH, ER
   ERR_STRG_INV_ARG, ERRMSG_STRG_INV_ARG, ERR_STRG_CANT_SLICE_BLOB, ERRMSG_STRG_CANT_SLICE_BLOB,
   ERR_STRG_FILESIZE, ERRMSG_STRG_FILESIZE,
   ERRMSG_PRODUCT_DETAILS_FAILED, ERRMSG_PRODUCT_DELETE_FAILED } from './errorMsgConstants';
-import { deleteProfileImage } from './common/ImgOperations';
+import { deleteImage } from './common/ImgOperations';
 
 const Blob = RNFetchBlob.polyfill.Blob;
 const fs = RNFetchBlob.fs;
@@ -221,13 +222,28 @@ export const productDelete = ({ uid, productName }) => {
     .remove()
     .then(() => {
       const imageRef = `/images/products/${currentUser.uid}/${productName}`;
-      dispatch(deleteProfileImage(imageRef, PRODUCT_DETAILS_DELETE));
+      dispatch(deleteImage(imageRef, PRODUCT_DETAILS_DELETE));
     })
     .catch(() => {
       dispatch({
         type: PRODUCT_DELETE_FAIL,
         payload: ERRMSG_PRODUCT_DELETE_FAILED
       });
+    });
+  };
+};
+
+
+/* Fetch seller profile info for buyer
+* @return : sellersList
+*/
+export const getAllSellers = () => {
+  return (dispatch) => {
+    firebaseDatabase.ref('users')
+    .orderByChild('isBuyer').equalTo(false)
+    .on('value', snapshot => {
+      dispatch({ type: SELLERS_FETCH_SUCCESS, payload: snapshot.val() });
+      Actions.buyerMenu();
     });
   };
 };

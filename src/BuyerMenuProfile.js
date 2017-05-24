@@ -9,6 +9,7 @@ import { MenuHeader } from './components/common/MenuHeader';
 import { logOut } from './actions';
 import ChatUsersList from './components/messenger/ChatUsersList';
 import ChatUI from './components/messenger/ChatUI';
+import SellersList from './components/product/SellersList';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -36,20 +37,22 @@ class BuyerMenuProfile extends Component {
   renderContent() {
     switch (this.state.selectedItem) {
       case 'AllProducts':
-        return <BuyerProductList />;
+        return <sellersList />;
       case 'Chat':
         return <ChatUsersList />;
       case 'Logout':
         this.props.logOut();
-        return <BuyerProductList />;
+        return <sellersList />;
       default:
         switch (this.props.item) {
+          case 'sellersList':
+            return <SellersList />;
           case 'buyerProducts':
             return <BuyerProductList />;
           case 'chat':
             return <ChatUI product={this.props.product} />;
           default:
-            return <BuyerProductList />;
+            return <sellersList />;
         }
     }
   }

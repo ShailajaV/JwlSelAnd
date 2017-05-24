@@ -45,5 +45,8 @@ ListItem.defaultProps = {
   chevronColor: 'gray',
   rightIcon: { name: 'chevron-right' }
 };
+BuyerMenu.defaultProps = {
+ noOverlay: true
+};
 
 export default BuyerMenu;

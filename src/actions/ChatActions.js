@@ -1,5 +1,5 @@
-import FCM, { FCMEvent, NotificationType, WillPresentNotificationResult, RemoteNotificationResult }
- from 'react-native-fcm';
+import FCM, { FCMEvent, NotificationType, WillPresentNotificationResult,
+RemoteNotificationResult } from 'react-native-fcm';
 import { Platform } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { firebaseDatabase, firebaseAuth } from '../FirebaseConfig';

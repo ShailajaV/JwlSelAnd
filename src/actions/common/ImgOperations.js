@@ -22,7 +22,7 @@ window.Blob = Blob;
 * @parameter: uri, imageRef, callingScreen
 * @return : ProductForm
 */
-export const saveProfileImage = (uri, imageRef, callingScreen, uid,
+export const saveProfileImage = (uri, imageRef, callingScreen,
                                 mime = 'application/octet-stream') => {
   return (dispatch) => {
     let uploadBlob = null;
@@ -42,15 +42,14 @@ export const saveProfileImage = (uri, imageRef, callingScreen, uid,
       return imageReference.getDownloadURL();
     })
     .then((url) => {
-      firebaseDatabase.ref(`/users/${currentUser.uid}/${uid}`)
-      .set({ profilePic: url })
+      firebaseDatabase.ref(`/users/${currentUser.uid}/`)
+      .update({ profilePic: url })
       .then(() => {
         handleSuccess(dispatch, callingScreen);
       });
       return url;
     })
     .catch((error) => {
-      console.log('heycatcherror ', error);
       handleImgErrorMessages(dispatch, error.code, callingScreen);
     });
   };
@@ -60,17 +59,19 @@ export const saveProfileImage = (uri, imageRef, callingScreen, uid,
 * @parameter: imageRef, callingScreen
 * @return : ProductForm
 */
-export const deleteProfileImage = (imageRef, callingScreen, uid) => {
+export const deleteImage = (imageRef, callingScreen) => {
   return (dispatch) => {
     const { currentUser } = firebaseAuth;
     firebaseStorage.ref().child(imageRef)
     .delete()
     .then(() => {
-      firebaseDatabase.ref(`/users/${currentUser.uid}/${uid}`)
-      .set({ profilePic: '' })
-      .then(() => {
-        handleSuccess(dispatch, callingScreen);
-      });
+      if (callingScreen === SELLER_ACCOUNT_SETTINGS) {
+        firebaseDatabase.ref(`/users/${currentUser.uid}/`)
+        .update({ profilePic: '' })
+        .then(() => {
+          handleSuccess(dispatch, callingScreen);
+        });
+      } else handleSuccess(dispatch, callingScreen);
     })
     .catch((error) => {
       handleImgErrorMessages(dispatch, error.code, callingScreen);

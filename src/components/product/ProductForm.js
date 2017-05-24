@@ -28,6 +28,9 @@ class ProductForm extends Component {
   componentWillUnmount() {
     this.props.onRef(null);
   }
+  getFiles(obj) {
+   console.log(obj);
+ }
 
   handleChange(fieldName, fieldValue) {
     if (typeof this.state.errors[fieldName] !== UNDEFINED) {

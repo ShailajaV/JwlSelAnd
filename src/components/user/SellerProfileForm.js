@@ -25,7 +25,7 @@ class SellerProfileForm extends Component {
             deleteFlag: 0,
             errors: {} };
   componentWillMount() {
-    _.each(this.props.seller, (value, prop) => {
+    _.each(this.props.user, (value, prop) => {
       this.props.sellerProfileChanged({ prop, value });
     });
     this.props.getSellerProfileImage();
@@ -50,8 +50,7 @@ class SellerProfileForm extends Component {
         deleteFlag: this.state.deleteFlag,
         fullName,
         companyName,
-        address,
-        uid: this.props.seller.uid
+        address
       });
     }
   }
@@ -133,7 +132,7 @@ class SellerProfileForm extends Component {
     }
 
     return (
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: '#1abc9c' }}>
         <Card>
           <CardSection>
             <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
@@ -249,8 +248,9 @@ class SellerProfileForm extends Component {
 }
 
 const mapStateToProps = (state) => {
+  const user = state.user;
   const { fullName, companyName, address, image, error } = state.sellerForm;
-  return { fullName, companyName, address, image, error };
+  return { fullName, companyName, address, image, error, user };
 };
 
 

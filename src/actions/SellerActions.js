@@ -1,7 +1,7 @@
 /* This file includes all user profile action creators */
 import { Actions } from 'react-native-router-flux';
 import { firebaseDatabase, firebaseAuth, firebaseStorage } from '../FirebaseConfig';
-import { saveProfileImage, deleteProfileImage } from './common/ImgOperations.js';
+import { saveProfileImage, deleteImage } from './common/ImgOperations.js';
 import { SELLER_PROFILE_CHANGED, SELLER_SAVE_SUCCESS, SELLER_SAVE_FAIL, GETPROFILE_IMAGE_SUCCESS,
   GETPROFILE_IMAGE_FAIL } from './types';
 import { ERRMSG_SELLER_PROFILE_FAILED, ERRMSG_STRG_IMG_FAILED,
@@ -24,18 +24,18 @@ export const sellerProfileChanged = ({ prop, value }) => {
 * @return : ProductForm
 */
 export const saveSellerProfile = ({
-  imageURL, deleteFlag, fullName, companyName, address, uid }) => {
+  imageURL, deleteFlag, fullName, companyName, address }) => {
   const { currentUser } = firebaseAuth;
   return (dispatch) => {
-    firebaseDatabase.ref(`/users/${currentUser.uid}/${uid}`)
-    .set({ fullName, companyName, address })
+    firebaseDatabase.ref(`/users/${currentUser.uid}/`)
+    .update({ fullName, companyName, address })
     .then(() => {
       const imageRef = `/images/${currentUser.uid}/profilepicture`;
       if (deleteFlag === 1) {
-        dispatch(deleteProfileImage(imageRef, SELLER_ACCOUNT_SETTINGS, uid));
+        dispatch(deleteImage(imageRef, SELLER_ACCOUNT_SETTINGS));
       } else if (imageURL !== null && imageURL !== '') {
           const { uri } = imageURL;
-          dispatch(saveProfileImage(uri, imageRef, SELLER_ACCOUNT_SETTINGS, uid));
+          dispatch(saveProfileImage(uri, imageRef, SELLER_ACCOUNT_SETTINGS));
       } else {
         dispatch({ type: SELLER_SAVE_SUCCESS });
         Actions.productDetails();
