@@ -5,7 +5,7 @@ import { View, TextInput, Image } from 'react-native';
 import GridView from 'react-native-gridview';
 import { connect } from 'react-redux';
 import ResponsiveImage from 'react-native-responsive-image';
-import { getProductDetails, productDetailsChanged } from '../../actions';
+import { getProductsDetails, productDetailsChanged } from '../../actions';
 import { CardSection } from '../common';
 import ProductListItem from './ProductListItem';
 import styles from '../common/CommonCSS';
@@ -26,7 +26,7 @@ class ProductsList extends Component {
   }
 
   componentWillMount() {
-    this.props.getProductDetails();
+    this.props.getProductsDetails(null);
 
     this.createDataSource(this.props);
   }
@@ -128,4 +128,5 @@ const mapStateToProps = state => {
   return { products, search };
 };
 
-export default connect(mapStateToProps, { getProductDetails, productDetailsChanged })(ProductsList);
+export default connect(mapStateToProps,
+  { getProductsDetails, productDetailsChanged })(ProductsList);
