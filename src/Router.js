@@ -10,7 +10,8 @@ import {
   KEY_AUTH, KEY_SIGN_UP, KEY_LOGIN, KEY_FORGOT_PASSWORD,
   KEY_PRODUCT_DETAILS, KEY_PRODUCT_LIST,
   KEY_PRODUCT_EDIT, KEY_SELLER_MENU, KEY_SELLER_MENU_PROFILE,
-  KEY_BUYER_MENU, KEY_BUYER_MENU_PROFILE, KEY_CHAT, KEY_SELLER_CHAT
+  KEY_BUYER_MENU, KEY_BUYER_MENU_PROFILE, KEY_CHAT, KEY_SELLER_CHAT,
+  KEY_BUYER_PRODUCTS_LIST
 } from './actions/constants';
 
 const RouterComponent = () => {
@@ -66,6 +67,11 @@ const RouterComponent = () => {
         <Scene
           key={KEY_BUYER_MENU_PROFILE}
           item='sellersList'
+          component={BuyerMenuProfile} hideNavBar
+        />
+        <Scene
+          key={KEY_BUYER_PRODUCTS_LIST}
+          item='buyerProductsList'
           component={BuyerMenuProfile} hideNavBar
         />
         <Scene
