@@ -37,7 +37,7 @@ class BuyerMenuProfile extends Component {
   renderContent() {
     switch (this.state.selectedItem) {
       case 'AllProducts':
-        return <sellersList />;
+        return <SellersList />;
       case 'Chat':
         return <ChatUsersList />;
       case 'Logout':
