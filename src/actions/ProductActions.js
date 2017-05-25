@@ -53,12 +53,15 @@ export const productCreate = ({ uploadURL, productName, daysOfRent,
 /* Fetch product details
 * @return : productForm/RentedJewelleryForm
 */
-export const getProductDetails = () => {
+export const getProductsDetails = (uid) => {
   const { currentUser } = firebaseAuth;
   return (dispatch) => {
-    firebaseDatabase.ref(`/products/${currentUser.uid}`)
-    .on('value', snapshot => {
+    let dbRef = '';
+    if (uid !== null) dbRef = firebaseDatabase.ref(`/products/${uid}`);
+    else dbRef = firebaseDatabase.ref(`/products/${currentUser.uid}`);
+    dbRef.on('value', snapshot => {
       dispatch({ type: PRODUCTSLIST_FETCH_SUCCESS, payload: snapshot.val() });
+      if (uid !== null) Actions.buyerProductsList();
     });
   };
 };

@@ -105,3 +105,4 @@ export const KEY_BUYER_MENU = 'buyerMenu';
 export const KEY_BUYER_MENU_PROFILE = 'buyerMenuProfile';
 export const KEY_CHAT = 'chat';
 export const KEY_SELLER_CHAT = 'sellerChat';
+export const KEY_BUYER_PRODUCTS_LIST = 'buyerProductsList';

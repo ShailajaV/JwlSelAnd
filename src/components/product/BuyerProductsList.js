@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { View, TextInput, Image } from 'react-native';
 import GridView from 'react-native-gridview';
 import { connect } from 'react-redux';
-import { getAllProductDetails, productDetailsChanged } from '../../actions';
+import { productDetailsChanged } from '../../actions';
 import { CardSection } from '../common';
 import BuyerProductListItem from './BuyerProductListItem';
 import styles from '../common/CommonCSS';
@@ -25,8 +25,6 @@ class BuyerProductsList extends Component {
   }
 
   componentWillMount() {
-    this.props.getAllProductDetails();
-
     this.createDataSource(this.props);
   }
 
@@ -90,7 +88,7 @@ class BuyerProductsList extends Component {
           <Image
             source={require('../common/images/search.png')}
             style={styles.searchImg}
-            resizeMode={Image.resizeMode.sretch}
+            resizeMode={Image.resizeMode.strech}
           />
           <TextInput
             placeholder={PLACEHOLDER_SEARCH}
@@ -116,12 +114,8 @@ class BuyerProductsList extends Component {
 
 const mapStateToProps = state => {
   const { search } = state.productForm;
-  const productsList = [];
-  _.map(state.products, (val, id) => {
-    _.map(val, (value, uid) => {
-      productsList.push({ ...value, uid, id });
-      return { ...value, id, uid };
-    });
+  const productsList = _.map(state.products, (val, id) => {
+    return { ...val, id };
   });
   const products = productsList.filter(
     (product) => {
@@ -132,4 +126,4 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps,
-  { getAllProductDetails, productDetailsChanged })(BuyerProductsList);
+  { productDetailsChanged })(BuyerProductsList);
