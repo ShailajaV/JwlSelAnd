@@ -1,11 +1,15 @@
 /* List of all sellers */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, Image, ScrollView } from 'react-native';
+import { View, TextInput, Image } from 'react-native';
 import { connect } from 'react-redux';
+import ResponsiveImage from 'react-native-responsive-image';
 import GridView from 'react-native-gridview';
 import styles from '../common/CommonCSS';
-import { SPACE, UNDEFINED } from '../../actions/constants';
+import SellerListItem from './SellerListItem';
+import { PLACEHOLDER_SEARCH } from '../../actions/constants';
+import { CardSection } from '../common';
+import { productDetailsChanged } from '../../actions';
 
 class SellersList extends Component {
   constructor(props) {
@@ -21,8 +25,6 @@ class SellersList extends Component {
   }
 
   componentWillMount() {
-    //this.props.getAllProductDetails();
-
     this.createDataSource(this.props);
   }
 
@@ -56,9 +58,9 @@ class SellersList extends Component {
     return rowData;
   }
 
-  /*renderItem(product) {
-    return <BuyerProductListItem product={product} />;
-  }*/
+  renderItem(seller) {
+    return <SellerListItem seller={seller} />;
+  }
 
   renderGridView() {
     return (
@@ -67,37 +69,42 @@ class SellersList extends Component {
         dataSource={this.dataSource}
         padding={4}
         itemsPerRow={this.state.itemsPerRow}
-        renderItem={(item) => {
-          let srcImg = SPACE;
-          if (typeof item.profilePic === UNDEFINED || item.profilePic === SPACE) {
-            srcImg = require('../common/images/empty.png');
-          } else {
-            srcImg = { uri: item.profilePic };
-          }
-          return (
-            <ScrollView>
-              <View
-                style={[
-                  styles.item,
-                  styles.itemSpacing
-                ]}
-              >
-                <View style={{ flex: 1, backgroundColor: '#8F8', borderWidth: 1 }}>
-                  <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-                    <Image style={styles.upload} source={srcImg} />
-                  </View>
-                  <Text>{`${item.fullName}`}</Text>
-                </View>
-              </View>
-            </ScrollView>
-          );
-        }}
+        renderItem={this.renderItem}
       />
     );
   }
   render() {
     return (
       <View style={styles.container}>
+        <CardSection
+          style={{
+            borderColor: '#fff',
+            borderWidth: 1,
+            margin: 4,
+            alignSelf: 'stretch',
+            height: 40 }}
+        >
+          <ResponsiveImage
+            source={require('../common/images/search.png')}
+            style={styles.searchImg}
+            resizeMode={Image.resizeMode.sretch}
+          />
+          <TextInput
+            placeholder={PLACEHOLDER_SEARCH}
+            autoCorrect={false}
+            style={[styles.inputStyle, { alignSelf: 'stretch',
+            borderRadius: 5,
+            borderWidth: 0,
+            borderColor: '#ddd',
+            marginLeft: 5,
+            marginRight: 5 }]}
+            value={this.props.search}
+            placeholderTextColor='#fff'
+            underlineColorAndroid='transparent'
+            onChangeText={value =>
+              this.props.productDetailsChanged({ prop: 'search', value })}
+          />
+        </CardSection>
       {this.renderGridView()}
       </View>
     );
@@ -105,10 +112,16 @@ class SellersList extends Component {
 }
 
 const mapStateToProps = state => {
-  const sellers = _.map(state.buyerProductForm.sellers, (val, uid) => {
+  const { search } = state.productForm;
+  const sellersList = _.map(state.buyerProductForm.sellers, (val, uid) => {
     return { ...val, uid };
   });
-  return { sellers };
+  const sellers = sellersList.filter(
+    (seller) => {
+      return seller.companyName.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    }
+  );
+  return { sellers, search };
 };
 
-export default connect(mapStateToProps)(SellersList);
+export default connect(mapStateToProps, { productDetailsChanged })(SellersList);
