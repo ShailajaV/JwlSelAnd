@@ -4,12 +4,12 @@ import { View } from 'react-native';
 import SideMenu from 'react-native-side-menu';
 import BuyerMenu from './components/menu/BuyerMenu';
 import styles from './components/common/CommonCSS';
-import BuyerProductList from './components/product/BuyerProductList';
 import { MenuHeader } from './components/common/MenuHeader';
 import { logOut } from './actions';
 import ChatUsersList from './components/messenger/ChatUsersList';
 import ChatUI from './components/messenger/ChatUI';
 import SellersList from './components/product/SellersList';
+import BuyerProductsList from './components/product/BuyerProductsList';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -47,8 +47,8 @@ class BuyerMenuProfile extends Component {
         switch (this.props.item) {
           case 'sellersList':
             return <SellersList />;
-          case 'buyerProducts':
-            return <BuyerProductList />;
+          case 'buyerProductsList':
+            return <BuyerProductsList />;
           case 'chat':
             return <ChatUI product={this.props.product} />;
           default:
