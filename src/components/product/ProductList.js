@@ -90,7 +90,8 @@ class ProductsList extends Component {
         >
           <ResponsiveImage
             source={require('../common/images/search.png')}
-            style={styles.searchImg}
+            initWidth='40'
+            initHeight='40'
             resizeMode={Image.resizeMode.sretch}
           />
           <TextInput
