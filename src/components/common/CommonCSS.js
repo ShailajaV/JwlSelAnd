@@ -54,7 +54,7 @@ export default {
 
   buttonTextStyle: {
     alignSelf: 'center',
-    color: '#fff',
+    color: '#000000',
     fontSize: 13,
     fontWeight: '700',
     paddingTop: 5,
@@ -66,7 +66,7 @@ export default {
     alignSelf: 'stretch',
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: '#fff',
+    borderColor: '#87cefa',
     marginLeft: 5,
     marginRight: 5
   },
@@ -82,17 +82,17 @@ export default {
     color: '#000',
     paddingRight: 5,
     paddingLeft: 20,
-    fontSize: 15,
+    fontSize: 20,
     lineHeight: 23,
     height: 40,
     flex: 2,
     borderBottomWidth: 1,
-    borderColor: '#fff',
+    borderColor: '#000',
     fontFamily: 'Times New Roman'
   },
 
   labelStyle: {
-    color: '#fff',
+    color: '#000000',
     fontSize: 18,
     paddingLeft: 20,
     flex: 2,
@@ -108,7 +108,7 @@ export default {
   },
 
   mulInputStyle: {
-    color: '#fff',
+    color: '#000000',
     paddingRight: 5,
     paddingLeft: 5,
     fontSize: 18,
@@ -126,7 +126,7 @@ export default {
   },
 
   headerStyle: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: '#87cefa',
     flexDirection: 'row',
     justifyContent: 'space-between',
     //justifyContent: 'flex-start',
