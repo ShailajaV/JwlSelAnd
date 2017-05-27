@@ -290,5 +290,11 @@ export default {
      fontSize: 18,
      color: '#ddd',
      paddingLeft: 15
-   }
+   },
+
+   pickerTextStyle: {
+    fontSize: 18,
+    paddingLeft: 20
+  }
+  
 };

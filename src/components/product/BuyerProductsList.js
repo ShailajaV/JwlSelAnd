@@ -1,7 +1,7 @@
 /* This file fetches products list */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, TextInput, Image } from 'react-native';
+import { View, Text, TextInput, Image, Picker } from 'react-native';
 import GridView from 'react-native-gridview';
 import { connect } from 'react-redux';
 import { productDetailsChanged } from '../../actions';
@@ -105,7 +105,19 @@ class BuyerProductsList extends Component {
             onChangeText={value =>
               this.props.productDetailsChanged({ prop: 'search', value })}
           />
-        </CardSection>
+          </CardSection>
+          <CardSection style={{ flexDirection: 'column' }}>
+            <Text style={styles.pickerTextStyle}>Sort</Text>
+            <Picker
+              selectedValue={this.props.sortBy}
+              onValueChange={value => this.props.productDetailsChanged({ prop: 'sortBy', value })}
+            >
+              <Picker.Item label="Best match" value="all" />
+              <Picker.Item label="Price: low to high" value="ascending" />
+              <Picker.Item label="Price: high to low" value="descending" />
+            </Picker>
+          </CardSection>
+
         {this.renderGridView()}
       </View>
     );
@@ -113,16 +125,23 @@ class BuyerProductsList extends Component {
 }
 
 const mapStateToProps = state => {
-  const { search } = state.productForm;
+  const { search, sortBy } = state.productForm;
   const productsList = _.map(state.products, (val, id) => {
     return { ...val, id };
   });
-  const products = productsList.filter(
+
+  let products;
+  products = productsList.filter(
     (product) => {
       return product.productName.toLowerCase().indexOf(search.toLowerCase()) !== -1;
     }
   );
-  return { products, search };
+  if (sortBy === 'ascending') {
+    products = _.sortBy(productsList, 'rentExpected');
+  } else if (sortBy === 'descending') {
+    products = _.sortBy(productsList, 'rentExpected').reverse();
+  }
+  return { products, search, sortBy };
 };
 
 export default connect(mapStateToProps,

@@ -93,7 +93,10 @@ const saveProductDetails = (dispatch, uri, productName, daysOfRent,
     .then((url) => {
       if (callingScreen === PRODUCT_DETAILS_EDIT) {
         firebaseDatabase.ref(`/products/${currentUser.uid}/${uid}`)
-        .set({ productName, daysOfRent, rentExpected, url })
+        .set({ productName,
+          daysOfRent: parseFloat(daysOfRent),
+          rentExpected: parseFloat(rentExpected),
+          url })
         .then(() => {
           handleSuccess(dispatch, callingScreen);
         })
@@ -102,7 +105,10 @@ const saveProductDetails = (dispatch, uri, productName, daysOfRent,
         });
       } else {
         firebaseDatabase.ref(`/products/${currentUser.uid}`)
-        .push({ productName, daysOfRent, rentExpected, url })
+        .push({ productName,
+          daysOfRent: parseFloat(daysOfRent),
+          rentExpected: parseFloat(rentExpected),
+          url })
         .then(() => {
           handleSuccess(dispatch, callingScreen);
         })

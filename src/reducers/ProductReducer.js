@@ -12,7 +12,8 @@ const INITIAL_STATE = {
   uploadURL: '',
   url: '',
   error: '',
-  search: ''
+  search: '',
+  sortBy: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
