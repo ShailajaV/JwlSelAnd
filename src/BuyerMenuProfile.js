@@ -10,6 +10,7 @@ import ChatUsersList from './components/messenger/ChatUsersList';
 import ChatUI from './components/messenger/ChatUI';
 import SellersList from './components/product/SellersList';
 import BuyerProductsList from './components/product/BuyerProductsList';
+import BuyerProductForm from './components/product/BuyerProductForm';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -51,6 +52,8 @@ class BuyerMenuProfile extends Component {
             return <BuyerProductsList />;
           case 'chat':
             return <ChatUI product={this.props.product} />;
+          case 'selectedProduct':
+            return <BuyerProductForm product={this.props.product} />;
           default:
             return <sellersList />;
         }

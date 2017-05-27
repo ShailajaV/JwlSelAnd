@@ -11,7 +11,7 @@ import {
   KEY_PRODUCT_DETAILS, KEY_PRODUCT_LIST,
   KEY_PRODUCT_EDIT, KEY_SELLER_MENU, KEY_SELLER_MENU_PROFILE,
   KEY_BUYER_MENU, KEY_BUYER_MENU_PROFILE, KEY_CHAT, KEY_SELLER_CHAT,
-  KEY_BUYER_PRODUCTS_LIST
+  KEY_BUYER_PRODUCTS_LIST, KEY_SELECTED_PRODUCT
 } from './actions/constants';
 
 const RouterComponent = () => {
@@ -77,6 +77,11 @@ const RouterComponent = () => {
         <Scene
           key={KEY_CHAT}
           item='chat'
+          component={BuyerMenuProfile} hideNavBar
+        />
+        <Scene
+          key={KEY_SELECTED_PRODUCT}
+          item='selectedProduct'
           component={BuyerMenuProfile} hideNavBar
         />
       </Scene>

@@ -12,6 +12,10 @@ class BuyerProductListItem extends Component {
     Actions.chat({ product: this.props.product });
   }
 
+  onSelectProduct() {
+    Actions.selectedProduct({ product: this.props.product });
+  }
+
   render() {
     const { productName, daysOfRent, rentExpected, url } = this.props.product;
     return (
@@ -22,14 +26,16 @@ class BuyerProductListItem extends Component {
             styles.itemSpacing
           ]}
         >
-          <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-            <Image style={styles.upload} source={{ uri: url }} />
-          </View>
-          <View style={styles.prdContainerStyle}>
-            <Text style={styles.prdLabelStyle}>{productName}</Text>
-            <Text style={styles.prdLabelStyle}>{daysOfRent} {DAYS}</Text>
-            <Text style={styles.prdLabelStyle}>{DOLLAR}{rentExpected} {PER_DAY}</Text>
-          </View>
+          <TouchableOpacity onPress={this.onSelectProduct.bind(this)}>
+            <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
+              <Image style={styles.upload} source={{ uri: url }} />
+            </View>
+            <View style={styles.prdContainerStyle}>
+              <Text style={styles.prdLabelStyle}>{productName}</Text>
+              <Text style={styles.prdLabelStyle}>{daysOfRent} {DAYS}</Text>
+              <Text style={styles.prdLabelStyle}>{DOLLAR}{rentExpected} {PER_DAY}</Text>
+            </View>
+          </TouchableOpacity>
           <View>
             <TouchableOpacity onPress={this.onChat.bind(this)}>
               <Text style={styles.buttonTextStyle}>
