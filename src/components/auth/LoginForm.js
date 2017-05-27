@@ -145,6 +145,7 @@ class LoginForm extends Component {
                 value={this.props.email}
                 uniqueName={EMAIL}
                 validate={this.validations}
+                styleObj={styles.logInputStyle}
                 onChange={this.handleChange.bind(this)}
                 onChangeText={value =>
                   this.props.userDetailsChanged({ prop: 'email', value })}
@@ -168,6 +169,7 @@ class LoginForm extends Component {
                 value={this.props.password}
                 uniqueName={PASSWORD}
                 validate={this.validations}
+                styleObj={styles.logInputStyle}
                 onChange={this.handleChange.bind(this)}
                 onChangeText={value =>
                   this.props.userDetailsChanged({ prop: 'password', value })}

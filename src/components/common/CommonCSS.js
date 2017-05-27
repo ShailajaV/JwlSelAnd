@@ -78,6 +78,19 @@ export default {
     fontFamily: 'Times New Roman'
   },
 
+  logInputStyle: {
+    color: '#000',
+    paddingRight: 5,
+    paddingLeft: 20,
+    fontSize: 20,
+    lineHeight: 23,
+    height: 40,
+    flex: 2,
+    //borderBottomWidth: 1,
+    borderColor: '#000',
+    fontFamily: 'Times New Roman'
+  },
+
   inputStyle: {
     color: '#000',
     paddingRight: 5,
@@ -295,5 +308,5 @@ export default {
     fontSize: 18,
     paddingLeft: 20
   }
-  
+
 };

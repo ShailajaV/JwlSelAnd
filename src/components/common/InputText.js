@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { TextInput, View } from 'react-native';
 import styles from './CommonCSS';
+import { UNDEFINED } from '../../actions/constants';
 
 class InputText extends Component {
   onChangeValue() {
@@ -12,7 +13,10 @@ class InputText extends Component {
     this.props.validate(this.props);
   }
   render() {
-    const { inputStyle, inputContainerStyle } = styles;
+    const { inputContainerStyle } = styles;
+    let inputStyle;
+    if (typeof this.props.styleObj !== UNDEFINED) inputStyle = this.props.styleObj;
+    else inputStyle = styles.inputStyle;
     return (
       <View style={inputContainerStyle} >
         <TextInput
@@ -25,7 +29,6 @@ class InputText extends Component {
           value={this.props.value}
           onChangeText={this.props.onChangeText}
           placeholderTextColor='#000'
-          underlineColorAndroid='#fff'
           onBlur={(value) => this.handleBlur(value)}
           onChange={(value) => this.onChangeValue(value)}
           autoCapitalize={'none'}
