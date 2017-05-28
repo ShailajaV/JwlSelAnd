@@ -19,15 +19,12 @@ const Messages = connect(mapStateToProps)(({ messages, isFetching, dispatch }) =
             </View>
         );
     }
-    console.log('messages ', messages);
     let chats = [];
     _.map(messages, (val) => {
       chats = _.map(val.chats, (value, uid) => {
-        console.log('value ', value, 'uid ', uid);
           return { ...value, uid };
       });
     });
-    console.log('chats ', chats);
     return (
     <MessageList
       chats={chats}

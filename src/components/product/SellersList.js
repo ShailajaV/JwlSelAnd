@@ -113,8 +113,8 @@ class SellersList extends Component {
 
 const mapStateToProps = state => {
   const { search } = state.productForm;
-  const sellersList = _.map(state.buyerProductForm.sellers, (val, uid) => {
-    return { ...val, uid };
+  const sellersList = _.map(state.buyerProductForm.sellers, (val, id) => {
+    return { ...val, id };
   });
   const sellers = sellersList.filter(
     (seller) => {

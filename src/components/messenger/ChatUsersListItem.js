@@ -1,5 +1,4 @@
 /* List of all chat users */
-import _ from 'lodash';
 import React, { Component } from 'react';
 import { View, Text, TouchableWithoutFeedback, Image } from 'react-native';
 import { connect } from 'react-redux';
@@ -11,8 +10,9 @@ import styles from '../common/CommonCSS';
 class ChatUsersListItem extends Component {
   onRowPress() {
     const { isBuyer } = this.props.user;
-    if (isBuyer) Actions.chat({ product: this.props.chatUser });
-    else Actions.sellerChat({ product: this.props.chatUser });
+    const { id } = this.props.chatUser;
+    if (isBuyer) Actions.chat({ id });
+    else Actions.sellerChat({ id });
   }
 
   render() {
@@ -44,12 +44,7 @@ class ChatUsersListItem extends Component {
 }
 
 const mapStateToProps = (state) => {
-  let user = null;
-  _.map(state.users, (value) => {
-      user = { ...value };
-      return { user };
-    });
-  return { user };
+  return { user: state.user };
 };
 
 export default connect(mapStateToProps)(ChatUsersListItem);

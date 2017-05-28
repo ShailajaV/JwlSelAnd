@@ -107,3 +107,4 @@ export const KEY_CHAT = 'chat';
 export const KEY_SELLER_CHAT = 'sellerChat';
 export const KEY_BUYER_PRODUCTS_LIST = 'buyerProductsList';
 export const KEY_SELECTED_PRODUCT = 'selectedProduct';
+export const KEY_CART = 'cart';

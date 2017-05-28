@@ -11,6 +11,7 @@ import ChatUI from './components/messenger/ChatUI';
 import SellersList from './components/product/SellersList';
 import BuyerProductsList from './components/product/BuyerProductsList';
 import BuyerProductForm from './components/product/BuyerProductForm';
+import CartForm from './components/cart/CartForm';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -43,7 +44,7 @@ class BuyerMenuProfile extends Component {
         return <ChatUsersList />;
       case 'Logout':
         this.props.logOut();
-        return <sellersList />;
+        return <SellersList />;
       default:
         switch (this.props.item) {
           case 'sellersList':
@@ -51,11 +52,13 @@ class BuyerMenuProfile extends Component {
           case 'buyerProductsList':
             return <BuyerProductsList />;
           case 'chat':
-            return <ChatUI product={this.props.product} />;
+            return <ChatUI id={this.props.id} />;
           case 'selectedProduct':
             return <BuyerProductForm product={this.props.product} />;
+          case 'addToCart':
+            return <CartForm product={this.props.product} />;
           default:
-            return <sellersList />;
+            return <SellersList />;
         }
     }
   }

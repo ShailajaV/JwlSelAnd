@@ -60,7 +60,7 @@ class SellerMenuProfile extends Component {
           case 'productEdit':
             return <ProductEdit />;
           case 'chat':
-            return <ChatUI product={this.props.product} />;
+            return <ChatUI id={this.props.id} />;
           default:
             return <SellerProfileForm />;
         }

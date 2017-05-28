@@ -30,8 +30,8 @@ class ChatUI extends Component {
     }
 
     componentWillMount() {
-      const { id } = this.props.product;
-      this.props.fetchMessages(id);
+      //const { id } = this.props.product;
+      this.props.fetchMessages(this.props.id);
     }
 
     componentDidMount() {
@@ -80,7 +80,7 @@ class ChatUI extends Component {
         const { id } = this.props.message;
         messageId = id;
       }
-      return sendMessage(text, this.props.product, messageId);
+      return sendMessage(text, this.props.id, messageId);
     }
 
     render() {

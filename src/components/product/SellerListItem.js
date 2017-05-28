@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 import styles from '../common/CommonCSS';
 import { SPACE, UNDEFINED } from '../../actions/constants';
 import { getProductsDetails } from '../../actions';
@@ -9,8 +10,13 @@ import { getProductsDetails } from '../../actions';
 class SellerListItem extends Component {
 
   onSelectSeller() {
-    const { uid } = this.props.seller;
-    this.props.getProductsDetails(uid);
+    const { id } = this.props.seller;
+    this.props.getProductsDetails(id);
+  }
+
+  onChat() {
+    const { id } = this.props.seller;
+    Actions.chat({ id });
   }
 
   render() {
@@ -36,6 +42,13 @@ class SellerListItem extends Component {
                 </View>
                 <Text>{companyName}</Text>
               </View>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity onPress={this.onChat.bind(this)}>
+              <Text style={styles.buttonTextStyle}>
+                CHAT
+              </Text >
             </TouchableOpacity>
           </View>
         </ScrollView>

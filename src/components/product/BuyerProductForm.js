@@ -1,10 +1,20 @@
 /* Product details of the buyer selected product */
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
+//import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { addToCart } from '../../actions';
 import { Card, CardSection, Button } from '../common';
 import styles from '../common/CommonCSS';
 
 class BuyerProductForm extends Component {
+  addToCart() {
+    //console.log('this.props.product ', this.props.product);
+    //const { id } = this.props.product;
+    this.props.addToCart({ product: this.props.product });
+    //Actions.cart({ product: this.props.product });
+  }
+
   render() {
     const { productName, url, rentExpected } = this.props.product;
     return (
@@ -20,7 +30,7 @@ class BuyerProductForm extends Component {
           </Text>
         </CardSection>
         <CardSection>
-          <Button>
+          <Button onPress={this.addToCart.bind(this)}>
             ADDTOCART
           </Button>
         </CardSection>
@@ -29,4 +39,4 @@ class BuyerProductForm extends Component {
   }
 }
 
-export default BuyerProductForm;
+export default connect(null, { addToCart })(BuyerProductForm);

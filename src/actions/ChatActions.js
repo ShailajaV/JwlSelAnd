@@ -11,7 +11,7 @@ export const addMessage = (msg) => {
 };
 };
 
-export const sendMessage = (text, product, messageId) => {
+export const sendMessage = (text, id, messageId) => {
     return function (dispatch) {
 let newMsgRef = '';
 const { currentUser } = firebaseAuth;
@@ -19,24 +19,14 @@ const { currentUser } = firebaseAuth;
 firebaseDatabase.ref(`/users/${currentUser.uid}`)
 .on('value', senSnapshot => {
   setTimeout(() => {
-    let senderName = '';
-    let senderImg = '';
-    Object.values(senSnapshot.val()).map(userId => {
-      senderName = userId.fullName;
-      senderImg = userId.profilePic;
-      return { senderName, senderImg };
-      });
+    const senderName = senSnapshot.val().fullName;
+    const senderImg = senSnapshot.val().profilePic;
     // get the receiver details
-    firebaseDatabase.ref(`/users/${product.id}`)
+    firebaseDatabase.ref(`/users/${id}`)
     .on('value', recSnapshot => {
       setTimeout(() => {
-        let receiverName = '';
-        let receiverImg = '';
-        Object.values(recSnapshot.val()).map(userId => {
-          receiverName = userId.fullName;
-          receiverImg = userId.profilePic;
-          return { receiverName, receiverImg };
-          });
+        const receiverName = recSnapshot.val().fullName;
+        const receiverImg = recSnapshot.val().profilePic;
         // User message
         const userMsg = {
           senderName,
@@ -56,21 +46,21 @@ firebaseDatabase.ref(`/users/${currentUser.uid}`)
             newMsgRef.set(userMsg);
             firebaseDatabase.ref(`/messages/${newMsgRef.key}/chats`).push(chatMsg)
             .then(() => {
-              firebaseDatabase.ref(`/conversations/${currentUser.uid}/${product.id}`)
+              firebaseDatabase.ref(`/conversations/${currentUser.uid}/${id}`)
               .push({ chatTableId: userMsg.id,
                 receiverName,
                 receiverImg: typeof receiverImg === 'undefined' ? '' : receiverImg });
-              firebaseDatabase.ref(`/conversations/${product.id}/${currentUser.uid}`)
+              firebaseDatabase.ref(`/conversations/${id}/${currentUser.uid}`)
               .push({ chatTableId: userMsg.id,
                 receiverName: senderName,
                 receiverImg: typeof senderImg === 'undefined' ? '' : senderImg });
-              startChatting(dispatch, product.id);
+              startChatting(dispatch, id);
             });
           } else {
             // update existing chats
             firebaseDatabase.ref(`/messages/${messageId}/chats`).push(chatMsg)
             .then(() => {
-              startChatting(dispatch, product.id);
+              startChatting(dispatch, id);
             });
           }
       }, 0);

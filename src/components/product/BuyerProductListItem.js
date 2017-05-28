@@ -8,11 +8,8 @@ import styles from '../common/CommonCSS';
 
 class BuyerProductListItem extends Component {
 
-  onChat() {
-    Actions.chat({ product: this.props.product });
-  }
-
   onSelectProduct() {
+    console.log('this.props.productproduct ', this.props.product);
     Actions.selectedProduct({ product: this.props.product });
   }
 
@@ -36,13 +33,6 @@ class BuyerProductListItem extends Component {
               <Text style={styles.prdLabelStyle}>{DOLLAR}{rentExpected} {PER_DAY}</Text>
             </View>
           </TouchableOpacity>
-          <View>
-            <TouchableOpacity onPress={this.onChat.bind(this)}>
-              <Text style={styles.buttonTextStyle}>
-                CHAT
-              </Text >
-            </TouchableOpacity>
-          </View>
         </View>
       </ScrollView>
     );
