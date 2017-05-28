@@ -7,8 +7,6 @@ export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case PRODUCTSLIST_FETCH_SUCCESS:
       return action.payload;
-    /*case ALL_PRODUCTSLIST_FETCH_SUCCESS:
-      return action.payload;*/
     default:
       return state;
   }

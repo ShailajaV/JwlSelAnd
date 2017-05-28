@@ -9,7 +9,6 @@ import styles from '../common/CommonCSS';
 class BuyerProductListItem extends Component {
 
   onSelectProduct() {
-    console.log('this.props.productproduct ', this.props.product);
     Actions.selectedProduct({ product: this.props.product });
   }
 

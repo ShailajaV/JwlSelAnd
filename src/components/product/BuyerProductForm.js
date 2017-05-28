@@ -17,8 +17,12 @@ class BuyerProductForm extends Component {
 
   render() {
     const { productName, url, rentExpected } = this.props.product;
+    const { sellerCompanyName } = this.props.selectedSeller;
     return (
       <Card>
+        <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <Text>{sellerCompanyName}</Text>
+        </CardSection>
         <CardSection>
           <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
             <Image style={styles.upload} source={{ uri: url }} />
@@ -39,4 +43,8 @@ class BuyerProductForm extends Component {
   }
 }
 
-export default connect(null, { addToCart })(BuyerProductForm);
+const mapStateToProps = (state) => {
+  return { selectedSeller: state.buyerProductForm.selectedSeller };
+};
+
+export default connect(mapStateToProps, { addToCart })(BuyerProductForm);

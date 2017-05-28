@@ -1,4 +1,4 @@
-/* This file fetches products list */
+/* This file fetches products list of selected seller */
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { View, Text, TextInput, Image, Picker } from 'react-native';

@@ -10,8 +10,8 @@ import { getProductsDetails } from '../../actions';
 class SellerListItem extends Component {
 
   onSelectSeller() {
-    const { id } = this.props.seller;
-    this.props.getProductsDetails(id);
+    const { id, companyName } = this.props.seller;
+    this.props.getProductsDetails(id, companyName);
   }
 
   onChat() {

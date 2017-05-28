@@ -1,5 +1,5 @@
 /* This file contains Product details related reducers */
-import { SELLERS_FETCH_SUCCESS } from '../actions/types';
+import { SELLERS_FETCH_SUCCESS, SELECTED_SELLER_SUCCESS } from '../actions/types';
 
 const INITIAL_STATE = {
   /*loading: false,
@@ -10,7 +10,8 @@ const INITIAL_STATE = {
   url: '',
   error: '',
   search: ''*/
-  sellers: []
+  sellers: [],
+  selectedSeller: {}
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -18,6 +19,10 @@ export default (state = INITIAL_STATE, action) => {
     case SELLERS_FETCH_SUCCESS:
       return Object.assign({}, state, {
         sellers: action.payload
+      });
+      case SELECTED_SELLER_SUCCESS:
+      return Object.assign({}, state, {
+        selectedSeller: action.payload
       });
     default:
       return state;

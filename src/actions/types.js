@@ -30,4 +30,5 @@ export const PRODUCT_DELETE_FAIL = 'product_delete_fail';
 //Buyer products by sellerProfile
 //export const BUYER_LOGIN = 'buyer_login';
 export const SELLERS_FETCH_SUCCESS = 'sellers_fetch_success';
+export const SELECTED_SELLER_SUCCESS = 'selected_seller_success';
 //export const ALL_PRODUCTSLIST_FETCH_SUCCESS = 'all_productslist_fetch_success';
