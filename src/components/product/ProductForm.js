@@ -150,7 +150,7 @@ class ProductForm extends Component {
             <Input
               editable
               label={LABEL_DAYS_OF_RENT}
-              value={this.props.daysOfRent}
+              value={String(this.props.daysOfRent)}
               errorMessage={this.state.errors.daysOfRent}
               uniqueName={DAYS_OF_RENT}
               validate={this.validations.bind(this)}
@@ -171,7 +171,7 @@ class ProductForm extends Component {
             <Input
               editable
               label={LABEL_RENT_EXPECTED}
-              value={this.props.rentExpected}
+              value={String(this.props.rentExpected)}
               errorMessage={this.state.errors.rentExpected}
               uniqueName={RENT_EXPECTED}
               validate={this.validations.bind(this)}
@@ -201,4 +201,5 @@ const mapStateToProps = (state) => {
   return { productName, daysOfRent, rentExpected, url, uploadURL, error };
 };
 
-export default connect(mapStateToProps, { productDetailsChanged })(ProductForm);
+export default connect(mapStateToProps,
+  { productDetailsChanged })(ProductForm);

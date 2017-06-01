@@ -13,7 +13,8 @@ const INITIAL_STATE = {
   url: '',
   error: '',
   search: '',
-  sortBy: ''
+  sortBy: '',
+  quantity: ''
 };
 
 export default (state = INITIAL_STATE, action) => {

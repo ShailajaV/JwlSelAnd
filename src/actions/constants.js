@@ -108,3 +108,6 @@ export const KEY_SELLER_CHAT = 'sellerChat';
 export const KEY_BUYER_PRODUCTS_LIST = 'buyerProductsList';
 export const KEY_SELECTED_PRODUCT = 'selectedProduct';
 export const KEY_CART = 'cart';
+export const LABEL_QUANTITY = 'Quantity';
+export const QUANTITY = 'quantity';
+export const EMPTY_QUANTITY = 'Please enter quantity.';

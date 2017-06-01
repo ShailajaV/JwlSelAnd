@@ -5,8 +5,9 @@ import UserReducer from './UserReducer';
 import SellerFormReducer from './SellerFormReducer';
 import ProductReducer from './ProductReducer';
 import ProductsListReducer from './ProductsListReducer';
-import buyerProductReducer from './BuyerProductReducer';
+import BuyerProductReducer from './BuyerProductReducer';
 import ChatReducer from './ChatReducer';
+import CartReducer from './CartReducer';
 
 export default combineReducers({
   auth: AuthReducer,
@@ -14,6 +15,7 @@ export default combineReducers({
   sellerForm: SellerFormReducer,
   productForm: ProductReducer,
   products: ProductsListReducer,
-  buyerProductForm: buyerProductReducer,
-  chatForm: ChatReducer
+  buyerProductForm: BuyerProductReducer,
+  chatForm: ChatReducer,
+  cartReducer: CartReducer
 });

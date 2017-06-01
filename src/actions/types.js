@@ -31,4 +31,6 @@ export const PRODUCT_DELETE_FAIL = 'product_delete_fail';
 //export const BUYER_LOGIN = 'buyer_login';
 export const SELLERS_FETCH_SUCCESS = 'sellers_fetch_success';
 export const SELECTED_SELLER_SUCCESS = 'selected_seller_success';
-//export const ALL_PRODUCTSLIST_FETCH_SUCCESS = 'all_productslist_fetch_success';
+
+//Add to cart
+export const CARTITEMS_FETCH_SUCCESS = 'cartitems_fetch_success';

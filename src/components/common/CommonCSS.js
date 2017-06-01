@@ -235,7 +235,7 @@ export default {
   container: {
    flex: 1,
    paddingTop: Platform.OS === 'ios' ? 20 : 0,
-   backgroundColor: '#1abc9c'
+   //backgroundColor: '#1abc9c'
  },
 
  item: {
