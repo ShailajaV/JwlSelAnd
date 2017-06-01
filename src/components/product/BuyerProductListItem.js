@@ -15,7 +15,7 @@ class BuyerProductListItem extends Component {
   render() {
     const { productName, daysOfRent, rentExpected, url } = this.props.product;
     return (
-      <ScrollView style={{ backgroundColor: '#1abc9c' }}>
+      <ScrollView style={{ backgroundColor: '#fff' }}>
         <View
           style={[
             styles.item,

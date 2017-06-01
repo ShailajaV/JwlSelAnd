@@ -74,7 +74,7 @@ export default {
   textStyle: {
     fontSize: 20,
     alignSelf: 'center',
-    color: '#fff',
+    color: '#000',
     fontFamily: 'Times New Roman'
   },
 
@@ -151,7 +151,7 @@ export default {
   imageStyle: {
     width: 50,
     height: 50,
-    resizeMode: 'contain',
+  //  resizeMode: 'contain',
     alignSelf: 'flex-end'
   },
 
@@ -202,7 +202,7 @@ export default {
   },
 
   uploadLabelStyle: {
-    color: '#fff',
+    color: '#000000',
     fontSize: 18,
     paddingLeft: 20,
     fontFamily: 'Times New Roman',
@@ -224,7 +224,7 @@ export default {
   },
 
   prdLabelStyle: {
-    color: '#fff',
+    color: '#000',
     fontSize: 18,
     paddingLeft: 20,
     fontFamily: 'Times New Roman',
@@ -235,7 +235,7 @@ export default {
   container: {
    flex: 1,
    paddingTop: Platform.OS === 'ios' ? 20 : 0,
-   //backgroundColor: '#1abc9c'
+   backgroundColor: '#fff'
  },
 
  item: {
@@ -267,8 +267,8 @@ export default {
   },
 
   searchImg: {
-    width: 50,
-    height: 50,
+    width: 70,
+    height: 70,
   },
 
   spinnerContainer: {

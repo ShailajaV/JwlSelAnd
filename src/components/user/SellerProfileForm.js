@@ -1,11 +1,12 @@
 /* Seller profile form */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Image, Text, TouchableOpacity,
+import { View, Text, TouchableOpacity,
    Platform, ScrollView } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import ResponsiveImage from 'react-native-responsive-image';
 import { Card, CardSection, Input, MultilineInput, Button } from '../common';
 import { LABEL_SELLER_NAME, LABEL_COMPANY_NAME,
@@ -144,34 +145,31 @@ class SellerProfileForm extends Component {
             <CardSection />
             <View sytle={styles.selContainerStyle}>
               <TouchableOpacity onPress={this.onImageDelete.bind(this)}>
-              <ResponsiveImage
-                  source={require('../common/images/delete.jpeg')}
-                  style={styles.imageStyle}
-                  resizeMode={Image.resizeMode.sretch}
-                  initWidth='50'
-                  initHeight='50'
+              <Icon
+                name='trash-o'
+                size={20}
+                backgroundColor='#00fff'
+                style={styles.imageStyle}
               />
               </TouchableOpacity>
               <CardSection />
               <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
-              <ResponsiveImage
-                  source={require('../common/images/edit.png')}
-                  style={styles.imageStyle}
-                  resizeMode={Image.resizeMode.sretch}
-                  initWidth='50'
-                  initHeight='50'
+              <Icon
+                name='pencil'
+                size={20}
+                backgroundColor='#00fff'
+                style={styles.imageStyle}
               />
               </TouchableOpacity>
             </View>
           </CardSection>
           <CardSection style={{ justifyContent: 'flex-end' }}>
             <TouchableOpacity onPress={this.makeEditable.bind(this)}>
-            <ResponsiveImage
-                source={require('../common/images/edit.png')}
-                style={styles.imageStyle}
-                resizeMode={Image.resizeMode.sretch}
-                initWidth='50'
-                initHeight='50'
+            <Icon
+              name='pencil'
+              size={20}
+              backgroundColor='#00fff'
+              style={styles.imageStyle}
             />
             </TouchableOpacity>
           </CardSection>

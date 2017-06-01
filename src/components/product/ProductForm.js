@@ -4,6 +4,7 @@ import { Text, View, TouchableOpacity, Image, Platform,
   ScrollView } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
+
 import { CardSection, Input } from '../common';
 import { LABEL_PRODUCT_NAME, LABEL_DAYS_OF_RENT, LABEL_RENT_EXPECTED,
   UPLOAD_PRODUCT, PRODUCT_NAME, DAYS_OF_RENT, RENT_EXPECTED,

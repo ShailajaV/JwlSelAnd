@@ -1,8 +1,9 @@
 /* This file contains products list */
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import ResponsiveImage from 'react-native-responsive-image';
 import { CardSection } from '../common';
 import { DAYS, DOLLAR, PER_DAY } from '../../actions/constants';
@@ -22,7 +23,7 @@ class ProductListItem extends Component {
   render() {
     const { productName, daysOfRent, rentExpected, url } = this.props.product;
     return (
-      <ScrollView style={{ backgroundColor: '#1abc9c' }}>
+      <ScrollView style={{ backgroundColor: '#fff' }}>
         <View
           style={[
             styles.item,
@@ -30,7 +31,24 @@ class ProductListItem extends Component {
           ]}
         >
           <View style={[styles.upload, styles.uploadContainer, { marginBottom: 20 }]}>
-            <ResponsiveImage source={{ uri: url }} initWidth='180' initHeight='100' />
+            <ResponsiveImage source={{ uri: url }} initWidth='180' initHeight='100'>
+            <TouchableOpacity onPress={this.onEdit.bind(this)}>
+            <Icon
+              name='pencil'
+              size={20}
+              backgroundColor='#00fff'
+              style={styles.imageStyle}
+            />
+            </TouchableOpacity>
+          <TouchableOpacity onPress={this.onDelete.bind(this)}>
+          <Icon
+            name='trash-o'
+            size={20}
+            backgroundColor='#00fff'
+            style={styles.imageStyle}
+          />
+          </TouchableOpacity>
+          </ResponsiveImage>
           </View>
           <View style={styles.prdContainerStyle}>
             <Text style={styles.prdLabelStyle}>{productName}</Text>
@@ -38,25 +56,7 @@ class ProductListItem extends Component {
             <Text style={styles.prdLabelStyle}>{DOLLAR}{rentExpected} {PER_DAY}</Text>
           </View>
           <View>
-            <TouchableOpacity onPress={this.onEdit.bind(this)}>
-            <ResponsiveImage
-                source={require('../common/images/edit.png')}
-                style={styles.imageStyle}
-                resizeMode={Image.resizeMode.sretch}
-                initWidth='50'
-                initHeight='50'
-            />
-            </TouchableOpacity>
             <CardSection />
-            <TouchableOpacity onPress={this.onDelete.bind(this)}>
-            <ResponsiveImage
-                source={require('../common/images/delete.jpeg')}
-                style={styles.imageStyle}
-                resizeMode={Image.resizeMode.sretch}
-                initWidth='50'
-                initHeight='50'
-            />
-            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

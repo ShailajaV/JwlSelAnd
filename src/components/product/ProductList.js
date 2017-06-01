@@ -1,10 +1,10 @@
 /* This file fetches products list */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, TextInput, Image } from 'react-native';
+import { View, TextInput } from 'react-native';
 import GridView from 'react-native-gridview';
 import { connect } from 'react-redux';
-import ResponsiveImage from 'react-native-responsive-image';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { getProductsDetails, productDetailsChanged } from '../../actions';
 import { CardSection } from '../common';
 import ProductListItem from './ProductListItem';
@@ -85,30 +85,34 @@ class ProductsList extends Component {
             borderColor: '#fff',
             borderWidth: 1,
             margin: 4,
+            backgroundColor: '#fff',
             alignSelf: 'stretch',
-            height: 40 }}
+            height: 40
+          }}
         >
-          <ResponsiveImage
-            source={require('../common/images/search.png')}
-            initWidth='40'
-            initHeight='40'
-            resizeMode={Image.resizeMode.sretch}
-          />
+
+        <Icon
+          name="md-search"
+          size={50}
+          backgroundColor="#000"
+          style={styles.searchImg}
+        />
           <TextInput
             placeholder={PLACEHOLDER_SEARCH}
             autoCorrect={false}
             style={[styles.inputStyle, { alignSelf: 'stretch',
             borderRadius: 5,
-            borderWidth: 0,
-            borderColor: '#ddd',
+            borderWidth: 1,
+            borderColor: '#000',
             marginLeft: 5,
             marginRight: 5 }]}
             value={this.props.search}
-            placeholderTextColor='#fff'
+            placeholderTextColor='#000'
             underlineColorAndroid='transparent'
             onChangeText={value =>
               this.props.productDetailsChanged({ prop: 'search', value })}
           />
+
         </CardSection>
         {this.renderGridView()}
       </View>

@@ -42,7 +42,7 @@ class ProductEdit extends Component {
 
   render() {
     return (
-      <ScrollView style={{ backgroundColor: '#1abc9c' }}>
+      <ScrollView style={{ backgroundColor: '#fff' }}>
         <Card>
           <ProductForm onRef={ref => (this.child = ref)} />
           <CardSection>
