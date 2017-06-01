@@ -20,18 +20,18 @@ const RouterComponent = () => {
       <Scene key={KEY_AUTH} initial>
         <Scene
           key={KEY_LOGIN}
-          sceneStyle={{ backgroundColor: '#1abc9c' }}
+          sceneStyle={{ backgroundColor: '#fff' }}
           type={ActionConst.REPLACE}
           component={LoginForm} hideNavBar initial
         />
         <Scene
           key={KEY_SIGN_UP}
-          sceneStyle={{ backgroundColor: '#1abc9c' }}
+          sceneStyle={{ backgroundColor: '#fff' }}
           component={Register} hideNavBar
         />
         <Scene
           key={KEY_FORGOT_PASSWORD}
-          sceneStyle={{ backgroundColor: '#1abc9c' }}
+          sceneStyle={{ backgroundColor: '#fff' }}
           component={ForgotPasswordForm}
         />
       </Scene>
