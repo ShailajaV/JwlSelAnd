@@ -1,8 +1,9 @@
 /* This file fetches products list of selected seller */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, TextInput, Image, Picker } from 'react-native';
+import { View, Text, TextInput, Picker } from 'react-native';
 import GridView from 'react-native-gridview';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { productDetailsChanged } from '../../actions';
 import { CardSection } from '../common';
@@ -79,28 +80,28 @@ class BuyerProductsList extends Component {
       <View style={styles.container}>
         <CardSection
           style={{
-            borderColor: '#fff',
+            borderColor: '#000',
             borderWidth: 1,
             margin: 4,
             alignSelf: 'stretch',
             height: 40 }}
         >
-          <Image
-            source={require('../common/images/search.png')}
+          <Icon
+            name="md-search"
+            size={30}
+            backgroundColor="#000"
             style={styles.searchImg}
-            resizeMode={Image.resizeMode.strech}
           />
           <TextInput
             placeholder={PLACEHOLDER_SEARCH}
             autoCorrect={false}
             style={[styles.inputStyle, { alignSelf: 'stretch',
             borderRadius: 5,
-            borderWidth: 0,
-            borderColor: '#ddd',
+            borderColor: '#fff',
             marginLeft: 5,
             marginRight: 5 }]}
             value={this.props.search}
-            placeholderTextColor='#fff'
+            placeholderTextColor='#000'
             underlineColorAndroid='transparent'
             onChangeText={value =>
               this.props.productDetailsChanged({ prop: 'search', value })}

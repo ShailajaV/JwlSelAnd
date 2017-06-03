@@ -10,7 +10,7 @@ import ProductList from './components/product/ProductList';
 import ProductEdit from './components/product/ProductEdit';
 import ChatUsersList from './components/messenger/ChatUsersList';
 import ChatUI from './components/messenger/ChatUI';
-import { MenuHeader } from './components/common/MenuHeader';
+import { SellerMenuHeader } from './components/menu/SellerMenuHeader';
 import { logOut } from './actions';
 
 class SellerMenuProfile extends Component {
@@ -75,7 +75,7 @@ class SellerMenuProfile extends Component {
         isOpen={this.state.isOpen}
         onChange={(isOpen) => this.updateMenuState(isOpen)}
       >
-      <MenuHeader headerText='Toggle' onPress={() => this.toggle()} />
+      <SellerMenuHeader headerText='Toggle' onPress={() => this.toggle()} />
       <View style={styles.MenuContainer}>
         {this.renderContent()}
       </View>

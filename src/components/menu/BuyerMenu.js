@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
+import { firebaseAuth } from '../../FirebaseConfig';
 
-const list = [
+const authList = [
 {
   name: 'AllProducts',
   avatar_url: ' ',
@@ -20,8 +21,24 @@ const list = [
 },
 ];
 
+const nonAuthList = [
+{
+  name: 'AllProducts',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+{
+  name: 'Chat',
+  avatar_url: ' ',
+  subtitle: ' '
+}
+];
+
 class BuyerMenu extends Component {
   render() {
+    let list = nonAuthList;
+    const { currentUser } = firebaseAuth;
+    if (currentUser !== null) list = authList;
     return (
       <View style={{ flex: 1, backgroundColor: '#ededed', paddingTop: 50 }}>
         <List containerStyle={{ marginBottom: 20 }}>

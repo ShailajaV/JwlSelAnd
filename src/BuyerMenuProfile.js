@@ -4,8 +4,8 @@ import { View } from 'react-native';
 import SideMenu from 'react-native-side-menu';
 import BuyerMenu from './components/menu/BuyerMenu';
 import styles from './components/common/CommonCSS';
-import { MenuHeader } from './components/common/MenuHeader';
-import { logOut } from './actions';
+import { BuyerMenuHeader } from './components/menu/BuyerMenuHeader';
+import { logOut, addToCart } from './actions';
 import ChatUsersList from './components/messenger/ChatUsersList';
 import ChatUI from './components/messenger/ChatUI';
 import SellersList from './components/product/SellersList';
@@ -24,6 +24,10 @@ class BuyerMenuProfile extends Component {
       isOpen: false,
       selectedItem: item,
     });
+  }
+
+  onCart = () => {
+    this.props.addToCart();
   }
 
   updateMenuState(isOpen) {
@@ -56,8 +60,6 @@ class BuyerMenuProfile extends Component {
           case 'selectedProduct':
             return <BuyerProductForm product={this.props.product} />;
           case 'addToCart':
-          console.log('this.props.cartItems ', this.props.cartItems);
-            //return <CartList cartItems={this.props.cartItems} />;
             return <CartList />;
           default:
             return <SellersList />;
@@ -73,7 +75,11 @@ class BuyerMenuProfile extends Component {
         isOpen={this.state.isOpen}
         onChange={(isOpen) => this.updateMenuState(isOpen)}
       >
-      <MenuHeader headerText='Toggle' onPress={() => this.toggle()} />
+      <BuyerMenuHeader
+        headerText='Toggle'
+        onPress={() => this.toggle()}
+        onCart={() => this.onCart()}
+      />
       <View style={styles.MenuContainer}>
         {this.renderContent()}
       </View>
@@ -82,4 +88,4 @@ class BuyerMenuProfile extends Component {
   }
 }
 
-export default connect(null, { logOut })(BuyerMenuProfile);
+export default connect(null, { logOut, addToCart })(BuyerMenuProfile);

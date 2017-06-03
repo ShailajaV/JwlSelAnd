@@ -8,10 +8,11 @@ import { connect } from 'react-redux';
 import { CardSection, Input } from '../common';
 import { LABEL_PRODUCT_NAME, LABEL_DAYS_OF_RENT, LABEL_RENT_EXPECTED,
   UPLOAD_PRODUCT, PRODUCT_NAME, DAYS_OF_RENT, RENT_EXPECTED,
-  UNDEFINED, SPACE, FILE, ANDROID } from '../../actions/constants';
+  UNDEFINED, SPACE, FILE, ANDROID, LABEL_SHIPPING_COST, LABEL_EST_TAX,
+  SHIPPING_COST, EST_TAX } from '../../actions/constants';
 import { productDetailsChanged } from '../../actions';
 import { validateEmptyFields, validateURLField, validateDaysOfRent,
-  validateRentExpected } from '../common/Utils';
+  validateRentExpected, validateShippingCost, validateEstTax } from '../common/Utils';
 import styles from '../common/CommonCSS';
 
 class ProductForm extends Component {
@@ -46,7 +47,7 @@ class ProductForm extends Component {
   }
 
   validations(values) {
-    const { productName, daysOfRent, rentExpected, url, uploadURL } = values;
+    const { productName, daysOfRent, rentExpected, url, uploadURL, shippingCost, estTax } = values;
     let errors = {};
     if (typeof productName !== UNDEFINED) {
       errors = validateEmptyFields(PRODUCT_NAME, productName, this.state.errors);
@@ -68,6 +69,18 @@ class ProductForm extends Component {
       errors = validateRentExpected(rentExpected, this.state.errors);
     } else if (values.uniqueName === RENT_EXPECTED) {
       errors = validateRentExpected(values.value, this.state.errors);
+    }
+
+    if (typeof shippingCost !== UNDEFINED) {
+      errors = validateShippingCost(shippingCost, this.state.errors);
+    } else if (values.uniqueName === SHIPPING_COST) {
+      errors = validateShippingCost(values.value, this.state.errors);
+    }
+
+    if (typeof estTax !== UNDEFINED) {
+      errors = validateEstTax(estTax, this.state.errors);
+    } else if (values.uniqueName === EST_TAX) {
+      errors = validateEstTax(values.value, this.state.errors);
     }
     this.setState({ errors });
     return errors;
@@ -189,6 +202,48 @@ class ProductForm extends Component {
             </Text>
           </View>
 
+          <CardSection>
+            <Input
+              editable
+              label={LABEL_SHIPPING_COST}
+              value={String(this.props.shippingCost)}
+              errorMessage={this.state.errors.shippingCost}
+              uniqueName={SHIPPING_COST}
+              validate={this.validations.bind(this)}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.productDetailsChanged({ prop: 'shippingCost', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.shippingCost}
+            </Text>
+          </View>
+
+          <CardSection>
+            <Input
+              editable
+              label={LABEL_EST_TAX}
+              value={String(this.props.estTax)}
+              errorMessage={this.state.errors.estTax}
+              uniqueName={EST_TAX}
+              validate={this.validations.bind(this)}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.productDetailsChanged({ prop: 'estTax', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.estTax}
+            </Text>
+          </View>
+
           <Text style={styles.errorTextStyle}>
             {this.props.error}
           </Text>
@@ -198,8 +253,9 @@ class ProductForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { productName, daysOfRent, rentExpected, url, uploadURL, error } = state.productForm;
-  return { productName, daysOfRent, rentExpected, url, uploadURL, error };
+  const { productName, daysOfRent, rentExpected, shippingCost, estTax, url, uploadURL, error }
+  = state.productForm;
+  return { productName, daysOfRent, rentExpected, shippingCost, estTax, url, uploadURL, error };
 };
 
 export default connect(mapStateToProps,

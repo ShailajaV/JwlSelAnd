@@ -9,6 +9,8 @@ const INITIAL_STATE = {
   productName: '',
   daysOfRent: '',
   rentExpected: '',
+  shippingCost: '',
+  estTax: '',
   uploadURL: '',
   url: '',
   error: '',

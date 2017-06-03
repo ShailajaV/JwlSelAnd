@@ -8,7 +8,7 @@ import { productDetailsChanged, addToCart } from '../../actions';
 import { Card, CardSection, Button, Input } from '../common';
 import styles from '../common/CommonCSS';
 import { LABEL_QUANTITY, QUANTITY, UNDEFINED } from '../../actions/constants';
-import { validateEmptyFields } from '../common/Utils';
+import { validateQuantity } from '../common/Utils';
 
 class CartForm extends Component {
   constructor(props) {
@@ -27,15 +27,14 @@ class CartForm extends Component {
   }
 
   async removeItem() {
-    let cartArray = [];
+    const cartArray = [];
     try {
       const { productId } = this.props.cartItem;
       const getProducts = JSON.parse(await AsyncStorage.getItem('addToCart'));
       if (getProducts !== null) {
-        cartArray = getProducts;
-        _.map(getProducts, (val, uid) => {
+        _.map(getProducts, (val) => {
           // removing the product
-          if (val.productId === productId) cartArray.splice(uid, 1);
+          if (val.productId !== productId) cartArray.push(val);
         });
       }
       await AsyncStorage.setItem('addToCart', JSON.stringify(cartArray));
@@ -57,16 +56,52 @@ class CartForm extends Component {
     }
   }
 
-  validations(values) {
+  async validations(values) {
     const { quantity } = values;
     let errors = {};
     if (typeof quantity !== UNDEFINED) {
-      errors = validateEmptyFields(QUANTITY, quantity, this.state.errors);
+      errors = validateQuantity(quantity, this.state.errors);
     } else if (values.uniqueName === QUANTITY) {
-      errors = validateEmptyFields(values.uniqueName, values.value, this.state.errors);
+      errors = validateQuantity(values.value, this.state.errors);
     }
     this.setState({ errors });
-    return errors;
+
+    /*if (errors === null) {
+      const cartArray = [];
+      try {
+        const { id }
+         = this.props.cartItem;
+        const getProducts = JSON.parse(await AsyncStorage.getItem('addToCart'));
+        if (getProducts !== null) {
+          // already added products
+          _.map(getProducts, (val) => {
+            // adding same product again
+            if (val.productId === id) {
+              const product = {
+                productId: id,
+                sellerCompanyName: val.sellerCompanyName,
+                quantity,
+                productName: val.productName,
+                url: val.url,
+                rentExpected: val.rentExpected,
+                shippingCost: val.shippingCost,
+                estTax: val.estTax
+              };
+              const rentExp = val.rentExpected % val.quantity;
+              console.log('rentExp ', rentExp);
+              product.rentExpected =
+              parseInt(quantity, 10) *
+              parseFloat(rentExp);
+              cartArray.push(product);
+            } else cartArray.push(val);
+          });
+        }
+        await AsyncStorage.setItem('addToCart', JSON.stringify(cartArray));
+      } catch (error) {
+        console.log('AsyncStorage error: ', error.message);
+      }
+      this.props.addToCart();
+    } else*/ return errors;
   }
 
   render() {
@@ -106,9 +141,5 @@ class CartForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { quantity } = state.productForm;
-  return { quantity };
-};
-
-export default connect(mapStateToProps, { productDetailsChanged, addToCart })(CartForm);
+export default connect(null,
+  { productDetailsChanged, addToCart })(CartForm);

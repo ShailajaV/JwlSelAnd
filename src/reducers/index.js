@@ -17,5 +17,5 @@ export default combineReducers({
   products: ProductsListReducer,
   buyerProductForm: BuyerProductReducer,
   chatForm: ChatReducer,
-  cartReducer: CartReducer
+  cartForm: CartReducer
 });

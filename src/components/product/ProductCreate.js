@@ -33,11 +33,13 @@ class ProductCreate extends Component {
   onAddMore() {
     const errors = this.child.validations(this.props);
     if (Object.keys(errors).length === 0) {
-    const { productName, daysOfRent, rentExpected, uploadURL } = this.props;
+    const { productName, daysOfRent, rentExpected, uploadURL, shippingCost, estTax } = this.props;
     this.props.productCreate({ uploadURL,
       productName,
       daysOfRent,
       rentExpected,
+      shippingCost,
+      estTax,
       onSubmit: false });
     }
   }
@@ -45,11 +47,13 @@ class ProductCreate extends Component {
   onSubmit() {
     const errors = this.child.validations(this.props);
     if (Object.keys(errors).length === 0) {
-      const { productName, daysOfRent, rentExpected, uploadURL } = this.props;
+      const { productName, daysOfRent, rentExpected, uploadURL, shippingCost, estTax } = this.props;
       this.props.productCreate({ uploadURL,
         productName,
         daysOfRent,
         rentExpected,
+        shippingCost,
+        estTax,
         onSubmit: true });
     }
   }
@@ -92,9 +96,17 @@ class ProductCreate extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { productName, daysOfRent, rentExpected, url, uploadURL, loading,
+  const { productName, daysOfRent, rentExpected, url, uploadURL, shippingCost, estTax, loading,
     submitLoading } = state.productForm;
-  return { productName, daysOfRent, rentExpected, url, uploadURL, loading, submitLoading };
+  return { productName,
+    daysOfRent,
+    rentExpected,
+    url,
+    uploadURL,
+    shippingCost,
+    estTax,
+    loading,
+    submitLoading };
 };
 
 export default connect(mapStateToProps,

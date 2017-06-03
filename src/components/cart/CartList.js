@@ -18,6 +18,10 @@ class CartList extends Component {
     this.createDataSource(nextProps);
   }
 
+  onCheckOut() {
+
+  }
+
   createDataSource({ cartItems }) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -41,20 +45,22 @@ class CartList extends Component {
   }
 
   render() {
-    console.log('this.props.cartItems ', this.props.cartItems);
     let subTotal = parseFloat(0.0);
-    _.map(this.props.cartItems, (val, uid) => {
-      console.log('val and uid is ', val, uid);
+    let valShipping = parseFloat(0.0);
+    let estTax = parseFloat(0.0);
+    let quantity = parseInt(0, 10);
+    _.map(this.props.cartItems, (val) => {
       subTotal = parseFloat(subTotal) + parseFloat(val.rentExpected);
+      valShipping = parseFloat(valShipping) + parseFloat(val.shippingCost);
+      estTax = parseFloat(estTax) + parseFloat(val.estTax);
+      quantity = parseInt(quantity, 10) + parseInt(val.quantity, 10);
     });
-    const valShipping = parseFloat(0.0);
-    const estTax = parseFloat(0.0);
     const estTotal = subTotal + valShipping + estTax;
     return (
       <Card>
       {this.renderListView()}
       <CardSection>
-        <Text>You just added {(this.props.cartItems).length} item</Text>
+        <Text>You just added {quantity} item/s</Text>
       </CardSection>
       <CardSection>
         <Text>Subtotal(1 item)</Text>
@@ -73,7 +79,7 @@ class CartList extends Component {
         <Text>{estTotal}</Text>
       </CardSection>
       <CardSection>
-        <Button>
+        <Button onPress={this.onCheckOut.bind(this)}>
           Check Out
         </Button>
       </CardSection>
@@ -83,8 +89,7 @@ class CartList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('cartReducer ', state.cartReducer);
-  return { cartItems: state.cartReducer.cartItems };
+  return { cartItems: state.cartForm.cartItems };
 };
 
 export default connect(mapStateToProps)(CartList);

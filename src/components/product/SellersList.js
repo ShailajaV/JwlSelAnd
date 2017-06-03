@@ -1,10 +1,10 @@
 /* List of all sellers */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, TextInput, Image } from 'react-native';
+import { View, TextInput } from 'react-native';
 import { connect } from 'react-redux';
-import ResponsiveImage from 'react-native-responsive-image';
 import GridView from 'react-native-gridview';
+import Icon from 'react-native-vector-icons/Ionicons';
 import styles from '../common/CommonCSS';
 import SellerListItem from './SellerListItem';
 import { PLACEHOLDER_SEARCH } from '../../actions/constants';
@@ -78,28 +78,28 @@ class SellersList extends Component {
       <View style={styles.container}>
         <CardSection
           style={{
-            borderColor: '#fff',
+            borderColor: '#000',
             borderWidth: 1,
             margin: 4,
             alignSelf: 'stretch',
             height: 40 }}
         >
-          <ResponsiveImage
-            source={require('../common/images/search.png')}
+          <Icon
+            name="md-search"
+            size={30}
+            backgroundColor="#000"
             style={styles.searchImg}
-            resizeMode={Image.resizeMode.sretch}
           />
           <TextInput
             placeholder={PLACEHOLDER_SEARCH}
             autoCorrect={false}
             style={[styles.inputStyle, { alignSelf: 'stretch',
             borderRadius: 5,
-            borderWidth: 0,
-            borderColor: '#ddd',
+            borderColor: '#fff',
             marginLeft: 5,
             marginRight: 5 }]}
             value={this.props.search}
-            placeholderTextColor='#fff'
+            placeholderTextColor='#000'
             underlineColorAndroid='transparent'
             onChangeText={value =>
               this.props.productDetailsChanged({ prop: 'search', value })}

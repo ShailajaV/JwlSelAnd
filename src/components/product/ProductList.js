@@ -82,7 +82,7 @@ class ProductsList extends Component {
       <View style={styles.container}>
         <CardSection
           style={{
-            borderColor: '#fff',
+            borderColor: '#000',
             borderWidth: 1,
             margin: 4,
             backgroundColor: '#fff',
@@ -93,7 +93,7 @@ class ProductsList extends Component {
 
         <Icon
           name="md-search"
-          size={50}
+          size={30}
           backgroundColor="#000"
           style={styles.searchImg}
         />
@@ -102,8 +102,8 @@ class ProductsList extends Component {
             autoCorrect={false}
             style={[styles.inputStyle, { alignSelf: 'stretch',
             borderRadius: 5,
-            borderWidth: 1,
-            borderColor: '#000',
+            borderWidth: 0,
+            borderColor: '#fff',
             marginLeft: 5,
             marginRight: 5 }]}
             value={this.props.search}

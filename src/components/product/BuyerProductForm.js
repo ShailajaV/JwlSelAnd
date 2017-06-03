@@ -7,7 +7,7 @@ import { addToCart, productDetailsChanged } from '../../actions';
 import { Card, CardSection, Button, Input } from '../common';
 import { LABEL_QUANTITY, QUANTITY, UNDEFINED } from '../../actions/constants';
 import styles from '../common/CommonCSS';
-import { validateEmptyFields } from '../common/Utils';
+import { validateQuantity } from '../common/Utils';
 
 class BuyerProductForm extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class BuyerProductForm extends Component {
       //await AsyncStorage.removeItem('addToCart');
       try {
         const { sellerCompanyName } = this.props.selectedSeller;
-        const { id, productName, url, rentExpected } = this.props.product;
+        const { id, productName, url, rentExpected, shippingCost, estTax } = this.props.product;
         const { quantity } = this.props;
         let incExistPrd = false;
         const product = {
@@ -33,7 +33,9 @@ class BuyerProductForm extends Component {
           quantity,
           productName,
           url,
-          rentExpected
+          rentExpected,
+          shippingCost,
+          estTax
         };
         const getProducts = JSON.parse(await AsyncStorage.getItem('addToCart'));
         if (getProducts !== null) {
@@ -88,9 +90,9 @@ class BuyerProductForm extends Component {
     const { quantity } = values;
     let errors = {};
     if (typeof quantity !== UNDEFINED) {
-      errors = validateEmptyFields(QUANTITY, quantity, this.state.errors);
+      errors = validateQuantity(quantity, this.state.errors);
     } else if (values.uniqueName === QUANTITY) {
-      errors = validateEmptyFields(values.uniqueName, values.value, this.state.errors);
+      errors = validateQuantity(values.value, this.state.errors);
     }
     this.setState({ errors });
     return errors;

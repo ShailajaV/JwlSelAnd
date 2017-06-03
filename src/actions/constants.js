@@ -73,6 +73,8 @@ export const KEY_PRODUCT_DETAILS = 'productDetails';
 export const LABEL_PRODUCT_NAME = 'Name of the Piece';
 export const LABEL_DAYS_OF_RENT = 'Days of Rent (days)';
 export const LABEL_RENT_EXPECTED = 'Rent per day';
+export const LABEL_SHIPPING_COST = 'Shipping cost';
+export const LABEL_EST_TAX = 'Est.Tax';
 export const UPLOAD_PRODUCT = 'Upload Product';
 export const ADD_MORE = 'Add more';
 export const SUBMIT = 'Submit';
@@ -81,6 +83,8 @@ export const PRODUCT_DETAILS_SUBMIT = 'product_details_submit';
 export const PRODUCT_NAME = 'productName';
 export const DAYS_OF_RENT = 'daysOfRent';
 export const RENT_EXPECTED = 'rentExpected';
+export const SHIPPING_COST = 'shippingCost';
+export const EST_TAX = 'estTax';
 export const EMPTY_IMAGE = 'Please upload image.';
 export const EMPTY_DAYS_OF_RENT = 'Please enter days of rent.';
 export const INVALID_DAYS_OF_RENT = 'Days of rent should contain only numbers.';
@@ -88,6 +92,12 @@ export const EMPTY_RENT_EXPECTED = 'Please enter expected rent.';
 export const INVALID_RENT_EXPECTED =
 'Expected rent should be greater than zero and contain 2 digits after decimal or no decimal';
 export const EMPTY_PRODUCT_NAME = 'Please enter product name.';
+export const EMPTY_SHIPPING_COST = 'Please enter shipping cost.';
+export const INVALID_SHIPPING_COST =
+'Shipping cost should contain 2 digits after decimal or no decimal';
+export const EMPTY_EST_TAX = 'Please enter estimated tax.';
+export const INVALID_EST_TAX =
+'Estimated tax should contain 2 digits after decimal or no decimal';
 
 export const KEY_PRODUCT_LIST = 'productsList';
 export const DAYS = 'days';
@@ -111,3 +121,5 @@ export const KEY_CART = 'cart';
 export const LABEL_QUANTITY = 'Quantity';
 export const QUANTITY = 'quantity';
 export const EMPTY_QUANTITY = 'Please enter quantity.';
+export const INVALID_QUANTITY =
+ 'Quantity should contain only numbers and should be more than zero.';

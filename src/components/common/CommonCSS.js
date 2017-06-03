@@ -171,6 +171,15 @@ export default {
     alignItems: 'center',
   },
 
+  cartStyle: {
+    width: 30,
+    height: 30,
+    resizeMode: 'contain',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
+
   searchStyle: {
     width: 30,
     height: 30,
@@ -267,7 +276,7 @@ export default {
   },
 
   searchImg: {
-    width: 70,
+    width: 20,
     height: 70,
   },
 

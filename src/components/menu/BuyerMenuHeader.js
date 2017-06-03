@@ -1,11 +1,11 @@
-/* Customized header component */
+/* Customized buyer header component */
 import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
-import styles from './CommonCSS';
+import styles from '../common/CommonCSS';
 
 // Make a Component
-const MenuHeader = ({ onPress }) => {
-  const { hamStyle, headerStyle, logoStyle } = styles;
+const BuyerMenuHeader = ({ onPress, onCart }) => {
+  const { hamStyle, headerStyle, logoStyle, cartStyle } = styles;
   return (
     <View style={headerStyle}>
       <View style={{ width: 50, height: 50 }} >
@@ -13,7 +13,7 @@ const MenuHeader = ({ onPress }) => {
           <Image
             source={require('../common/images/ham.png')}
             style={hamStyle}
-            resizeMode={Image.resizeMode.sretch}
+            resizeMode={Image.resizeMode.strech}
           />
         </TouchableOpacity>
       </View>
@@ -21,12 +21,20 @@ const MenuHeader = ({ onPress }) => {
         <Image
           source={require('../common/images/logo_action_bar.png')}
           style={logoStyle}
-          resizeMode={Image.resizeMode.sretch}
+          resizeMode={Image.resizeMode.strech}
         />
       </View>
-      <View style={{ width: 50, height: 50 }} />
+      <View style={{ width: 50, height: 50 }} >
+        <TouchableOpacity onPress={onCart}>
+          <Image
+            source={require('../common/images/cart.png')}
+            style={cartStyle}
+            resizeMode={Image.resizeMode.strech}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 // Make the component available to other parts of the App
-export { MenuHeader };
+export { BuyerMenuHeader };
