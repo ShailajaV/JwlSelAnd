@@ -17,6 +17,11 @@ class BuyerProductForm extends Component {
   state = {
     errors: {}
   }
+  componentWillMount() {
+    _.each(this.props.product, (value, prop) => {
+      this.props.productDetailsChanged({ prop, value });
+    });
+  }
   async addToCart() {
     const errors = this.validations(this.props);
     if (Object.keys(errors).length === 0) {
@@ -24,16 +29,18 @@ class BuyerProductForm extends Component {
       //await AsyncStorage.removeItem('addToCart');
       try {
         const { sellerCompanyName } = this.props.selectedSeller;
-        const { id, productName, url, rentExpected, shippingCost, estTax } = this.props.product;
+        const { id, productName, url, rentExpected, shippingCost, estTax, productId } =
+         this.props.product;
         const { quantity } = this.props;
         let incExistPrd = false;
         const product = {
-          productId: id,
-          sellerCompanyName,
-          quantity,
+          productId: typeof id === UNDEFINED ? productId : id,
+          sellerCompanyName: typeof sellerCompanyName === UNDEFINED ?
+           this.props.product.sellerCompanyName : sellerCompanyName,
+          quantity: parseInt(quantity, 10),
           productName,
           url,
-          rentExpected,
+          rentExpected: parseFloat(rentExpected).toFixed(2),
           shippingCost,
           estTax
         };
@@ -47,9 +54,19 @@ class BuyerProductForm extends Component {
               product.quantity =
               parseInt(product.quantity, 10) +
               parseInt(val.quantity, 10);
+              product.quantity = parseInt(product.quantity, 10);
               product.rentExpected =
               parseInt(product.quantity, 10) *
               parseFloat(product.rentExpected);
+              product.rentExpected = parseFloat(product.rentExpected).toFixed(2);
+            } else if (typeof id === UNDEFINED && val.productId === productId) {
+              //from edit cartitem
+              incExistPrd = true;
+              const rentExp = val.rentExpected / val.quantity;
+              product.rentExpected =
+              parseInt(product.quantity, 10) *
+              parseFloat(rentExp);
+              product.rentExpected = parseFloat(product.rentExpected).toFixed(2);
             } else cartArray.push(val);
           });
           // new product with quanity > 1(cart has products)
@@ -57,13 +74,14 @@ class BuyerProductForm extends Component {
             product.rentExpected =
             parseInt(product.quantity, 10) *
             parseFloat(product.rentExpected);
+            product.rentExpected = parseFloat(product.rentExpected).toFixed(2);
           }
         } else if (product.quantity > 1) {
           // new product with quanity > 1(cart is null)
             product.rentExpected =
             parseInt(product.quantity, 10) *
             parseFloat(product.rentExpected);
-            product.rentExpected = Math.round(product.rentExpected * 100) / 100;
+            product.rentExpected = parseFloat(product.rentExpected).toFixed(2);
         }
         cartArray.push(product);
         await AsyncStorage.setItem('addToCart', JSON.stringify(cartArray));

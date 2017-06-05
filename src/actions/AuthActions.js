@@ -1,4 +1,5 @@
 /* This file includes all auth action creators */
+import { AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 //import Communications from 'react-native-communications';
 import { firebaseDatabase, firebaseAuth } from '../FirebaseConfig';
@@ -12,6 +13,7 @@ import { ERRMSG_AUTH_FAILED, ERRCODE_EMAIL_INUSE, ERRMSG_EMAIL_INUSE, ERRCODE_IN
   ERRMSG_NETWEORK_ERROR
 } from './errorMsgConstants';
 import { getAllSellers } from './ProductActions';
+import { addCartItems } from './CartActions';
 
 /* Sign in page
 * @parameter
@@ -95,11 +97,13 @@ const loginUserFail = (dispatch, text) => {
 };
 
 // User login success
-const loginUserSuccess = (dispatch, user) => {
+const loginUserSuccess = async (dispatch, user) => {
   dispatch({
     type: LOGIN_USER_SUCCESS,
     payload: user
   });
+  //get the cart items from session and add it into db
+  addCartItems(dispatch);
   dispatch(userProfileInfo());
 };
 
@@ -162,7 +166,8 @@ export const createUserAccount = ({ fullName,
 export const logOut = () => {
   return (dispatch) => {
     firebaseAuth.signOut()
-    .then(() => {
+    .then(async () => {
+      await AsyncStorage.removeItem('addToCart');
       dispatch({ type: LOGOUT_USER });
       Actions.auth({ type: 'reset' });
     })

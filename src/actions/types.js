@@ -34,3 +34,5 @@ export const SELECTED_SELLER_SUCCESS = 'selected_seller_success';
 
 //Add to cart
 export const CARTITEMS_FETCH_SUCCESS = 'cartitems_fetch_success';
+export const ADD_CART_SUCCESS = 'add_cart_success';
+export const ADD_CART_FAIL = 'add_cart_fail';

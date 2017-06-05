@@ -113,7 +113,7 @@ export const validateDaysOfRent = (value, stateErrors) => {
 
 export const validateRentExpected = (value, stateErrors) => {
   errors = stateErrors;
-  if (!value.replace(/\s/g, '').length) errors.rentExpected = EMPTY_RENT_EXPECTED;
+  if (!String(value).replace(/\s/g, '').length) errors.rentExpected = EMPTY_RENT_EXPECTED;
   else if (value <= 0 || !validateDecimalDigits(value)) {
     errors.rentExpected = INVALID_RENT_EXPECTED;
   }
@@ -122,7 +122,7 @@ export const validateRentExpected = (value, stateErrors) => {
 
 export const validateShippingCost = (value, stateErrors) => {
   errors = stateErrors;
-  if (!value.replace(/\s/g, '').length) errors.shippingCost = EMPTY_SHIPPING_COST;
+  if (!String(value).replace(/\s/g, '').length) errors.shippingCost = EMPTY_SHIPPING_COST;
   else if (!validateDecimalDigits(value)) {
     errors.shippingCost = INVALID_SHIPPING_COST;
   }
@@ -131,7 +131,7 @@ export const validateShippingCost = (value, stateErrors) => {
 
 export const validateEstTax = (value, stateErrors) => {
   errors = stateErrors;
-  if (!value.replace(/\s/g, '').length) errors.estTax = EMPTY_EST_TAX;
+  if (!String(value).replace(/\s/g, '').length) errors.estTax = EMPTY_EST_TAX;
   else if (!validateDecimalDigits(value)) {
     errors.estTax = INVALID_EST_TAX;
   }
@@ -140,15 +140,11 @@ export const validateEstTax = (value, stateErrors) => {
 
 export const validateQuantity = (value, stateErrors) => {
   errors = stateErrors;
-  console.log('value is ', value);
-  if (!value.replace(/\s/g, '').length) {
+  if (!String(value).replace(/\s/g, '').length) {
     errors.quantity = EMPTY_QUANTITY;
-    console.log('errorinif ', errors);
   } else if (!validateOnlyNumbers(value) || value <= 0) {
     errors.quantity = INVALID_QUANTITY;
-    console.log('errorinelse ', errors);
   }
-  console.log('errorfinal ', errors);
   return errors;
 };
 

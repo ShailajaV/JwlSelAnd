@@ -45,17 +45,20 @@ class CartList extends Component {
   }
 
   render() {
-    let subTotal = parseFloat(0.0);
-    let valShipping = parseFloat(0.0);
-    let estTax = parseFloat(0.0);
-    let quantity = parseInt(0, 10);
+    let subTotal = 0;
+    let valShipping = 0;
+    let estTax = 0;
+    let quantity = 0;
     _.map(this.props.cartItems, (val) => {
       subTotal = parseFloat(subTotal) + parseFloat(val.rentExpected);
       valShipping = parseFloat(valShipping) + parseFloat(val.shippingCost);
+      valShipping = parseFloat(valShipping).toFixed(2);
       estTax = parseFloat(estTax) + parseFloat(val.estTax);
+      estTax = parseFloat(estTax).toFixed(2);
       quantity = parseInt(quantity, 10) + parseInt(val.quantity, 10);
     });
-    const estTotal = subTotal + valShipping + estTax;
+    const estTotal =
+    parseFloat(parseFloat(subTotal) + parseFloat(valShipping) + parseFloat(estTax)).toFixed(2);
     return (
       <Card>
       {this.renderListView()}

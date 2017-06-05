@@ -190,7 +190,7 @@ const handleSuccess = (dispatch, callingScreen) => {
   switch (callingScreen) {
     case PRODUCT_DETAILS_ADDMORE:
       dispatchType = PRODUCT_SAVE_SUCCESS;
-      Actions.productDetails();
+      Actions.productDetails({ type: 'reset' });
       break;
     case PRODUCT_DETAILS_SUBMIT:
     case PRODUCT_DETAILS_EDIT:

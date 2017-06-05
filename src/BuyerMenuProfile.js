@@ -5,7 +5,7 @@ import SideMenu from 'react-native-side-menu';
 import BuyerMenu from './components/menu/BuyerMenu';
 import styles from './components/common/CommonCSS';
 import { BuyerMenuHeader } from './components/menu/BuyerMenuHeader';
-import { logOut, addToCart } from './actions';
+import { logOut, getCart } from './actions';
 import ChatUsersList from './components/messenger/ChatUsersList';
 import ChatUI from './components/messenger/ChatUI';
 import SellersList from './components/product/SellersList';
@@ -27,7 +27,7 @@ class BuyerMenuProfile extends Component {
   }
 
   onCart = () => {
-    this.props.addToCart();
+    this.props.getCart();
   }
 
   updateMenuState(isOpen) {
@@ -88,4 +88,4 @@ class BuyerMenuProfile extends Component {
   }
 }
 
-export default connect(null, { logOut, addToCart })(BuyerMenuProfile);
+export default connect(null, { logOut, getCart })(BuyerMenuProfile);

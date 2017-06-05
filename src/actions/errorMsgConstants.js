@@ -54,3 +54,6 @@ export const ERRMSG_STRG_FILESIZE =
   //Product error messages
   export const ERRMSG_PRODUCT_DETAILS_FAILED = 'Product details save failed.';
   export const ERRMSG_PRODUCT_DELETE_FAILED = 'Product details delete failed.';
+
+  //cart error messages
+  export const ERRMSG_CART_ADD_FAILED = 'Adding cart details failed.';
