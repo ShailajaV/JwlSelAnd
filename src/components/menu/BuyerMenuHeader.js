@@ -1,6 +1,7 @@
 /* Customized buyer header component */
 import React from 'react';
 import { View, TouchableOpacity, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import styles from '../common/CommonCSS';
 
 // Make a Component
@@ -26,11 +27,12 @@ const BuyerMenuHeader = ({ onPress, onCart }) => {
       </View>
       <View style={{ width: 50, height: 50 }} >
         <TouchableOpacity onPress={onCart}>
-          <Image
-            source={require('../common/images/cart.png')}
-            style={cartStyle}
-            resizeMode={Image.resizeMode.strech}
-          />
+        <Icon
+          name='cart'
+          size={20}
+          backgroundColor='#00fff'
+          style={cartStyle}
+        />
         </TouchableOpacity>
       </View>
     </View>

@@ -79,7 +79,7 @@ export default {
   },
 
   logInputStyle: {
-    color: '#000',
+    color: '#000000',
     paddingRight: 5,
     paddingLeft: 20,
     fontSize: 20,
@@ -92,7 +92,7 @@ export default {
   },
 
   inputStyle: {
-    color: '#000',
+    color: '#000000',
     paddingRight: 5,
     paddingLeft: 20,
     fontSize: 20,
@@ -174,7 +174,6 @@ export default {
   cartStyle: {
     width: 30,
     height: 30,
-    resizeMode: 'contain',
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
@@ -233,7 +232,7 @@ export default {
   },
 
   prdLabelStyle: {
-    color: '#000',
+    color: '#000000',
     fontSize: 18,
     paddingLeft: 20,
     fontFamily: 'Times New Roman',
