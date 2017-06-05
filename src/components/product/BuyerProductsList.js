@@ -97,7 +97,7 @@ class BuyerProductsList extends Component {
             autoCorrect={false}
             style={[styles.inputStyle, { alignSelf: 'stretch',
             borderRadius: 5,
-            borderColor: '#fff',
+            borderColor: '#000',
             marginLeft: 5,
             marginRight: 5 }]}
             value={this.props.search}
