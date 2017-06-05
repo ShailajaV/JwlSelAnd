@@ -129,7 +129,7 @@ export default {
     flex: 2,
     borderBottomWidth: 1,
     borderColor: '#fff'
-  },
+    },
 
   mulInpcontainerStyle: {
     height: 60,

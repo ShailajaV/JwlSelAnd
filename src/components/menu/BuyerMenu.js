@@ -58,7 +58,7 @@ class BuyerMenu extends Component {
 }
 
 ListItem.defaultProps = {
-  underlayColor: '#1abc9c',
+  underlayColor: '#fff',
   chevronColor: 'gray',
   rightIcon: { name: 'chevron-right' }
 };

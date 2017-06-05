@@ -34,7 +34,7 @@ class ChatUsersList extends Component {
         enableEmptySections
         dataSource={this.dataSource}
         renderRow={this.renderRow}
-        style={{ backgroundColor: '#1abc9c' }}
+        style={{ backgroundColor: '#fff' }}
       />
     );
   }

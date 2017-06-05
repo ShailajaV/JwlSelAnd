@@ -85,7 +85,7 @@ class ChatUI extends Component {
 
     render() {
         return (
-            <Screen style={{ backgroundColor: '#1abc9c' }}>
+            <Screen style={{ backgroundColor: '#fff' }}>
                 <Title styleName="h-center" style={{ paddingTop: 20 }}>
                     Global Chatroom
                 </Title>
