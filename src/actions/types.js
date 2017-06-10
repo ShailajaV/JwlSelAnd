@@ -36,3 +36,7 @@ export const SELECTED_SELLER_SUCCESS = 'selected_seller_success';
 export const CARTITEMS_FETCH_SUCCESS = 'cartitems_fetch_success';
 export const ADD_CART_SUCCESS = 'add_cart_success';
 export const ADD_CART_FAIL = 'add_cart_fail';
+
+//PaymentForm
+export const PAYMENT_USER = 'payment_user';
+export const PAYMENT_DETAILS_CHANGED = 'payment_details_changed';

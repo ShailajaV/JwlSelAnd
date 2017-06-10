@@ -8,6 +8,7 @@ import ProductsListReducer from './ProductsListReducer';
 import BuyerProductReducer from './BuyerProductReducer';
 import ChatReducer from './ChatReducer';
 import CartReducer from './CartReducer';
+import PaymentReducer from './PaymentReducer';
 
 export default combineReducers({
   auth: AuthReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
   products: ProductsListReducer,
   buyerProductForm: BuyerProductReducer,
   chatForm: ChatReducer,
-  cartForm: CartReducer
+  cartForm: CartReducer,
+  payment: PaymentReducer
 });
