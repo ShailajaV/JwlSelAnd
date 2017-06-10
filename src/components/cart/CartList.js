@@ -5,6 +5,7 @@ import { Text, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import CartForm from './CartForm';
 import { Card, CardSection, Button } from '../common';
+import { checkOut } from '../../actions';
 
 class CartList extends Component {
   componentWillMount() {
@@ -19,7 +20,7 @@ class CartList extends Component {
   }
 
   onCheckOut() {
-
+    this.props.checkOut();
   }
 
   createDataSource({ cartItems }) {
@@ -95,4 +96,4 @@ const mapStateToProps = (state) => {
   return { cartItems: state.cartForm.cartItems };
 };
 
-export default connect(mapStateToProps)(CartList);
+export default connect(mapStateToProps, { checkOut })(CartList);

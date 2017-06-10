@@ -124,3 +124,6 @@ export const EMPTY_QUANTITY = 'Please enter quantity.';
 export const INVALID_QUANTITY =
  'Quantity should contain only numbers and should be more than zero.';
 export const REMOVE = 'REMOVE';
+
+// Payment form
+export const KEY_PAYMENT = 'payment';

@@ -121,18 +121,20 @@ export default {
   },
 
   mulInputStyle: {
-    color: '#000000',
+
+    color: '#000',
     paddingRight: 5,
-    paddingLeft: 5,
+    paddingLeft: 20,
     fontSize: 18,
     lineHeight: 60,
+    height: 80,
     flex: 2,
     borderBottomWidth: 1,
-    borderColor: '#fff'
+    borderColor: '#000'
   },
 
   mulInpcontainerStyle: {
-    height: 60,
+    //height: 80,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'

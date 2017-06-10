@@ -12,6 +12,7 @@ import SellersList from './components/product/SellersList';
 import BuyerProductsList from './components/product/BuyerProductsList';
 import BuyerProductForm from './components/product/BuyerProductForm';
 import CartList from './components/cart/CartList';
+import PaymentForm from './components/payment/PaymentForm';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -61,6 +62,8 @@ class BuyerMenuProfile extends Component {
             return <BuyerProductForm product={this.props.product} />;
           case 'addToCart':
             return <CartList />;
+          case 'payment':
+            return <PaymentForm />;
           default:
             return <SellersList />;
         }

@@ -27,6 +27,7 @@ export const addToCart = () => {
   };
 };
 
+// When the user logged in add the session items to db
 export const addCartItems = async (dispatch) => {
   const cartItems = JSON.parse(await AsyncStorage.getItem('addToCart'));
   const { currentUser } = firebaseAuth;
