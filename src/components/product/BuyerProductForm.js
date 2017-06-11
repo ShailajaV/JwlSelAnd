@@ -1,13 +1,12 @@
 /* Product details of the buyer selected product */
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { View, Text, Image, AsyncStorage } from 'react-native';
+import { View, Text, Image, AsyncStorage, Picker } from 'react-native';
 import { connect } from 'react-redux';
 import { addToCart, productDetailsChanged } from '../../actions';
-import { Card, CardSection, Button, Input } from '../common';
-import { LABEL_QUANTITY, QUANTITY, UNDEFINED } from '../../actions/constants';
+import { Card, CardSection, Button } from '../common';
+import { UNDEFINED } from '../../actions/constants';
 import styles from '../common/CommonCSS';
-import { validateQuantity } from '../common/Utils';
 
 class BuyerProductForm extends Component {
   constructor(props) {
@@ -15,13 +14,18 @@ class BuyerProductForm extends Component {
     this.validations = this.validations.bind(this);
   }
   state = {
-    errors: {}
+    quantityItems: []
   }
   componentWillMount() {
     _.each(this.props.product, (value, prop) => {
       this.props.productDetailsChanged({ prop, value });
     });
+    const { quantity } = this.props.product;
+    for (let i = 1; i <= quantity; i++) {
+      this.state.quantityItems.push(i);
+    }
   }
+
   async addToCart() {
     const errors = this.validations(this.props);
     if (Object.keys(errors).length === 0) {
@@ -92,33 +96,12 @@ class BuyerProductForm extends Component {
     }
   }
 
-  handleChange(fieldName, fieldValue) {
-    if (typeof this.state.errors[fieldName] !== UNDEFINED) {
-      const errors = Object.assign({}, this.state.errors);
-      delete errors[fieldName];
-      this.setState({
-        [fieldName]: fieldValue,
-        errors });
-    } else {
-      this.setState({ [fieldName]: fieldValue });
-    }
-  }
-
-  validations(values) {
-    const { quantity } = values;
-    let errors = {};
-    if (typeof quantity !== UNDEFINED) {
-      errors = validateQuantity(quantity, this.state.errors);
-    } else if (values.uniqueName === QUANTITY) {
-      errors = validateQuantity(values.value, this.state.errors);
-    }
-    this.setState({ errors });
-    return errors;
-  }
-
   render() {
     const { productName, url, rentExpected } = this.props.product;
     const { sellerCompanyName } = this.props.selectedSeller;
+    const quanityItems = this.state.quantityItems.map((item, i) => {
+        return <Picker.Item key={i} value={item} label={String(item)} />;
+    });
     return (
       <Card>
         <CardSection style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -134,18 +117,14 @@ class BuyerProductForm extends Component {
             {'    '}Rent this {'\n'}beautiful {productName} {'\n'}{'   '}for {rentExpected} per day
           </Text>
         </CardSection>
-        <CardSection>
-          <Input
-            editable
-            label={LABEL_QUANTITY}
-            value={String(this.props.quantity)}
-            errorMessage={this.state.errors.quantity}
-            uniqueName={QUANTITY}
-            validate={this.validations.bind(this)}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.productDetailsChanged({ prop: 'quantity', value })}
-          />
+        <CardSection style={{ flexDirection: 'column' }}>
+        <Text style={styles.pickerTextStyle}>Quantity</Text>
+        <Picker
+          selectedValue={this.props.quantity}
+          onValueChange={value => this.props.productDetailsChanged({ prop: 'quantity', value })}
+        >
+          {quanityItems}
+        </Picker>
         </CardSection>
         <View
           style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}

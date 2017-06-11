@@ -4,15 +4,15 @@ import { Text, View, TouchableOpacity, Image, Platform,
   ScrollView } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux';
-
 import { CardSection, Input } from '../common';
 import { LABEL_PRODUCT_NAME, LABEL_DAYS_OF_RENT, LABEL_RENT_EXPECTED,
   UPLOAD_PRODUCT, PRODUCT_NAME, DAYS_OF_RENT, RENT_EXPECTED,
   UNDEFINED, SPACE, FILE, ANDROID, LABEL_SHIPPING_COST, LABEL_EST_TAX,
-  SHIPPING_COST, EST_TAX } from '../../actions/constants';
+  SHIPPING_COST, EST_TAX, LABEL_QUANTITY, QUANTITY } from '../../actions/constants';
 import { productDetailsChanged } from '../../actions';
 import { validateEmptyFields, validateURLField, validateDaysOfRent,
-  validateRentExpected, validateShippingCost, validateEstTax } from '../common/Utils';
+  validateRentExpected, validateShippingCost, validateEstTax,
+  validateQuantity } from '../common/Utils';
 import styles from '../common/CommonCSS';
 
 class ProductForm extends Component {
@@ -47,7 +47,8 @@ class ProductForm extends Component {
   }
 
   validations(values) {
-    const { productName, daysOfRent, rentExpected, url, uploadURL, shippingCost, estTax } = values;
+    const { productName, daysOfRent, rentExpected, url, uploadURL,
+      shippingCost, estTax, quantity } = values;
     let errors = {};
     if (typeof productName !== UNDEFINED) {
       errors = validateEmptyFields(PRODUCT_NAME, productName, this.state.errors);
@@ -81,6 +82,12 @@ class ProductForm extends Component {
       errors = validateEstTax(estTax, this.state.errors);
     } else if (values.uniqueName === EST_TAX) {
       errors = validateEstTax(values.value, this.state.errors);
+    }
+
+    if (typeof quantity !== UNDEFINED) {
+      errors = validateQuantity(quantity, this.state.errors);
+    } else if (values.uniqueName === QUANTITY) {
+      errors = validateQuantity(values.value, this.state.errors);
     }
     this.setState({ errors });
     return errors;
@@ -244,6 +251,27 @@ class ProductForm extends Component {
             </Text>
           </View>
 
+          <CardSection>
+            <Input
+              editable
+              label={LABEL_QUANTITY}
+              value={String(this.props.quantity)}
+              errorMessage={this.state.errors.quantity}
+              uniqueName={QUANTITY}
+              validate={this.validations.bind(this)}
+              onChange={this.handleChange.bind(this)}
+              onChangeText={value =>
+                this.props.productDetailsChanged({ prop: 'quantity', value })}
+            />
+          </CardSection>
+          <View
+            style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
+          >
+            <Text style={styles.errorTextStyle}>
+              {this.state.errors.quantity}
+            </Text>
+          </View>
+
           <Text style={styles.errorTextStyle}>
             {this.props.error}
           </Text>
@@ -253,9 +281,18 @@ class ProductForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { productName, daysOfRent, rentExpected, shippingCost, estTax, url, uploadURL, error }
-  = state.productForm;
-  return { productName, daysOfRent, rentExpected, shippingCost, estTax, url, uploadURL, error };
+  const { productName, daysOfRent, rentExpected, shippingCost,
+    estTax, quantity, url, uploadURL, error } = state.productForm;
+  return { productName,
+    daysOfRent,
+    rentExpected,
+    shippingCost,
+    estTax,
+    quantity,
+    url,
+    uploadURL,
+    error
+   };
 };
 
 export default connect(mapStateToProps,

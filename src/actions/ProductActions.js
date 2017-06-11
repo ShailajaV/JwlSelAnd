@@ -35,17 +35,17 @@ export const productDetailsChanged = ({ prop, value }) => {
 * @return : productForm/RentedJewelleryForm
 */
 export const productCreate = ({ uploadURL, productName, daysOfRent,
-  rentExpected, shippingCost, estTax, onSubmit }) => {
+  rentExpected, shippingCost, estTax, quantity, onSubmit }) => {
   return (dispatch) => {
     const { uri } = uploadURL;
     if (onSubmit) {
       dispatch({ type: PRODUCT_SUBMIT });
       dispatch(saveProductDetails(dispatch, uri, productName, daysOfRent,
-        rentExpected, shippingCost, estTax, null, PRODUCT_DETAILS_SUBMIT));
+        rentExpected, shippingCost, estTax, quantity, null, PRODUCT_DETAILS_SUBMIT));
     } else {
       dispatch({ type: PRODUCT_SAVE });
       dispatch(saveProductDetails(dispatch, uri, productName, daysOfRent,
-        rentExpected, shippingCost, estTax, null, PRODUCT_DETAILS_ADDMORE));
+        rentExpected, shippingCost, estTax, quantity, null, PRODUCT_DETAILS_ADDMORE));
     }
   };
 };
@@ -76,7 +76,8 @@ export const getProductsDetails = (id, companyName) => {
 * @return : ProductForm
 */
 const saveProductDetails = (dispatch, uri, productName, daysOfRent,
-  rentExpected, shippingCost, estTax, uid, callingScreen, mime = 'application/octet-stream') => {
+  rentExpected, shippingCost, estTax, quantity, uid, callingScreen,
+  mime = 'application/octet-stream') => {
   const { currentUser } = firebaseAuth;
   return () => {
     const imageRef = `/images/products/${currentUser.uid}/${productName}`;
@@ -103,6 +104,7 @@ const saveProductDetails = (dispatch, uri, productName, daysOfRent,
           rentExpected: parseFloat(rentExpected),
           shippingCost: parseFloat(shippingCost),
           estTax: parseFloat(estTax),
+          quantity: parseInt(quantity, 10),
           url })
         .then(() => {
           handleSuccess(dispatch, callingScreen);
@@ -117,6 +119,7 @@ const saveProductDetails = (dispatch, uri, productName, daysOfRent,
           rentExpected: parseFloat(rentExpected),
           shippingCost: parseFloat(shippingCost),
           estTax: parseFloat(estTax),
+          quantity: parseInt(quantity, 10),
           url })
         .then(() => {
           handleSuccess(dispatch, callingScreen);
@@ -208,17 +211,17 @@ const handleSuccess = (dispatch, callingScreen) => {
 * @return : productForm/ProductListForm
 */
 export const productUpdate = ({ productName, daysOfRent,
-  rentExpected, shippingCost, estTax, url, uploadURL, uid }) => {
+  rentExpected, shippingCost, estTax, quantity, url, uploadURL, uid }) => {
   const { currentUser } = firebaseAuth;
   return (dispatch) => {
     dispatch({ type: PRODUCT_SAVE });
     if (uploadURL !== null && uploadURL !== '') {
       const { uri } = uploadURL;
       dispatch(saveProductDetails(dispatch, uri, productName, daysOfRent,
-            rentExpected, shippingCost, estTax, uid, PRODUCT_DETAILS_EDIT));
+            rentExpected, shippingCost, estTax, quantity, uid, PRODUCT_DETAILS_EDIT));
     } else {
       firebaseDatabase.ref(`/products/${currentUser.uid}/${uid}`)
-      .set({ productName, daysOfRent, rentExpected, shippingCost, estTax, url })
+      .set({ productName, daysOfRent, rentExpected, shippingCost, estTax, quantity, url })
       .then(() => {
         handleSuccess(dispatch, PRODUCT_DETAILS_EDIT);
       })

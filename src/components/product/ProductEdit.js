@@ -19,13 +19,14 @@ class ProductEdit extends Component {
   onEdit() {
     const errors = this.child.validations(this.props);
     if (Object.keys(errors).length === 0) {
-    const { productName, daysOfRent, rentExpected, url, uploadURL, shippingCost, estTax }
+    const { productName, daysOfRent, rentExpected, url, uploadURL, shippingCost, estTax, quantity }
       = this.props;
     this.props.productUpdate({ productName,
       daysOfRent,
       rentExpected,
       shippingCost,
       estTax,
+      quantity,
       url,
       uploadURL,
       uid: this.props.product.uid });
@@ -58,9 +59,17 @@ class ProductEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { productName, daysOfRent, rentExpected, url, uploadURL, shippingCost, estTax, loading }
-  = state.productForm;
-  return { productName, daysOfRent, rentExpected, url, uploadURL, shippingCost, estTax, loading };
+  const { productName, daysOfRent, rentExpected, url, uploadURL,
+    shippingCost, estTax, quantity, loading } = state.productForm;
+  return { productName,
+    daysOfRent,
+    rentExpected,
+    url,
+    uploadURL,
+    shippingCost,
+    estTax,
+    quantity,
+    loading };
 };
 
 export default connect(mapStateToProps, { productDetailsChanged, productUpdate })(ProductEdit);

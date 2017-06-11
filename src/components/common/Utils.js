@@ -104,7 +104,7 @@ export const validateURLField = (uploadURL, url, stateErrors) => {
 
 export const validateDaysOfRent = (value, stateErrors) => {
   errors = stateErrors;
-  if (!value.replace(/\s/g, '').length) errors.daysOfRent = EMPTY_DAYS_OF_RENT;
+  if (!String(value).replace(/\s/g, '').length) errors.daysOfRent = EMPTY_DAYS_OF_RENT;
   else if (!validateOnlyNumbers(value)) {
     errors.daysOfRent = INVALID_DAYS_OF_RENT;
   }
