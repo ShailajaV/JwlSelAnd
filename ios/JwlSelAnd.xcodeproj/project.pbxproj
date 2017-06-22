@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -39,6 +38,7 @@
 		D98A3FF9012F47ABB0C9B4D2 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33350FFD57684B6585BEFFEE /* libRNImagePicker.a */; };
 		DD551CDD0E734926B3FFD7DE /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FE3E879A3E64930A832BE19 /* Octicons.ttf */; };
 		F052F288E34E4BFA87933283 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C38B3AB7C9FB447A92F5F944 /* Foundation.ttf */; };
+		B2467827573B4F90AC8CDE16 /* libRNCardIO.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB97F9C7EC194D60A49BC011 /* libRNCardIO.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -296,6 +296,8 @@
 		D03F56D88FC4435C87FC15F9 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		E65F29DF0D4A485BADCE1236 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		FFF73D3DFEB244C18113D192 /* libRNFS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFS.a; sourceTree = "<group>"; };
+		06085953F005457FBC20F86D /* RNCardIO.xcodeproj */ = {isa = PBXFileReference; name = "RNCardIO.xcodeproj"; path = "../node_modules/react-native-awesome-card-io/ios/RNCardIO.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		DB97F9C7EC194D60A49BC011 /* libRNCardIO.a */ = {isa = PBXFileReference; name = "libRNCardIO.a"; path = "libRNCardIO.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -326,6 +328,7 @@
 				26026113893F482BB246EE74 /* libRNFS.a in Frameworks */,
 				D98A3FF9012F47ABB0C9B4D2 /* libRNImagePicker.a in Frameworks */,
 				6C9AE7A5E87E4A469D6B8D70 /* libRNVectorIcons.a in Frameworks */,
+				B2467827573B4F90AC8CDE16 /* libRNCardIO.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,6 +509,7 @@
 				BF7FE3079F424F3AB16BC581 /* RNFS.xcodeproj */,
 				289820F888404698A336E393 /* RNImagePicker.xcodeproj */,
 				A6B3BADA1A4C4A60B3B68C60 /* RNVectorIcons.xcodeproj */,
+				06085953F005457FBC20F86D /* RNCardIO.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1010,6 +1014,7 @@
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JwlSelAnd.app/JwlSelAnd";
@@ -1026,6 +1031,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",

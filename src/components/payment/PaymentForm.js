@@ -1,7 +1,7 @@
 /* Shipping, billing and payment information */
 import React, { Component } from 'react';
 import { ScrollView, View, Text } from 'react-native';
-import HideableView from 'react-native-hideable-view';
+//import HideableView from 'react-native-hideable-view';
 import CheckBox from 'react-native-icon-checkbox';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from
 'react-native-simple-radio-button';
@@ -13,6 +13,7 @@ import { PLACEHOLDER_FULLNAME, FULLNAME, PLACEHOLDER_STREET,
   ADDRESS_STREET, PLACEHOLDER_APT, ADDRESS_APT, PLACEHOLDER_STATE,
   STATE, PLACEHOLDER_CITY, CITY, PLACEHOLDER_ZIP, ZIP, UNDEFINED } from '../../actions/constants';
 import { validateEmptyFields, validateZip } from '../common/Utils';
+import SelectPaymentForm from '../checkout/SelectPaymentForm';
 
 class PaymentForm extends Component {
   constructor() {
@@ -23,10 +24,12 @@ class PaymentForm extends Component {
       value3Index: 0,
       isSelected: false,
       errors: {},
-      shipAddrvisible: false,
       addrCount: 0,
       shipAdrs: [],
-      isChecked: false
+      isChecked: false,
+      shipAddrVisible: false,
+      footerVisible: false,
+      payCardVisible: false
     };
     this.validations = this.validations.bind(this);
   }
@@ -48,24 +51,31 @@ class PaymentForm extends Component {
 
   onShipAddress() {
     this.setState({
-        shipAddrvisible: !this.state.shipAddrvisible
+      shipAddrVisible: !this.state.shipAddrVisible
     });
   }
 
   onShipAddressCancel() {
     this.setState({
-        shipAddrvisible: !this.state.shipAddrvisible
+      shipAddrVisible: !this.state.shipAddrVisible
     });
   }
 
   onShipAddressSave() {
     const errors = this.validations(this.props);
     if (Object.keys(errors).length === 0) {
+      this.setState({
+        shipAddrVisible: !this.state.shipAddrVisible
+      });
       let addrs = [];
       //add addresses from db
       addrs = this.state.shipAdrs;
       //if saved address is preferred then make other addresses are not preffered
       if (this.props.shipPrefAddr) {
+        //If the radio button selected then footer should be visible
+        this.setState({
+            footerVisible: true
+        });
         let eachAddr = {};
         this.state.shipAdrs.map((addObj) => {
           eachAddr = addObj;
@@ -164,6 +174,12 @@ class PaymentForm extends Component {
     return errors;
   }
 
+  selectPayment() {
+    this.setState({
+        payCardVisible: !this.state.payCardVisible
+    });
+  }
+
   renderShipAdrrs = () => {
     const buttons = [];
     this.state.shipAdrs.map((addr, ind) => {
@@ -186,7 +202,8 @@ class PaymentForm extends Component {
                    this.setState({
                      value3: value,
                      value3Index: index,
-                     isSelected: true
+                     isSelected: true,
+                     footerVisible: true
                    });
                    this.props.paymentDetailsChanged(
                      { prop: 'shipAddr', value: addr.radioIndex });
@@ -245,139 +262,159 @@ class PaymentForm extends Component {
 
   render() {
     return (
-      <ScrollView style={{ backgroundColor: '#fff' }}>
-      <Card>
-        <CardSection style={{ flexDirection: 'column', alignItems: 'center' }}>
-          <Text>Choose shipping address</Text>
-        </CardSection>
-        {this.renderShipAdrrs()}
-        <CardSection>
-          <Button onPress={this.onShipAddress.bind(this)}>
-            Add new address
-          </Button>
-        </CardSection>
-      </Card>
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 0.9 }}>
+          <ScrollView style={{ backgroundColor: '#fff' }}>
+          <Card>
+            <CardSection style={{ flexDirection: 'column', alignItems: 'center' }}>
+              <Text>Choose shipping address</Text>
+            </CardSection>
+            {this.renderShipAdrrs()}
+            <CardSection>
+              <Button onPress={this.onShipAddress.bind(this)}>
+                Add new address
+              </Button>
+            </CardSection>
+          </Card>
 
-<HideableView visible={this.state.shipAddrvisible}>
-        <CardSection>
-          <InputText
-            placeholder={PLACEHOLDER_FULLNAME}
-            value={this.props.shipFullName}
-            uniqueName={FULLNAME}
-            validate={this.validations}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.paymentDetailsChanged({ prop: 'shipFullName', value })}
-          />
-        </CardSection>
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
-        >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.fullName}
-          </Text>
+          { this.state.shipAddrVisible &&
+            (<View>
+            <CardSection>
+              <InputText
+                placeholder={PLACEHOLDER_FULLNAME}
+                value={this.props.shipFullName}
+                uniqueName={FULLNAME}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.paymentDetailsChanged({ prop: 'shipFullName', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.fullName}
+              </Text>
+            </View>
+
+            <CardSection>
+              <InputText
+                placeholder={PLACEHOLDER_STREET}
+                value={this.props.shipAddrStreet}
+                uniqueName={ADDRESS_STREET}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.paymentDetailsChanged({ prop: 'shipAddrStreet', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.addrStreet}
+              </Text>
+            </View>
+
+            <CardSection>
+              <InputText
+                placeholder={PLACEHOLDER_APT}
+                value={this.props.shipAddrApt}
+                uniqueName={ADDRESS_APT}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.paymentDetailsChanged({ prop: 'shipAddrApt', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.addrApt}
+              </Text>
+            </View>
+
+            <CardSection>
+              <InputText
+                placeholder={PLACEHOLDER_STATE}
+                value={this.props.shipState}
+                uniqueName={STATE}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.paymentDetailsChanged({ prop: 'shipState', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.state}
+              </Text>
+            </View>
+
+            <CardSection>
+              <InputText
+                placeholder={PLACEHOLDER_CITY}
+                value={this.props.shipCity}
+                uniqueName={CITY}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.paymentDetailsChanged({ prop: 'shipCity', value })}
+              />
+              <InputText
+                placeholder={PLACEHOLDER_ZIP}
+                value={this.props.shipZip}
+                uniqueName={ZIP}
+                validate={this.validations}
+                onChange={this.handleChange.bind(this)}
+                onChangeText={value =>
+                  this.props.paymentDetailsChanged({ prop: 'shipZip', value })}
+              />
+            </CardSection>
+            <View
+              style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
+            >
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.city}
+              </Text>
+              <Text style={styles.errorTextStyle}>
+                {this.state.errors.zip}
+              </Text>
+            </View>
+
+            <CardSection>
+            <CheckBox
+               label='Set as preferred address'
+               size={30}
+               checked={this.state.isChecked}
+               onPress={this.handlePressCheckedBox}
+            />
+            </CardSection>
+            <Button onPress={this.onShipAddressSave.bind(this)}>Save address</Button>
+            <Button onPress={this.onShipAddressCancel.bind(this)}>Cancel</Button>
+            </View>
+          )}
+
+          { this.state.payCardVisible &&
+            (<View>
+            <SelectPaymentForm onRef={ref => (this.child = ref)} />
+          </View>
+          )}
+
+          </ScrollView>
         </View>
-
-        <CardSection>
-          <InputText
-            placeholder={PLACEHOLDER_STREET}
-            value={this.props.shipAddrStreet}
-            uniqueName={ADDRESS_STREET}
-            validate={this.validations}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.paymentDetailsChanged({ prop: 'shipAddrStreet', value })}
-          />
-        </CardSection>
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
-        >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.addrStreet}
-          </Text>
-        </View>
-
-        <CardSection>
-          <InputText
-            placeholder={PLACEHOLDER_APT}
-            value={this.props.shipAddrApt}
-            uniqueName={ADDRESS_APT}
-            validate={this.validations}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.paymentDetailsChanged({ prop: 'shipAddrApt', value })}
-          />
-        </CardSection>
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
-        >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.addrApt}
-          </Text>
-        </View>
-
-        <CardSection>
-          <InputText
-            placeholder={PLACEHOLDER_STATE}
-            value={this.props.shipState}
-            uniqueName={STATE}
-            validate={this.validations}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.paymentDetailsChanged({ prop: 'shipState', value })}
-          />
-        </CardSection>
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
-        >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.state}
-          </Text>
-        </View>
-
-        <CardSection>
-          <InputText
-            placeholder={PLACEHOLDER_CITY}
-            value={this.props.shipCity}
-            uniqueName={CITY}
-            validate={this.validations}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.paymentDetailsChanged({ prop: 'shipCity', value })}
-          />
-          <InputText
-            placeholder={PLACEHOLDER_ZIP}
-            value={this.props.shipZip}
-            uniqueName={ZIP}
-            validate={this.validations}
-            onChange={this.handleChange.bind(this)}
-            onChangeText={value =>
-              this.props.paymentDetailsChanged({ prop: 'shipZip', value })}
-          />
-        </CardSection>
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}
-        >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.city}
-          </Text>
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.zip}
-          </Text>
-        </View>
-
-        <CardSection>
-        <CheckBox
-           label='Set as preferred address'
-           size={30}
-           checked={this.state.isChecked}
-           onPress={this.handlePressCheckedBox}
-        />
-        </CardSection>
-        <Button onPress={this.onShipAddressSave.bind(this)}>Save address</Button>
-        <Button onPress={this.onShipAddressCancel.bind(this)}>Cancel</Button>
-</HideableView>
-      </ScrollView>
+          { this.state.footerVisible &&
+          (<View style={{ flex: 0.1 }}>
+              <Button onPress={this.selectPayment.bind(this)}>
+                Continue
+              </Button>
+          </View>
+          )}
+      </View>
     );
   }
 }

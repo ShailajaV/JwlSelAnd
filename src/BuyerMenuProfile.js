@@ -13,6 +13,9 @@ import BuyerProductsList from './components/product/BuyerProductsList';
 import BuyerProductForm from './components/product/BuyerProductForm';
 import CartList from './components/cart/CartList';
 import PaymentForm from './components/payment/PaymentForm';
+import AddCard from './components/checkout/AddCard';
+import SelectPaymentForm from './components/checkout/SelectPaymentForm';
+//import StripeAddCardExample from './src/stripeAddCardExample'
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -47,6 +50,10 @@ class BuyerMenuProfile extends Component {
         return <SellersList />;
       case 'Chat':
         return <ChatUsersList />;
+      case 'SelectPayment':
+        return <SelectPaymentForm />;
+      case 'AddCard':
+        return <AddCard />;
       case 'Logout':
         this.props.logOut();
         return <SellersList />;
@@ -64,6 +71,8 @@ class BuyerMenuProfile extends Component {
             return <CartList />;
           case 'payment':
             return <PaymentForm />;
+          case 'addCard':
+            return <AddCard />;
           default:
             return <SellersList />;
         }

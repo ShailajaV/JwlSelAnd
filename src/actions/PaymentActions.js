@@ -18,7 +18,7 @@ export const paymentDetailsChanged = ({ prop, value }) => {
 * @parameter:
 * @return : BillingForm
 */
-export const checkOut = () => {
+export const checkout = () => {
   const { currentUser } = firebaseAuth;
   return (dispatch) => {
     if (currentUser === null) Actions.auth();

@@ -5,7 +5,7 @@ import { Text, ListView } from 'react-native';
 import { connect } from 'react-redux';
 import CartForm from './CartForm';
 import { Card, CardSection, Button } from '../common';
-import { checkOut } from '../../actions';
+import { checkout } from '../../actions';
 
 class CartList extends Component {
   componentWillMount() {
@@ -19,8 +19,8 @@ class CartList extends Component {
     this.createDataSource(nextProps);
   }
 
-  onCheckOut() {
-    this.props.checkOut();
+  onCheckout() {
+    this.props.checkout();
   }
 
   createDataSource({ cartItems }) {
@@ -83,7 +83,7 @@ class CartList extends Component {
         <Text>{estTotal}</Text>
       </CardSection>
       <CardSection>
-        <Button onPress={this.onCheckOut.bind(this)}>
+        <Button onPress={this.onCheckout.bind(this)}>
           Check Out
         </Button>
       </CardSection>
@@ -96,4 +96,4 @@ const mapStateToProps = (state) => {
   return { cartItems: state.cartForm.cartItems };
 };
 
-export default connect(mapStateToProps, { checkOut })(CartList);
+export default connect(mapStateToProps, { checkout })(CartList);

@@ -15,6 +15,16 @@ const authList = [
   subtitle: ' '
 },
 {
+  name: 'SelectPayment',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+{
+  name: 'AddCard',
+  avatar_url: ' ',
+  subtitle: ' '
+},
+{
   name: 'Logout',
   avatar_url: ' ',
   subtitle: ' '

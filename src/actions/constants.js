@@ -127,3 +127,4 @@ export const REMOVE = 'Remove';
 
 // Payment form
 export const KEY_PAYMENT = 'payment';
+export const KEY_ADDCARD = 'addCard';
