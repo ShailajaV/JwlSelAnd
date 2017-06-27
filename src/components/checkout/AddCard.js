@@ -8,7 +8,7 @@ export default () => {
       <AddCard
         addCardHandler={(cardNumber, cardExpiry, cardCvc) => {
           console.log(`${cardNumber} ${cardExpiry} ${cardCvc}`);
-          return Promise.resolve(cardNumber); //return a promise when you're done
+          return cardNumber; //return a promise when you're done
         }}
         styles={{}} // Override default styles <LINK HERE>
         onCardNumberBlur={() => console.log('card number blurred')}
