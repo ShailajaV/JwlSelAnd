@@ -11,7 +11,7 @@ const INITIAL_STATE = {
   shipCity: '',
   shipZip: '',
   shipAddr: '',
-  shipPreAddr: ''
+  shipPrefAddr: false
 };
 
 export default (state = INITIAL_STATE, action) => {
