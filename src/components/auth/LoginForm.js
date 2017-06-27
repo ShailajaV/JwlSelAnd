@@ -4,7 +4,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { userDetailsChanged, loginUser, forgotPassword, signUp, buyerLogin } from '../../actions';
+import { userDetailsChanged, loginUser, signUp, buyerLogin } from '../../actions';
 import { CardSection, Button, InputText, Spinner } from '../common';
 import { PLACEHOLDER_EMAIL, PLACEHOLDER_PASSWORD, SIGN_IN,
   FORGOT_PASSWORD, EMAIL, PASSWORD, UNDEFINED, SIGN_UP, CONTINUE_GUEST
@@ -214,5 +214,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps,
-  { userDetailsChanged, loginUser, forgotPassword, signUp, buyerLogin
+  { userDetailsChanged, loginUser, signUp, buyerLogin
   })(LoginForm);
