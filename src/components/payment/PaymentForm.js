@@ -17,22 +17,18 @@ class PaymentForm extends Component {
       value3: 0,
       value3Index: 0,
       isSelected: false,
-      errors: {},
-      addrCount: 0,
       shipAdrs: [],
-      isChecked: false,
       shipAddrVisible: false,
       footerVisible: false,
       payCardVisible: false
     };
-    this.validations = this.validations.bind(this);
   }
 
   componentWillMount() {
     const { fullName, address } = this.props.user;
     const addrs = [];
     const addr = {
-      radioIndex: this.state.addrCount,
+      radioIndex: 0,
       fullName,
       address,
       prefAddr: false
@@ -43,10 +39,28 @@ class PaymentForm extends Component {
     });
   }
 
+  onShipAddress() {
+    this.setState({
+      shipAddrVisible: !this.state.shipAddrVisible
+    });
+  }
+
   selectPayment() {
     this.setState({
         payCardVisible: !this.state.payCardVisible
     });
+  }
+
+  shipAddrsUpdate(shipAddrVisible, addrs, addrCount) {
+    this.setState({
+      shipAddrVisible,
+      shipAdrs: addrs,
+      addrCount
+     });
+  }
+
+  footerVisibleUpdate(footerVisible) {
+    this.setState({ footerVisible });
   }
 
   renderShipAdrrs = () => {

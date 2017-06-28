@@ -9,10 +9,10 @@ import { UNDEFINED } from '../../actions/constants';
 import styles from '../common/CommonCSS';
 
 class BuyerProductForm extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
-    this.validations = this.validations.bind(this);
-  }
+    //this.validations = this.validations.bind(this);
+  }*/
   state = {
     quantityItems: []
   }
@@ -27,8 +27,8 @@ class BuyerProductForm extends Component {
   }
 
   async addToCart() {
-    const errors = this.validations(this.props);
-    if (Object.keys(errors).length === 0) {
+    //const errors = this.validations(this.props);
+    //if (Object.keys(errors).length === 0) {
       const cartArray = [];
       //await AsyncStorage.removeItem('addToCart');
       try {
@@ -93,7 +93,7 @@ class BuyerProductForm extends Component {
         console.log('AsyncStorage error: ', error.message);
       }
       this.props.addToCart();
-    }
+    //}
   }
 
   render() {
@@ -126,14 +126,6 @@ class BuyerProductForm extends Component {
           {quanityItems}
         </Picker>
         </CardSection>
-        <View
-          style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end' }}
-        >
-          <Text style={styles.errorTextStyle}>
-            {this.state.errors.quantity}
-          </Text>
-        </View>
-
         <CardSection>
           <Button onPress={this.addToCart.bind(this)}>
             ADDTOCART
