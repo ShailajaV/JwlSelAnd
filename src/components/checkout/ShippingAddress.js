@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
-import CheckBox from 'react-native-icon-checkbox';
+//import CheckBox from 'react-native-icon-checkbox';
 import { Card, CardSection, Button, InputText } from '../common';
-import { paymentDetailsChanged } from '../../actions';
+import { paymentDetailsChanged, resetShipAddrValues } from '../../actions';
 import styles from '../common/CommonCSS';
 import { PLACEHOLDER_FULLNAME, FULLNAME, PLACEHOLDER_STREET,
   ADDRESS_STREET, PLACEHOLDER_APT, ADDRESS_APT, PLACEHOLDER_STATE,
@@ -16,10 +16,7 @@ class ShippingAddress extends Component {
     super();
     this.state = {
       errors: {},
-      addrCount: 0,
-      isChecked: false
-      //shipAddrVisible: false,
-      //shipAdrs: [],
+      //addrCount: 0
     };
     this.validations = this.validations.bind(this);
   }
@@ -30,43 +27,32 @@ class ShippingAddress extends Component {
     this.props.onRef(null);
   }
   onShipAddressCancel() {
-    this.setState({
-      shipAddrVisible: !this.props.shipAddrVisible
-    });
+    this.props.shipAddrsCancel(!this.props.shipAddrVisible);
+    // reset all the fields after adding address
+    this.props.resetShipAddrValues();
   }
 
   onShipAddressSave() {
-    console.log('this.props.shipAdrs ', this.props.shipAdrs);
     const errors = this.validations(this.props);
     if (Object.keys(errors).length === 0) {
       let addrs = [];
-      //if saved address is preferred then make other addresses are not preffered
-      if (this.props.shipPrefAddr) {
-        //If the radio button selected then footer should be visible
-        this.props.footerVisibleUpdate(true);
-        let eachAddr = {};
-        this.props.shipAdrs.map((addObj) => {
-          eachAddr = addObj;
-          eachAddr.prefAddr = false;
-          addrs.push(eachAddr);
-          return addrs;
-        });
-      } else addrs = this.props.shipAdrs;//add addresses from db
+      addrs = this.props.shipAdrs;//add addresses from db
       const { shipFullName, shipAddrStreet, shipAddrApt, shipState, shipCity, shipZip }
        = this.props;
        //newly added address
       const addr = {
-        radioIndex: this.state.addrCount + 1,
+        //radioIndex: this.state.addrCount + 1,
         fullName: shipFullName,
         address: `${shipAddrStreet},${shipAddrApt},${shipState},${shipCity},${shipZip}`,
-        prefAddr: this.props.shipPrefAddr
       };
       addrs.push(addr);
-      this.props.paymentDetailsChanged(
-        { prop: 'shipAddr', value: addr.radioIndex });
+      /*this.props.paymentDetailsChanged(
+        { prop: 'shipAddr', value: addr.radioIndex });*/
         //update ship address state variables
       this.props.shipAddrsUpdate(
-        !this.props.shipAddrVisible, addrs, this.props.addrCount + 1);
+        !this.props.shipAddrVisible, addrs, false);
+      // reset all the fields after adding address
+      this.props.resetShipAddrValues();
       /*const { fullName, addrStreet, addrApt, state, city, zip } = this.props;
       this.props.createUserAccount({ fullName,
         addrStreet,
@@ -77,10 +63,6 @@ class ShippingAddress extends Component {
     }
   }
 
-  handlePressCheckedBox = (checked) => {
-    this.setState({ isChecked: checked }, () =>
-    this.props.paymentDetailsChanged({ prop: 'shipPrefAddr', value: this.state.isChecked }));
-  }
   handleChange(fieldName, fieldValue) {
     if (typeof this.state.errors[fieldName] !== UNDEFINED) {
       const errors = Object.assign({}, this.state.errors);
@@ -136,7 +118,6 @@ class ShippingAddress extends Component {
     return errors;
   }
   render() {
-    console.log('rendershipAdd ', this.props.shipAdrs);
     return (
       <Card>
       <CardSection>
@@ -245,15 +226,6 @@ class ShippingAddress extends Component {
           {this.state.errors.zip}
         </Text>
       </View>
-
-      <CardSection>
-      <CheckBox
-         label='Set as preferred address'
-         size={30}
-         checked={this.state.isChecked}
-         onPress={this.handlePressCheckedBox}
-      />
-      </CardSection>
       <Button onPress={this.onShipAddressSave.bind(this)}>Save address</Button>
       <Button onPress={this.onShipAddressCancel.bind(this)}>Cancel</Button>
       </Card>
@@ -262,7 +234,7 @@ class ShippingAddress extends Component {
 }
 const mapStateToProps = (state) => {
   const { shipFullName, error, loading,
-    shipAddrStreet, shipAddrApt, shipState, shipCity, shipZip, shipPrefAddr } = state.payment;
+    shipAddrStreet, shipAddrApt, shipState, shipCity, shipZip } = state.payment;
   return {
     shipFullName,
     error,
@@ -271,8 +243,8 @@ const mapStateToProps = (state) => {
     shipAddrApt,
     shipState,
     shipCity,
-    shipZip,
-    shipPrefAddr };
+    shipZip };
 };
 
-export default connect(mapStateToProps, { paymentDetailsChanged })(ShippingAddress);
+export default connect(mapStateToProps,
+  { paymentDetailsChanged, resetShipAddrValues })(ShippingAddress);

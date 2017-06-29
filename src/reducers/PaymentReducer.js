@@ -1,5 +1,5 @@
 /* This file contains payment related reducers */
-import { PAYMENT_DETAILS_CHANGED, PAYMENT_USER } from '../actions/types';
+import { PAYMENT_DETAILS_CHANGED, PAYMENT_USER, RESET_SHIP_ADDR } from '../actions/types';
 
 const INITIAL_STATE = {
   shipFullName: '',
@@ -10,8 +10,7 @@ const INITIAL_STATE = {
   shipState: '',
   shipCity: '',
   shipZip: '',
-  shipAddr: '',
-  shipPrefAddr: false
+  shipAddr: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -20,6 +19,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, [action.payload.prop]: action.payload.value };
     case PAYMENT_USER:
       return { ...state, loading: true };
+    case RESET_SHIP_ADDR:
+      return { state: INITIAL_STATE };
     default:
       return state;
   }

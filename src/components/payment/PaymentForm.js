@@ -1,21 +1,20 @@
 /* Shipping, billing and payment information */
 import React, { Component } from 'react';
-import { ScrollView, View, Text } from 'react-native';
+import { ScrollView, View, Text, TouchableOpacity } from 'react-native';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from
 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 import { Card, CardSection, Button } from '../common';
 import { paymentDetailsChanged, userDetailsChanged } from '../../actions';
 import ShippingAddress from '../checkout/ShippingAddress';
-import SelectPaymentForm from '../checkout/SelectPaymentForm';
+//import SelectPaymentForm from '../checkout/SelectPaymentForm';
+import { SPACE, UNDEFINED } from '../../actions/constants';
 
 class PaymentForm extends Component {
   constructor() {
     super();
     this.state = {
       types3: [{ label: 'Select', value: 0 }],
-      value3: 0,
-      value3Index: 0,
       isSelected: false,
       shipAdrs: [],
       shipAddrVisible: false,
@@ -28,35 +27,48 @@ class PaymentForm extends Component {
     const { fullName, address } = this.props.user;
     const addrs = [];
     const addr = {
-      radioIndex: 0,
+      //radioIndex: 0,
       fullName,
-      address,
-      prefAddr: false
+      address
     };
     addrs.push(addr);
-    this.setState({
-        shipAdrs: addrs
-    });
+    this.setState({ shipAdrs: addrs });
   }
 
   onShipAddress() {
+    this.setState({ shipAddrVisible: !this.state.shipAddrVisible });
+  }
+
+  onShipAddrEdit() {
     this.setState({
-      shipAddrVisible: !this.state.shipAddrVisible
+      payCardVisible: !this.state.payCardVisible,
+      //footerVisible: !this.state.footerVisible
     });
   }
 
   selectPayment() {
-    this.setState({
-        payCardVisible: !this.state.payCardVisible
-    });
+    this.setState({ payCardVisible: !this.state.payCardVisible });
   }
 
-  shipAddrsUpdate(shipAddrVisible, addrs, addrCount) {
+  shipAddrsUpdate(shipAddrVisible, addrs, footerVisible) {
     this.setState({
       shipAddrVisible,
       shipAdrs: addrs,
-      addrCount
-     });
+      //addrCount,
+      footerVisible
+    });
+  }
+
+  shipAddrsCancel(shipAddrVisible) {
+    this.setState({ shipAddrVisible });
+  }
+
+  shipAddrDelete() {
+    this.setState({
+      shipAdrs: this.state.shipAdrs.filter((_, i) => i !== this.props.shipAddr),
+      footerVisible: !this.state.footerVisible
+    });
+    this.props.paymentDetailsChanged({ prop: 'shipAddr', value: -1 });
   }
 
   footerVisibleUpdate(footerVisible) {
@@ -71,69 +83,69 @@ class PaymentForm extends Component {
       const aptNum = splitAdd[1];
       const stZip = `${splitAdd[2]},${splitAdd[3]},${splitAdd[4]}`;
       return buttons.push(
-        <View key={ind}>
-          <CardSection
-           style={{ flexDirection: 'column',
-             height: 40,
-             borderRadius: 5,
-             borderWidth: 1,
-             borderColor: '#87cefa' }}
-          >
-           <RadioForm formHorizontal animation>
-             {this.state.types3.map((obj) => {
-               const onPress = (value, index) => {
-                   this.setState({
-                     value3: value,
-                     value3Index: index,
-                     isSelected: true,
-                     footerVisible: true
-                   });
-                   this.props.paymentDetailsChanged(
-                     { prop: 'shipAddr', value: addr.radioIndex });
-                 };
-               return (
-                 <RadioButton labelHorizontal key={ind} >
-                   {/*  You can set RadioButtonLabel before RadioButtonInput */}
-                   <RadioButtonInput
-                     obj={obj}
-                     index={ind}
-                     isSelected={this.props.shipAddr === ind &&
-                       (this.state.isSelected || addr.prefAddr)}
-                     onPress={onPress}
-                     buttonInnerColor={'#2196f3'}
-                     buttonOuterColor={'#000'}
-                     buttonSize={10}
-                     buttonStyle={{}}
-                     buttonWrapStyle={{ marginLeft: 10 }}
-                   />
-                   <RadioButtonLabel
-                     obj={obj}
-                     index={ind}
-                     labelHorizontal
-                     onPress={onPress}
-                     labelStyle={{ fontSize: 18, color: '#000' }}
-                     labelWrapStyle={{}}
-                   />
-                 </RadioButton>
-               );
-             })}
-           </RadioForm>
-          </CardSection>
-          <CardSection
-            style={{ flexDirection: 'column',
+        <View
+          key={ind}
+          style={{ flex: 1,
+            flexDirection: 'row',
+            borderWidth: 1,
             height: 130,
             borderRadius: 5,
-            borderWidth: 1,
             borderColor: '#87cefa' }}
-          >
-            <CardSection>
-             <Text>{'   '}{addr.fullName}{'\n'}{'   '}{streetName}{'\n'}{'   '}{aptNum}{'\n'}{'   '}
-             {stZip}</Text>
-             </CardSection>
-             <CardSection style={{ alignItems: 'flex-end' }}>
-              <Button>EDIT</Button>
-              <Button>DELETE</Button>
+        >
+          <CardSection style={{ flex: 0.8 }}>
+            <CardSection style={{ flexDirection: 'column' }}>
+              <RadioForm formHorizontal animation>
+                  {this.state.types3.map((obj) => {
+                  const onPress = (_, valueIndex) => {
+                    this.setState({
+                      isSelected: true,
+                      footerVisible: true
+                    });
+                    this.props.paymentDetailsChanged(
+                    { prop: 'shipAddr', value: valueIndex });
+                  };
+                  return (
+                    <RadioButton labelHorizontal key={ind} >
+                    {/*  You can set RadioButtonLabel before RadioButtonInput */}
+                      <RadioButtonInput
+                        obj={obj}
+                        index={ind}
+                        isSelected={this.props.shipAddr === ind &&
+                        (this.state.isSelected)}
+                        onPress={onPress}
+                        buttonInnerColor={'#2196f3'}
+                        buttonOuterColor={'#000'}
+                        buttonSize={10}
+                        buttonStyle={{}}
+                        buttonWrapStyle={{ marginLeft: 10 }}
+                      />
+                      <RadioButtonLabel
+                        obj={obj}
+                        index={ind}
+                        labelHorizontal
+                        onPress={onPress}
+                        labelStyle={{ fontSize: 18, color: '#000' }}
+                        labelWrapStyle={{}}
+                      />
+                    </RadioButton>
+                  );
+                })}
+              </RadioForm>
+              <Text>{'   '}{addr.fullName}{'\n'}{'   '}{streetName}{'\n'}{'   '}
+              {aptNum}{'\n'}{'   '}
+              {stZip}</Text>
             </CardSection>
+          </CardSection>
+          <CardSection style={{ flex: 0.2, flexDirection: 'column' }}>
+            <CardSection />
+            {this.props.shipAddr === ind && (this.state.isSelected) &&
+            (<TouchableOpacity
+              style={{ borderWidth: 1, borderColor: '#87cefa' }}
+              onPress={this.shipAddrDelete.bind(this)}
+            >
+              <Text style={{ alignSelf: 'center', fontSize: 13, fontWeight: '700', }}>
+              DELETE</Text>
+            </TouchableOpacity>)}
           </CardSection>
           <CardSection />
           <CardSection />
@@ -144,68 +156,116 @@ class PaymentForm extends Component {
   }
 
   render() {
-    console.log('this.state.footerVisible ', this.state.footerVisible);
+    let selectedAddr = <Text />;
+    if (this.props.shipAddr !== SPACE && typeof this.props.shipAddr !== UNDEFINED &&
+       this.state.shipAdrs.length !== 0 &&
+       typeof this.state.shipAdrs[this.props.shipAddr] !== UNDEFINED) {
+      const splitAdd = this.state.shipAdrs[this.props.shipAddr].address.split(',');
+      const streetName = splitAdd[0];
+      const aptNum = splitAdd[1];
+      const stZip = `${splitAdd[2]},${splitAdd[3]},${splitAdd[4]}`;
+      selectedAddr = (<Text>Sending to{'\n'}
+      {'   '}{this.state.shipAdrs[this.props.shipAddr].fullName}
+      {'\n'}{'   '}{streetName}{'\n'}{'   '}
+      {aptNum}{'\n'}{'   '}
+      {stZip}</Text>);
+    }
     return (
       <View style={{ flex: 1 }}>
         <View style={{ flex: 0.9 }}>
           <ScrollView style={{ backgroundColor: '#fff' }}>
-          <Card>
-            <CardSection style={{ flexDirection: 'column', alignItems: 'center' }}>
-              <Text>Choose shipping address</Text>
-            </CardSection>
-            {this.renderShipAdrrs()}
-            <CardSection>
-              <Button onPress={this.onShipAddress.bind(this)}>
-                Add new address
-              </Button>
-            </CardSection>
-          </Card>
+            { this.state.payCardVisible &&
+              (<View>
+                <Card
+                  style={{ flex: 1,
+                    flexDirection: 'row',
+                    height: 130,
+                    borderRadius: 5,
+                    borderWidth: 1,
+                    borderColor: '#87cefa' }}
+                >
+                  <CardSection style={{ flex: 0.8 }}>
+                    {selectedAddr}
+                  </CardSection>
+                  <CardSection style={{ flex: 0.2, borderWidth: 0 }}>
+                    <TouchableOpacity
+                      onPress={this.onShipAddrEdit.bind(this)}
+                    ><Text>EDIT</Text>
+                    </TouchableOpacity>
+                  </CardSection>
+                </Card>
+              </View>)
+            }
 
-          { this.state.shipAddrVisible &&
-            (<View>
+            { !this.state.payCardVisible &&
+              (<View>
+                <Card>
+                  <CardSection style={{ flexDirection: 'column', alignItems: 'center' }}>
+                    <Text>Choose shipping address</Text>
+                  </CardSection>
+                  {this.renderShipAdrrs()}
+                  <CardSection>
+                    <Button onPress={this.onShipAddress.bind(this)}>
+                      Add new address
+                    </Button>
+                  </CardSection>
+                </Card>
+              </View>)
+            }
+
+            { this.state.shipAddrVisible && !this.state.payCardVisible &&
+              (<View>
               <ShippingAddress
                 onRef={ref => (this.child = ref)} shipAdrs={this.state.shipAdrs}
                 shipAddrVisible={this.state.shipAddrVisible}
-                footerVisible={this.state.footerVisible}
+                shipAddrsCancel={this.shipAddrsCancel.bind(this)}
+                //footerVisible={this.state.footerVisible}
                 shipAddrsUpdate={this.shipAddrsUpdate.bind(this)}
-                footerVisibleUpdate={this.footerVisibleUpdate.bind(this)}
+                //footerVisibleUpdate={this.footerVisibleUpdate.bind(this)}
               />
+              </View>
+            )}
+
+            { this.state.payCardVisible &&
+              (<View>
+                <Text>Payment details</Text>
+                {/*<SelectPaymentForm onRef={ref => (this.child = ref)} />*/}
+              </View>
+            )}
+          </ScrollView>
         </View>
-      )}
-
-      { this.state.payCardVisible &&
-        (<View>
-        <SelectPaymentForm onRef={ref => (this.child = ref)} />
+        { this.state.footerVisible && this.state.shipAdrs.length !== 0 &&
+          (<View style={{ flex: 0.1 }}>
+            { !this.state.payCardVisible &&
+              (<Button onPress={this.selectPayment.bind(this)}>
+                Continue
+              </Button>)
+            }
+            { this.state.payCardVisible &&
+              (<Button>
+                Review your order
+              </Button>)
+            }
+          </View>
+        )}
       </View>
-    )}
-
-    </ScrollView>
-    </View>
-    { this.state.footerVisible &&
-      (<View style={{ flex: 0.1 }}>
-          <Button onPress={this.selectPayment.bind(this)}>
-            Continue
-          </Button>
-     </View>
-   )}
-  </View>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { shipFullName, error, loading,
-    shipAddrStreet, shipAddrApt, shipState, shipCity, shipZip, shipAddr } = state.payment;
-  return { user: state.user,
-    shipAddr,
-    shipFullName,
-    error,
-    loading,
-    shipAddrStreet,
-    shipAddrApt,
-    shipState,
-    shipCity,
-    shipZip };
+const { shipFullName, error, loading,
+shipAddrStreet, shipAddrApt, shipState, shipCity, shipZip, shipAddr } = state.payment;
+return { user: state.user,
+shipAddr,
+shipFullName,
+error,
+loading,
+shipAddrStreet,
+shipAddrApt,
+shipState,
+shipCity,
+shipZip };
 };
 
 export default connect(mapStateToProps, { paymentDetailsChanged, userDetailsChanged })(PaymentForm);

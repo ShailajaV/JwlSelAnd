@@ -40,3 +40,4 @@ export const ADD_CART_FAIL = 'add_cart_fail';
 //PaymentForm
 export const PAYMENT_USER = 'payment_user';
 export const PAYMENT_DETAILS_CHANGED = 'payment_details_changed';
+export const RESET_SHIP_ADDR = 'reset_ship_addr';

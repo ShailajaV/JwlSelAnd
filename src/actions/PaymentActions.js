@@ -1,6 +1,6 @@
 /* payment related information */
 import { Actions } from 'react-native-router-flux';
-import { PAYMENT_USER, PAYMENT_DETAILS_CHANGED } from './types';
+import { PAYMENT_USER, PAYMENT_DETAILS_CHANGED, RESET_SHIP_ADDR } from './types';
 import { firebaseAuth } from '../FirebaseConfig';
 
 /* Assign all payment values to corresponding keys
@@ -16,7 +16,7 @@ export const paymentDetailsChanged = ({ prop, value }) => {
 
 /* Checkout the cart
 * @parameter:
-* @return : BillingForm
+* @return : PaymentForm
 */
 export const checkout = () => {
   const { currentUser } = firebaseAuth;
@@ -26,5 +26,17 @@ export const checkout = () => {
       dispatch({ type: PAYMENT_USER });
       Actions.payment();
     }
+  };
+};
+
+/* set address values to default
+* @parameter:
+* @return : PaymentForm
+*/
+export const resetShipAddrValues = () => {
+  console.log('resetShipAddrValues');
+  return (dispatch) => {
+    dispatch({ type: RESET_SHIP_ADDR });
+    Actions.payment();
   };
 };
