@@ -5,7 +5,7 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from
 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 import { Card, CardSection, Button } from '../common';
-import { paymentDetailsChanged, userDetailsChanged } from '../../actions';
+import { paymentDetailsChanged, userDetailsChanged, reviewOrder } from '../../actions';
 import ShippingAddress from '../checkout/ShippingAddress';
 //import SelectPaymentForm from '../checkout/SelectPaymentForm';
 import { SPACE, UNDEFINED } from '../../actions/constants';
@@ -24,15 +24,17 @@ class PaymentForm extends Component {
   }
 
   componentWillMount() {
-    const { fullName, address } = this.props.user;
-    const addrs = [];
-    const addr = {
-      //radioIndex: 0,
-      fullName,
-      address
-    };
-    addrs.push(addr);
-    this.setState({ shipAdrs: addrs });
+    if (this.props.shipAdrs.length !== 0) this.setState({ shipAdrs: this.props.shipAdrs });
+    else {
+      const { fullName, address } = this.props.user;
+      const addrs = [];
+      const addr = {
+        fullName,
+        address
+      };
+      addrs.push(addr);
+      this.setState({ shipAdrs: addrs });
+    }
   }
 
   onShipAddress() {
@@ -41,8 +43,7 @@ class PaymentForm extends Component {
 
   onShipAddrEdit() {
     this.setState({
-      payCardVisible: !this.state.payCardVisible,
-      //footerVisible: !this.state.footerVisible
+      payCardVisible: !this.state.payCardVisible
     });
   }
 
@@ -54,7 +55,6 @@ class PaymentForm extends Component {
     this.setState({
       shipAddrVisible,
       shipAdrs: addrs,
-      //addrCount,
       footerVisible
     });
   }
@@ -75,7 +75,14 @@ class PaymentForm extends Component {
     this.setState({ footerVisible });
   }
 
-  renderShipAdrrs = () => {
+  savePaymentDetails() {
+    this.props.reviewOrder({ shipAdrs: this.state.shipAdrs,
+      shipAddrIndex: this.props.shipAddr
+      // payment details yet to implement
+    });
+  }
+
+  renderShipAddrs = () => {
     const buttons = [];
     this.state.shipAdrs.map((addr, ind) => {
       const splitAdd = addr.address.split(',');
@@ -171,9 +178,9 @@ class PaymentForm extends Component {
       {stZip}</Text>);
     }
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
         <View style={{ flex: 0.9 }}>
-          <ScrollView style={{ backgroundColor: '#fff' }}>
+          <ScrollView>
             { this.state.payCardVisible &&
               (<View>
                 <Card
@@ -203,7 +210,7 @@ class PaymentForm extends Component {
                   <CardSection style={{ flexDirection: 'column', alignItems: 'center' }}>
                     <Text>Choose shipping address</Text>
                   </CardSection>
-                  {this.renderShipAdrrs()}
+                  {this.renderShipAddrs()}
                   <CardSection>
                     <Button onPress={this.onShipAddress.bind(this)}>
                       Add new address
@@ -229,20 +236,21 @@ class PaymentForm extends Component {
             { this.state.payCardVisible &&
               (<View>
                 <Text>Payment details</Text>
-                {/*<SelectPaymentForm onRef={ref => (this.child = ref)} />*/}
+                {/*// payment details yet to implement
+                  <SelectPaymentForm onRef={ref => (this.child = ref)} />*/}
               </View>
             )}
           </ScrollView>
         </View>
         { this.state.footerVisible && this.state.shipAdrs.length !== 0 &&
-          (<View style={{ flex: 0.1 }}>
+          (<View style={{ flex: 0.1, backgroundColor: '#FFA500' }}>
             { !this.state.payCardVisible &&
               (<Button onPress={this.selectPayment.bind(this)}>
                 Continue
               </Button>)
             }
             { this.state.payCardVisible &&
-              (<Button>
+              (<Button onPress={this.savePaymentDetails.bind(this)}>
                 Review your order
               </Button>)
             }
@@ -254,18 +262,21 @@ class PaymentForm extends Component {
 }
 
 const mapStateToProps = (state) => {
-const { shipFullName, error, loading,
-shipAddrStreet, shipAddrApt, shipState, shipCity, shipZip, shipAddr } = state.payment;
-return { user: state.user,
-shipAddr,
-shipFullName,
-error,
-loading,
-shipAddrStreet,
-shipAddrApt,
-shipState,
-shipCity,
-shipZip };
+  const { shipFullName, error, loading, shipAddrStreet, shipAddrApt, shipState, shipCity, shipZip,
+    shipAddr, shipAdrs, cards } = state.payment;
+  return { user: state.user,
+    shipAddr,
+    shipFullName,
+    error,
+    loading,
+    shipAddrStreet,
+    shipAddrApt,
+    shipState,
+    shipCity,
+    shipZip,
+    shipAdrs,
+    cards };
 };
 
-export default connect(mapStateToProps, { paymentDetailsChanged, userDetailsChanged })(PaymentForm);
+export default connect(mapStateToProps,
+  { paymentDetailsChanged, userDetailsChanged, reviewOrder })(PaymentForm);

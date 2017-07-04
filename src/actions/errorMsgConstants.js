@@ -57,3 +57,7 @@ export const ERRMSG_STRG_FILESIZE =
 
   //cart error messages
   export const ERRMSG_CART_ADD_FAILED = 'Adding cart details failed.';
+
+  //payment error messages
+  //export const ERRMSG_CARD_ADD_FAILED = 'Adding card details failed.';
+  export const ERRMSG_PAYMENT_ADD_FAILED = 'Adding payment details failed.';

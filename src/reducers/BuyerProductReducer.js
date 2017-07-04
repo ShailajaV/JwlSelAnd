@@ -20,10 +20,10 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, {
         sellers: action.payload
       });
-      case SELECTED_SELLER_SUCCESS:
+    case SELECTED_SELLER_SUCCESS:
       return Object.assign({}, state, {
         selectedSeller: action.payload
-      });
+    });
     default:
       return state;
   }
