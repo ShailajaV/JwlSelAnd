@@ -43,7 +43,7 @@ class ShippingAddress extends Component {
       const addr = {
         //radioIndex: this.state.addrCount + 1,
         fullName: shipFullName,
-        address: `${shipAddrStreet},${shipAddrApt},${shipState},${shipCity},${shipZip}`,
+        address: `${shipAddrStreet},${shipAddrApt},${shipCity},${shipState},${shipZip}`,
       };
       addrs.push(addr);
       /*this.props.paymentDetailsChanged(

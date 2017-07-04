@@ -12,7 +12,7 @@ import {
   KEY_PRODUCT_EDIT, KEY_SELLER_MENU, KEY_SELLER_MENU_PROFILE,
   KEY_BUYER_MENU, KEY_BUYER_MENU_PROFILE, KEY_CHAT, KEY_SELLER_CHAT,
   KEY_BUYER_PRODUCTS_LIST, KEY_SELECTED_PRODUCT, KEY_CART, KEY_PAYMENT,
-  KEY_ADDCARD
+  KEY_ADDCARD, KEY_REVIEW_ORDER
 } from './actions/constants';
 
 const RouterComponent = () => {
@@ -98,6 +98,11 @@ const RouterComponent = () => {
         <Scene
           key={KEY_ADDCARD}
           item='addCard'
+          component={BuyerMenuProfile} hideNavBar
+        />
+        <Scene
+          key={KEY_REVIEW_ORDER}
+          item='reviewOrder'
           component={BuyerMenuProfile} hideNavBar
         />
       </Scene>

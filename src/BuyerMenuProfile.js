@@ -16,6 +16,7 @@ import PaymentForm from './components/payment/PaymentForm';
 import AddCard from './components/checkout/AddCard';
 import SelectPaymentForm from './components/checkout/SelectPaymentForm';
 //import StripeAddCardExample from './src/stripeAddCardExample'
+import ReviewOrderForm from './components/order/ReviewOrderForm';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -73,6 +74,9 @@ class BuyerMenuProfile extends Component {
             return <PaymentForm />;
           case 'addCard':
             return <AddCard />;
+          case 'reviewOrder':
+          console.log('ReviewOrderForm');
+            return <ReviewOrderForm />;
           default:
             return <SellersList />;
         }
