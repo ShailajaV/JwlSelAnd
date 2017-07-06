@@ -1,9 +1,11 @@
 /* payment related information */
 import { Actions } from 'react-native-router-flux';
 import { PAYMENT_USER, PAYMENT_DETAILS_CHANGED, RESET_SHIP_ADDR, FETCH_PAYMENT_DETAILS_SUCCESS,
-  SAVE_PAYMENT_DETAILS_SUCCESS, SAVE_PAYMENT_DETAILS_FAIL } from './types';
+  SAVE_PAYMENT_DETAILS_SUCCESS, SAVE_PAYMENT_DETAILS_FAIL, PLACE_ORDER_SUCCESS, PLACE_ORDER_FAIL
+ } from './types';
 import { firebaseAuth, firebaseDatabase } from '../FirebaseConfig';
-import { ERRMSG_PAYMENT_ADD_FAILED } from './errorMsgConstants';
+import { ERRMSG_PAYMENT_ADD_FAILED, ERRMSG_PLACE_ORDER_FAILED } from './errorMsgConstants';
+import { SPACE } from './constants';
 
 /* Assign all payment values to corresponding keys
 * @parameter: prop, value
@@ -25,7 +27,7 @@ export const checkout = () => {
   return (dispatch) => {
     if (currentUser === null) Actions.auth();
     else {
-      firebaseDatabase.ref(`/order/${currentUser.uid}/`)
+      firebaseDatabase.ref(`/checkout/${currentUser.uid}/`)
       .once('value').then(snapshot => {
           dispatch({ type: FETCH_PAYMENT_DETAILS_SUCCESS,
             shipAddresses: snapshot.val().shipAddresses,
@@ -59,33 +61,104 @@ export const reviewOrder = ({ shipAdrs, shipAddrIndex }) => {
   const { currentUser } = firebaseAuth;
   const shipAddresses = [];
   //Add the preffered shipping address column
-  Object.values(shipAdrs).map((addr, ind) => {
-    const address = {};
-    address.fullName = addr.fullName;
-    address.address = addr.address;
-    if (ind === shipAddrIndex) address.prefShipAddr = true;
-    else address.prefShipAddr = false;
-    shipAddresses.push(address);
-    return shipAddresses;
-  });
+  if (shipAddrIndex !== SPACE) {
+    Object.values(shipAdrs).map((addr, ind) => {
+      const address = {};
+      address.fullName = addr.fullName;
+      address.address = addr.address;
+      if (ind === shipAddrIndex) address.prefShipAddr = true;
+      else address.prefShipAddr = false;
+      shipAddresses.push(address);
+      return shipAddresses;
+    });
+  }
   return (dispatch) => {
-    firebaseDatabase.ref(`/order/${currentUser.uid}/`).set({ shipAddresses })
-    .then(() => {
-      //dispatch({ type: ADD_SHIPADDRESS_SUCCESS, shipAddresses });
-      // Payment cards yet to implement
-      firebaseDatabase.ref(`/order/${currentUser.uid}/`).update({ cards: shipAddresses })
+    if (shipAddrIndex !== SPACE) {
+      firebaseDatabase.ref(`/checkout/${currentUser.uid}/`).set({ shipAddresses })
       .then(() => {
-        console.log('reviewOrder');
-        dispatch({ type: SAVE_PAYMENT_DETAILS_SUCCESS, shipAddresses, cards: shipAddresses });
-        //Actions.reviewOrder();
+        // Payment cards yet to implement
+        firebaseDatabase.ref(`/checkout/${currentUser.uid}/`).update({ cards: shipAddresses })
+        .then(() => {
+          dispatch({ type: SAVE_PAYMENT_DETAILS_SUCCESS, shipAddresses, cards: shipAddresses });
+          Actions.reviewOrder();
+        })
+        .catch(() => {
+          dispatch({ type: SAVE_PAYMENT_DETAILS_FAIL, payload: ERRMSG_PAYMENT_ADD_FAILED });
+        });
       })
       .catch(() => {
         dispatch({ type: SAVE_PAYMENT_DETAILS_FAIL, payload: ERRMSG_PAYMENT_ADD_FAILED });
       });
-    })
-    .catch(() => {
-      dispatch({ type: SAVE_PAYMENT_DETAILS_FAIL, payload: ERRMSG_PAYMENT_ADD_FAILED });
+    }
+  };
+};
+
+/* insert payment details and generate order
+* @parameter:
+* @return : ConfirmOrder
+*/
+export const placeOrder = ({ cartItems, shipAdrs, shipAddrIndex }) => {
+  const { currentUser } = firebaseAuth;
+  const shipAddresses = [];
+  let perfAddr = {};
+  //Add the preffered shipping address column
+  if (shipAddrIndex !== SPACE) {
+    Object.values(shipAdrs).map((addr, ind) => {
+      const address = {};
+      address.fullName = addr.fullName;
+      address.address = addr.address;
+      if (ind === shipAddrIndex) {
+        address.prefShipAddr = true;
+        perfAddr = address;
+      } else address.prefShipAddr = false;
+      shipAddresses.push(address);
+      return shipAddresses;
     });
-    Actions.reviewOrder();
+  } else {
+    Object.values(shipAdrs).map((addr) => {
+      if (addr.prefShipAddr) perfAddr = addr;
+      return perfAddr;
+    });
+  }
+  return (dispatch) => {
+    const uniqueId = (Date.now().toString(36) + Math.random().toString(36).substr(2, 5))
+      .toUpperCase();
+    const orderDetails = {
+      perfAddr,
+      cartItems
+    };
+    if (shipAddrIndex !== SPACE) {
+      firebaseDatabase.ref(`/checkout/${currentUser.uid}/`).set({ shipAddresses })
+      .then(() => {
+        // Payment cards yet to implement
+        firebaseDatabase.ref(`/checkout/${currentUser.uid}/`).update({ cards: shipAddresses })
+        .then(() => {
+          firebaseDatabase.ref(`/order/${currentUser.uid}/${uniqueId}/`).set({ orderDetails })
+          .then(() => {
+            dispatch({ type: PLACE_ORDER_SUCCESS, payload: uniqueId });
+            firebaseDatabase.ref(`/cart/${currentUser.uid}`).delete();
+          })
+          .catch(() => {
+            dispatch({ type: PLACE_ORDER_FAIL, payload: ERRMSG_PLACE_ORDER_FAILED });
+          });
+        })
+        .catch(() => {
+          dispatch({ type: SAVE_PAYMENT_DETAILS_FAIL, payload: ERRMSG_PAYMENT_ADD_FAILED });
+        });
+      })
+      .catch(() => {
+        dispatch({ type: SAVE_PAYMENT_DETAILS_FAIL, payload: ERRMSG_PAYMENT_ADD_FAILED });
+      });
+    } else {
+      firebaseDatabase.ref(`/order/${currentUser.uid}/${uniqueId}/`).set({ orderDetails })
+      .then(() => {
+        dispatch({ type: PLACE_ORDER_SUCCESS, payload: uniqueId });
+        firebaseDatabase.ref(`/cart/${currentUser.uid}/`).remove();
+      })
+      .catch(() => {
+        dispatch({ type: PLACE_ORDER_FAIL, payload: ERRMSG_PLACE_ORDER_FAILED });
+      });
+    }
+    Actions.placeOrder();
   };
 };

@@ -17,6 +17,7 @@ import AddCard from './components/checkout/AddCard';
 import SelectPaymentForm from './components/checkout/SelectPaymentForm';
 //import StripeAddCardExample from './src/stripeAddCardExample'
 import ReviewOrderForm from './components/order/ReviewOrderForm';
+import ConfirmOrder from './components/order/ConfirmOrder';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -53,8 +54,6 @@ class BuyerMenuProfile extends Component {
         return <ChatUsersList />;
       case 'SelectPayment':
         return <SelectPaymentForm />;
-      case 'AddCard':
-        return <AddCard />;
       case 'Logout':
         this.props.logOut();
         return <SellersList />;
@@ -75,8 +74,9 @@ class BuyerMenuProfile extends Component {
           case 'addCard':
             return <AddCard />;
           case 'reviewOrder':
-          console.log('ReviewOrderForm');
             return <ReviewOrderForm />;
+          case 'placeOrder':
+            return <ConfirmOrder />;
           default:
             return <SellersList />;
         }

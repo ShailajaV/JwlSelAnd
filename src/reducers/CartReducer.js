@@ -14,7 +14,7 @@ export default (state = INITIAL_STATE, action) => {
       });
     case ADD_CART_SUCCESS:
       return Object.assign({}, state, {
-        cartItems: action.payload
+        cartItems: (action.payload === null ? [] : action.payload)
       });
     case ADD_CART_FAIL:
       return Object.assign({}, state, {

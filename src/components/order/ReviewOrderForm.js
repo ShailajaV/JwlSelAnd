@@ -6,9 +6,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from
 'react-native-simple-radio-button';
 import { Card, CardSection, Button } from '../common';
-import { paymentDetailsChanged } from '../../actions';
+import { paymentDetailsChanged, placeOrder } from '../../actions';
 import { UNDEFINED, SPACE } from '../../actions/constants';
 import ShippingAddress from '../checkout/ShippingAddress';
+import ItemsEstimatedCost from '../checkout/ItemsEstimatedCost';
 
 class ReviewOrderForm extends Component {
   constructor() {
@@ -78,7 +79,11 @@ class ReviewOrderForm extends Component {
     this.setState({ shipAddrVisible: !this.state.shipAddrVisible });
   }
   savePaymentDetails() {
-    console.log('savePaymentDetails');
+    this.props.placeOrder({ cartItems: this.props.cartItems,
+      shipAdrs: this.state.shipAdrs,
+      shipAddrIndex: this.props.revShipAddr
+      // payment details yet to implement
+    });
   }
   shipAddrsUpdate(shipAddrVisible, addrs, footerVisible) {
     this.setState({
@@ -135,19 +140,13 @@ class ReviewOrderForm extends Component {
                         index={ind}
                         isSelected={this.props.revShipAddr === ind}
                         onPress={onPress}
-                        buttonInnerColor={'#2196f3'}
-                        buttonOuterColor={'#000'}
                         buttonSize={10}
-                        buttonStyle={{}}
-                        buttonWrapStyle={{ marginLeft: 10 }}
                       />
                       <RadioButtonLabel
                         obj={obj}
                         index={ind}
                         labelHorizontal
                         onPress={onPress}
-                        labelStyle={{ fontSize: 18, color: '#000' }}
-                        labelWrapStyle={{}}
                       />
                     </RadioButton>
                   );
@@ -296,6 +295,7 @@ class ReviewOrderForm extends Component {
               </View>)
             }
           </Card>
+          <ItemsEstimatedCost onRef={ref => (this.child = ref)} />
         </ScrollView>
         </View>
 
@@ -319,7 +319,7 @@ class ReviewOrderForm extends Component {
 }
 const mapStateToProps = (state) => {
   const { shipAdrs, cards, revShipAddr } = state.payment;
-  return { shipAdrs, cards, revShipAddr };
+  return { shipAdrs, cards, revShipAddr, cartItems: state.cartForm.cartItems };
 };
 
-export default connect(mapStateToProps, { paymentDetailsChanged })(ReviewOrderForm);
+export default connect(mapStateToProps, { paymentDetailsChanged, placeOrder })(ReviewOrderForm);
