@@ -41,12 +41,10 @@ export const ADD_CART_FAIL = 'add_cart_fail';
 export const PAYMENT_USER = 'payment_user';
 export const PAYMENT_DETAILS_CHANGED = 'payment_details_changed';
 export const RESET_SHIP_ADDR = 'reset_ship_addr';
-/*export const ADD_SHIPADDRESS_SUCCESS = 'add_shipaddress_success';
-export const ADD_SHIPADDRESS_FAIL = 'add_shipaddress_fail';
-export const ADD_CARDS_SUCCESS = 'add_cards_success';
-export const ADD_CARDS_FAIL = 'add_careds_fail';
-export const FETCH_SHIPADDRESS_SUCCESS = 'fetch_shipaddress_success';
-export const FETCH_CARDS_SUCCESS = 'fetch_cards_success';*/
 export const FETCH_PAYMENT_DETAILS_SUCCESS = 'fetch_payment_details_success';
 export const SAVE_PAYMENT_DETAILS_SUCCESS = 'save_payment_details_success';
 export const SAVE_PAYMENT_DETAILS_FAIL = 'save_payment_details_fail';
+
+//OrderForm
+export const PLACE_ORDER_SUCCESS = 'place_order_success';
+export const PLACE_ORDER_FAIL = 'place_order_fail';

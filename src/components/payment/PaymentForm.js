@@ -5,7 +5,7 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from
 'react-native-simple-radio-button';
 import { connect } from 'react-redux';
 import { Card, CardSection, Button } from '../common';
-import { paymentDetailsChanged, userDetailsChanged, reviewOrder } from '../../actions';
+import { paymentDetailsChanged, reviewOrder } from '../../actions';
 import ShippingAddress from '../checkout/ShippingAddress';
 //import SelectPaymentForm from '../checkout/SelectPaymentForm';
 import { SPACE, UNDEFINED } from '../../actions/constants';
@@ -120,19 +120,13 @@ class PaymentForm extends Component {
                         isSelected={this.props.shipAddr === ind &&
                         (this.state.isSelected)}
                         onPress={onPress}
-                        buttonInnerColor={'#2196f3'}
-                        buttonOuterColor={'#000'}
                         buttonSize={10}
-                        buttonStyle={{}}
-                        buttonWrapStyle={{ marginLeft: 10 }}
                       />
                       <RadioButtonLabel
                         obj={obj}
                         index={ind}
                         labelHorizontal
                         onPress={onPress}
-                        labelStyle={{ fontSize: 18, color: '#000' }}
-                        labelWrapStyle={{}}
                       />
                     </RadioButton>
                   );
@@ -279,4 +273,4 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps,
-  { paymentDetailsChanged, userDetailsChanged, reviewOrder })(PaymentForm);
+  { paymentDetailsChanged, reviewOrder })(PaymentForm);

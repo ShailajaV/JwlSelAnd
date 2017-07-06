@@ -23,7 +23,7 @@ export default (state = INITIAL_STATE, action) => {
     case SELECTED_SELLER_SUCCESS:
       return Object.assign({}, state, {
         selectedSeller: action.payload
-      });
+    });
     default:
       return state;
   }

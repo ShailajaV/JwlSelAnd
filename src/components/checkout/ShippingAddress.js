@@ -49,6 +49,7 @@ class ShippingAddress extends Component {
       /*this.props.paymentDetailsChanged(
         { prop: 'shipAddr', value: addr.radioIndex });*/
         //update ship address state variables
+        console.log('addrs ', addrs);
       this.props.shipAddrsUpdate(
         !this.props.shipAddrVisible, addrs, false);
       // reset all the fields after adding address

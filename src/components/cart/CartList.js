@@ -1,14 +1,15 @@
 /* List of items in cart */
-import _ from 'lodash';
 import React, { Component } from 'react';
-import { Text, ListView } from 'react-native';
+import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import CartForm from './CartForm';
 import { Card, CardSection, Button } from '../common';
 import { checkout } from '../../actions';
+import ItemsEstimatedCost from '../checkout/ItemsEstimatedCost';
 
 class CartList extends Component {
   componentWillMount() {
+    console.log('this.props ', this.props);
     this.createDataSource(this.props);
   }
 
@@ -46,47 +47,20 @@ class CartList extends Component {
   }
 
   render() {
-    let subTotal = 0;
-    let valShipping = 0;
-    let estTax = 0;
-    let quantity = 0;
-    _.map(this.props.cartItems, (val) => {
-      subTotal = parseFloat(subTotal) + parseFloat(val.rentExpected);
-      valShipping = parseFloat(valShipping) + parseFloat(val.shippingCost);
-      valShipping = parseFloat(valShipping).toFixed(2);
-      estTax = parseFloat(estTax) + parseFloat(val.estTax);
-      estTax = parseFloat(estTax).toFixed(2);
-      quantity = parseInt(quantity, 10) + parseInt(val.quantity, 10);
-    });
-    const estTotal =
-    parseFloat(parseFloat(subTotal) + parseFloat(valShipping) + parseFloat(estTax)).toFixed(2);
+    let cartLength = 0;
+    if (this.props.cartItems === null || this.props.cartItems.length === 0) cartLength = 0;
+    else cartLength = 1;
+    let checkoutView = (<CardSection>
+      <Button onPress={this.onCheckout.bind(this)}>
+        Check Out
+      </Button>
+    </CardSection>);
+    if (cartLength === 0) checkoutView = <CardSection />;
     return (
       <Card>
       {this.renderListView()}
-      <CardSection>
-        <Text>You just added {quantity} item/s</Text>
-      </CardSection>
-      <CardSection>
-        <Text>Subtotal(1 item)</Text>
-        <Text>{subTotal}</Text>
-      </CardSection>
-      <CardSection>
-        <Text>Value shipping</Text>
-        <Text>{valShipping}</Text>
-      </CardSection>
-      <CardSection>
-        <Text>Est.Tax</Text>
-        <Text>{estTax}</Text>
-      </CardSection>
-      <CardSection>
-        <Text>Est.Total</Text>
-        <Text>{estTotal}</Text>
-      </CardSection>
-      <CardSection>
-        <Button onPress={this.onCheckout.bind(this)}>
-          Check Out
-        </Button>
-      </CardSection>
+      <ItemsEstimatedCost onRef={ref => (this.child = ref)} />
+      {checkoutView}
     </Card>
     );
   }

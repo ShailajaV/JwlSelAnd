@@ -131,3 +131,6 @@ export const KEY_ADDCARD = 'addCard';
 
 //Review order form
 export const KEY_REVIEW_ORDER = 'reviewOrder';
+
+//Confirm order form
+export const KEY_PLACE_ORDER = 'placeOrder';
