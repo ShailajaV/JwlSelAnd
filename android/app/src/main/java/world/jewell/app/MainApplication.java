@@ -11,7 +11,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-
+import com.chirag.RNMail.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +30,8 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new ImagePickerPackage(),
 			new RNFetchBlobPackage(),
-			new RNFSPackage()
+			new RNFSPackage(),
+			new RNMail()
       );
     }
   };

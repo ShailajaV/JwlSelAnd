@@ -310,7 +310,7 @@ export default {
 
    titleStyle: {
      fontSize: 18,
-     color: '#ddd',
+     //color: '#ddd',
      paddingLeft: 15
    },
 

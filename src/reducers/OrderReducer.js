@@ -1,5 +1,6 @@
 /* This file contains order related reducers */
-import { PLACE_ORDER_SUCCESS, PLACE_ORDER_FAIL } from '../actions/types';
+import { PLACE_ORDER_SUCCESS, PLACE_ORDER_FAIL, FETCH_ORDER_HISTORY_SUCCESS, CART_DELETE_FAIL }
+  from '../actions/types';
 
 const INITIAL_STATE = {
   orderId: '',
@@ -12,6 +13,10 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, { orderId: action.payload });
     case PLACE_ORDER_FAIL:
       return { ...state, error: action.payload };
+    case CART_DELETE_FAIL:
+      return { ...state, error: action.payload };
+    case FETCH_ORDER_HISTORY_SUCCESS:
+      return Object.assign({}, state, { orders: action.payload });
     default:
       return state;
   }

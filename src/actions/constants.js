@@ -134,3 +134,4 @@ export const KEY_REVIEW_ORDER = 'reviewOrder';
 
 //Confirm order form
 export const KEY_PLACE_ORDER = 'placeOrder';
+export const KEY_ORDER_HISTORY_FORM = 'orderHistoryForm';

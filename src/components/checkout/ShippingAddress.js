@@ -15,8 +15,7 @@ class ShippingAddress extends Component {
   constructor() {
     super();
     this.state = {
-      errors: {},
-      //addrCount: 0
+      errors: {}
     };
     this.validations = this.validations.bind(this);
   }
@@ -41,26 +40,16 @@ class ShippingAddress extends Component {
        = this.props;
        //newly added address
       const addr = {
-        //radioIndex: this.state.addrCount + 1,
         fullName: shipFullName,
         address: `${shipAddrStreet},${shipAddrApt},${shipCity},${shipState},${shipZip}`,
       };
       addrs.push(addr);
-      /*this.props.paymentDetailsChanged(
-        { prop: 'shipAddr', value: addr.radioIndex });*/
         //update ship address state variables
         console.log('addrs ', addrs);
       this.props.shipAddrsUpdate(
         !this.props.shipAddrVisible, addrs, false);
       // reset all the fields after adding address
       this.props.resetShipAddrValues();
-      /*const { fullName, addrStreet, addrApt, state, city, zip } = this.props;
-      this.props.createUserAccount({ fullName,
-        addrStreet,
-        addrApt,
-        state,
-        city,
-        zip });*/
     }
   }
 

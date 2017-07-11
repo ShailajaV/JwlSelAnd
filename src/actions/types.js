@@ -48,3 +48,5 @@ export const SAVE_PAYMENT_DETAILS_FAIL = 'save_payment_details_fail';
 //OrderForm
 export const PLACE_ORDER_SUCCESS = 'place_order_success';
 export const PLACE_ORDER_FAIL = 'place_order_fail';
+export const FETCH_ORDER_HISTORY_SUCCESS = 'fetch_order_history_success';
+export const CART_DELETE_FAIL = 'cart_delete_fail';
