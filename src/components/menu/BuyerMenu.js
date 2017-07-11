@@ -15,12 +15,7 @@ const authList = [
   subtitle: ' '
 },
 {
-  name: 'SelectPayment',
-  avatar_url: ' ',
-  subtitle: ' '
-},
-{
-  name: 'AddCard',
+  name: 'OrderHistory',
   avatar_url: ' ',
   subtitle: ' '
 },
@@ -34,11 +29,6 @@ const authList = [
 const nonAuthList = [
 {
   name: 'AllProducts',
-  avatar_url: ' ',
-  subtitle: ' '
-},
-{
-  name: 'Chat',
   avatar_url: ' ',
   subtitle: ' '
 }

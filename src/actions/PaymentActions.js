@@ -1,10 +1,14 @@
 /* payment related information */
 import { Actions } from 'react-native-router-flux';
+import { AsyncStorage } from 'react-native';
+/*import { email } from 'react-native-communications';
+import Mailer from 'react-native-mail';*/
 import { PAYMENT_USER, PAYMENT_DETAILS_CHANGED, RESET_SHIP_ADDR, FETCH_PAYMENT_DETAILS_SUCCESS,
-  SAVE_PAYMENT_DETAILS_SUCCESS, SAVE_PAYMENT_DETAILS_FAIL, PLACE_ORDER_SUCCESS, PLACE_ORDER_FAIL
- } from './types';
+  SAVE_PAYMENT_DETAILS_SUCCESS, SAVE_PAYMENT_DETAILS_FAIL, PLACE_ORDER_SUCCESS, PLACE_ORDER_FAIL,
+  CART_DELETE_FAIL } from './types';
 import { firebaseAuth, firebaseDatabase } from '../FirebaseConfig';
-import { ERRMSG_PAYMENT_ADD_FAILED, ERRMSG_PLACE_ORDER_FAILED } from './errorMsgConstants';
+import { ERRMSG_PAYMENT_ADD_FAILED, ERRMSG_PLACE_ORDER_FAILED, ERRMSG_CART_DELETE_FAILED }
+ from './errorMsgConstants';
 import { SPACE } from './constants';
 
 /* Assign all payment values to corresponding keys
@@ -100,7 +104,7 @@ export const reviewOrder = ({ shipAdrs, shipAddrIndex }) => {
 export const placeOrder = ({ cartItems, shipAdrs, shipAddrIndex }) => {
   const { currentUser } = firebaseAuth;
   const shipAddresses = [];
-  let perfAddr = {};
+  let prefAddr = {};
   //Add the preffered shipping address column
   if (shipAddrIndex !== SPACE) {
     Object.values(shipAdrs).map((addr, ind) => {
@@ -109,24 +113,26 @@ export const placeOrder = ({ cartItems, shipAdrs, shipAddrIndex }) => {
       address.address = addr.address;
       if (ind === shipAddrIndex) {
         address.prefShipAddr = true;
-        perfAddr = address;
+        prefAddr = address;
       } else address.prefShipAddr = false;
       shipAddresses.push(address);
       return shipAddresses;
     });
   } else {
     Object.values(shipAdrs).map((addr) => {
-      if (addr.prefShipAddr) perfAddr = addr;
-      return perfAddr;
+      if (addr.prefShipAddr) prefAddr = addr;
+      return prefAddr;
     });
   }
   return (dispatch) => {
     const uniqueId = (Date.now().toString(36) + Math.random().toString(36).substr(2, 5))
       .toUpperCase();
     const orderDetails = {
-      perfAddr,
+      createdAt: new Date().toString(),
+      prefAddr,
       cartItems
     };
+    console.log('orderDetails ', orderDetails);
     if (shipAddrIndex !== SPACE) {
       firebaseDatabase.ref(`/checkout/${currentUser.uid}/`).set({ shipAddresses })
       .then(() => {
@@ -136,7 +142,11 @@ export const placeOrder = ({ cartItems, shipAdrs, shipAddrIndex }) => {
           firebaseDatabase.ref(`/order/${currentUser.uid}/${uniqueId}/`).set({ orderDetails })
           .then(() => {
             dispatch({ type: PLACE_ORDER_SUCCESS, payload: uniqueId });
-            firebaseDatabase.ref(`/cart/${currentUser.uid}`).delete();
+            firebaseDatabase.ref(`/cart/${currentUser.uid}/`).remove()
+            .then(async() => await AsyncStorage.removeItem('addToCart'))
+            .catch(() => {
+              dispatch({ type: CART_DELETE_FAIL, payload: ERRMSG_CART_DELETE_FAILED });
+            });
           })
           .catch(() => {
             dispatch({ type: PLACE_ORDER_FAIL, payload: ERRMSG_PLACE_ORDER_FAILED });
@@ -150,10 +160,38 @@ export const placeOrder = ({ cartItems, shipAdrs, shipAddrIndex }) => {
         dispatch({ type: SAVE_PAYMENT_DETAILS_FAIL, payload: ERRMSG_PAYMENT_ADD_FAILED });
       });
     } else {
+      console.log('orderDetailsinelse ', orderDetails);
       firebaseDatabase.ref(`/order/${currentUser.uid}/${uniqueId}/`).set({ orderDetails })
       .then(() => {
         dispatch({ type: PLACE_ORDER_SUCCESS, payload: uniqueId });
-        firebaseDatabase.ref(`/cart/${currentUser.uid}/`).remove();
+        const urls = [];
+        Object.values(cartItems).map((cartItem) => {
+          urls.push(cartItem.url);
+          return cartItems;
+        });
+        /*console.log('urls ', urls);
+        const body = (`Order id is ${uniqueId}\n${urls}`);
+        email(['divya.mini4u@gmail.com'], null, null, `Order ${uniqueId}`, body);
+        Mailer.mail({
+     subject: `Order id ${uniqueId}`,
+     recipients: ['divya.mini4u@gmail.com'],
+     ccRecipients: null,
+     bccRecipients: null,
+     body,
+     isHTML: true,
+     attachment: {
+       path: '',  // The absolute path of the file from which to read data.
+       type: '',   // Mime Type: jpg, png, doc, ppt, html, pdf
+       name: '',   // Optional: Custom filename for attachment
+     }
+   }, (error) => {
+       console.log('error is ', error);
+   });*/
+        firebaseDatabase.ref(`/cart/${currentUser.uid}/`).remove()
+        .then(async() => await AsyncStorage.removeItem('addToCart'))
+        .catch(() => {
+          dispatch({ type: CART_DELETE_FAIL, payload: ERRMSG_CART_DELETE_FAILED });
+        });
       })
       .catch(() => {
         dispatch({ type: PLACE_ORDER_FAIL, payload: ERRMSG_PLACE_ORDER_FAILED });

@@ -9,7 +9,6 @@ import ItemsEstimatedCost from '../checkout/ItemsEstimatedCost';
 
 class CartList extends Component {
   componentWillMount() {
-    console.log('this.props ', this.props);
     this.createDataSource(this.props);
   }
 

@@ -21,13 +21,15 @@ class ConfirmOrder extends Component {
           An email confirmation has been sent to you. {'\n'}
           Order Number: {this.props.orderId}</Text>
         </CardSection>
+        <Text style={styles.errorTextStyle}>
+          {this.props.error}
+        </Text>
       </Card>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  console.log('state.order ', state.order);
   const { orderId, error } = state.order;
   return { orderId, error };
 };

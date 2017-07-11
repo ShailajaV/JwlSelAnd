@@ -14,10 +14,12 @@ import BuyerProductForm from './components/product/BuyerProductForm';
 import CartList from './components/cart/CartList';
 import PaymentForm from './components/payment/PaymentForm';
 import AddCard from './components/checkout/AddCard';
-import SelectPaymentForm from './components/checkout/SelectPaymentForm';
+//import SelectPaymentForm from './components/checkout/SelectPaymentForm';
 //import StripeAddCardExample from './src/stripeAddCardExample'
 import ReviewOrderForm from './components/order/ReviewOrderForm';
 import ConfirmOrder from './components/order/ConfirmOrder';
+import OrdersHistoryList from './components/order/OrdersHistoryList';
+import OrderHistoryForm from './components/order/OrderHistoryForm';
 
 class BuyerMenuProfile extends Component {
   state = {
@@ -52,8 +54,8 @@ class BuyerMenuProfile extends Component {
         return <SellersList />;
       case 'Chat':
         return <ChatUsersList />;
-      case 'SelectPayment':
-        return <SelectPaymentForm />;
+      case 'OrderHistory':
+        return <OrdersHistoryList />;
       case 'Logout':
         this.props.logOut();
         return <SellersList />;
@@ -77,6 +79,8 @@ class BuyerMenuProfile extends Component {
             return <ReviewOrderForm />;
           case 'placeOrder':
             return <ConfirmOrder />;
+          case 'orderHistoryForm':
+            return <OrderHistoryForm order={this.props.order} />;
           default:
             return <SellersList />;
         }

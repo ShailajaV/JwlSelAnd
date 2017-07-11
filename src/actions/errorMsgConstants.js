@@ -63,3 +63,4 @@ export const ERRMSG_STRG_FILESIZE =
 
   //Order error messages
   export const ERRMSG_PLACE_ORDER_FAILED = 'Order failed. Please try again.';
+  export const ERRMSG_CART_DELETE_FAILED = 'Unable to delete items from cart.';
